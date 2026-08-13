@@ -16,6 +16,23 @@ import { makeRng } from '../data/rng'
 const HIDDEN_COUNT = 18
 const BASE_TIMEOUT_MS = 5000
 
+/**
+ * Ceilings on how long a player can be left waiting.
+ *
+ * Language weights are measured, not guessed, and on some machines Pyodide
+ * measures north of 20x V8. Multiplying the base timeout by that unclamped
+ * means a Python infinite loop leaves the player staring at a spinner for
+ * nearly two minutes before anything tells them what happened.
+ *
+ * The weight still scales the budget — a slower runtime genuinely needs more
+ * room — but past these ceilings the wait stops being informative. A solution
+ * that has not finished in 25 seconds is not one second away from finishing.
+ */
+const MAX_TIMEOUT_MS = 25000
+const MAX_PERF_TIMEOUT_MS = 45000
+
+const budget = (base, weight, ceiling) => Math.min(base * weight, ceiling)
+
 export function visibleCases(mission) {
   return mission.visible.map((c) => ({ args: c.args, expected: mission.ref(...c.args) }))
 }
@@ -79,7 +96,7 @@ export async function runVisible(mission, language, code) {
     entry: mission.entry[language],
     signature: mission.signature,
     cases,
-    timeoutMs: BASE_TIMEOUT_MS * languageWeight(language)
+    timeoutMs: budget(BASE_TIMEOUT_MS, languageWeight(language), MAX_TIMEOUT_MS)
   })
   return { ...grade(cases, run), cases }
 }
@@ -93,7 +110,7 @@ export async function submitSolution(mission, language, code, hintsUsed) {
   const vis = visibleCases(mission)
   const visRun = await execute({
     language, code, entry: mission.entry[language], signature: mission.signature, cases: vis,
-    timeoutMs: BASE_TIMEOUT_MS * weight
+    timeoutMs: budget(BASE_TIMEOUT_MS, weight, MAX_TIMEOUT_MS)
   })
   const visible = { ...grade(vis, visRun), cases: vis }
   if (visible.passed < visible.total) {
@@ -103,7 +120,7 @@ export async function submitSolution(mission, language, code, hintsUsed) {
   const hid = hiddenCases(mission, (Date.now() ^ (mission.level * 2654435761)) >>> 0)
   const hidRun = await execute({
     language, code, entry: mission.entry[language], signature: mission.signature, cases: hid,
-    timeoutMs: BASE_TIMEOUT_MS * weight
+    timeoutMs: budget(BASE_TIMEOUT_MS, weight, MAX_TIMEOUT_MS)
   })
   const hidden = { ...grade(hid, hidRun), cases: hid }
   if (hidden.passed < hidden.total) {
@@ -159,7 +176,7 @@ async function submitViaServer(mission, language, code, hintsUsed) {
     entry: mission.entry[language],
     signature: mission.signature,
     cases: all,
-    timeoutMs: BASE_TIMEOUT_MS * weight
+    timeoutMs: budget(BASE_TIMEOUT_MS, weight, MAX_TIMEOUT_MS)
   })
 
   const slice = (from, to) => ({
@@ -227,7 +244,7 @@ async function measure(mission, language, code, weight) {
   const run = await execute({
     language, code, entry: mission.entry[language], signature: mission.signature,
     cases: [{ args, expected: null }],
-    timeoutMs: 15000 * weight
+    timeoutMs: budget(15000, weight, MAX_PERF_TIMEOUT_MS)
   })
 
   if (run.status === 'timeout') {

@@ -91,7 +91,7 @@
     "scale": 300000,
     "silverFactor": 6,
     "goldFactor": 3,
-    "optimalMs": 10.32
+    "optimalMs": 6.63
   },
   "signature": {
     "params": [

@@ -83,7 +83,8 @@
   "perf": {
     "scale": 200000,
     "silverFactor": 6,
-    "goldFactor": 3
+    "goldFactor": 3,
+    "optimalMs": 140.89
   },
   "signature": {
     "params": [
