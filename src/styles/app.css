@@ -2616,3 +2616,263 @@ select.lang {
   animation: none !important;
   transition: none !important;
 }
+
+/* ---------- HUD ---------- */
+/* Readouts behave like instruments: values settle, bars fill, thresholds flash. */
+.campaign-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ring {
+  width: 26px;
+  height: 26px;
+  transform: rotate(-90deg);
+  flex-shrink: 0;
+}
+
+.ring-track {
+  stroke: var(--line);
+}
+
+.ring-fill {
+  stroke: var(--accent);
+  transition: stroke-dasharray .9s cubic-bezier(.3, 0, .2, 1);
+}
+
+.xp-value {
+  font-variant-numeric: tabular-nums;
+}
+
+.level-chip {
+  display: inline-block;
+  min-width: 15px;
+  text-align: center;
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.level-chip.levelled {
+  animation: levelPop 1.6s ease-out;
+  color: var(--gold);
+}
+
+@keyframes levelPop {
+  0% {
+    transform: scale(1)
+  }
+
+  18% {
+    transform: scale(1.9);
+    text-shadow: 0 0 14px var(--gold)
+  }
+
+  55% {
+    transform: scale(1)
+  }
+
+  100% {
+    transform: scale(1);
+    text-shadow: none
+  }
+}
+
+.xpbar i {
+  transition: width .9s cubic-bezier(.3, 0, .2, 1);
+}
+
+.streak-stat .streak-value {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.streak-flame {
+  color: var(--warn);
+  font-size: 10px;
+  animation: flameFlick 1.5s ease-in-out infinite;
+}
+
+@keyframes flameFlick {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: translateY(0)
+  }
+
+  50% {
+    opacity: .55;
+    transform: translateY(-1.5px)
+  }
+}
+
+.chargebar {
+  width: 96px;
+  height: 3px;
+  background: var(--line);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.chargebar i {
+  display: block;
+  height: 100%;
+  background: var(--fg-faint);
+  transition: width .7s cubic-bezier(.3, 0, .2, 1);
+}
+
+.streak-stat.hot .chargebar i {
+  background: var(--warn);
+}
+
+.sync-chip.busy {
+  animation: syncPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes syncPulse {
+
+  0%,
+  100% {
+    opacity: 1
+  }
+
+  50% {
+    opacity: .45
+  }
+}
+
+/* ---------- BOOT SCREEN ---------- */
+.boot {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  background:
+    radial-gradient(620px 420px at 50% 45%, rgba(77, 214, 193, .09), transparent 70%),
+    var(--bg);
+}
+
+.boot-core {
+  width: 130px;
+  height: 130px;
+}
+
+.boot-ring {
+  stroke: var(--accent);
+  transform-origin: 60px 60px;
+  opacity: .5;
+}
+
+.boot-ring.r1 {
+  animation: bootSpin 6s linear infinite;
+  stroke-dasharray: 60 220;
+}
+
+.boot-ring.r2 {
+  animation: bootSpin 4s linear infinite reverse;
+  stroke-dasharray: 40 170;
+}
+
+.boot-ring.r3 {
+  animation: bootSpin 3s linear infinite;
+  stroke-dasharray: 24 120;
+}
+
+@keyframes bootSpin {
+  to {
+    transform: rotate(360deg)
+  }
+}
+
+.boot-heart {
+  fill: var(--accent);
+  animation: bootPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes bootPulse {
+
+  0%,
+  100% {
+    opacity: .45;
+    r: 6
+  }
+
+  50% {
+    opacity: 1;
+    r: 8
+  }
+}
+
+.boot-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .3em;
+  color: var(--fg-faint);
+}
+
+.boot-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.boot-dots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: bootDot 1.4s ease-in-out infinite;
+}
+
+.boot-dots i:nth-child(2) {
+  animation-delay: .2s
+}
+
+.boot-dots i:nth-child(3) {
+  animation-delay: .4s
+}
+
+@keyframes bootDot {
+
+  0%,
+  100% {
+    opacity: .2
+  }
+
+  50% {
+    opacity: 1
+  }
+}
+
+/* ---------- CONTROL FEEL ---------- */
+/* Buttons acknowledge a press. Small, but it is the interaction people repeat
+   most, and without it the whole interface feels like a document. */
+.btn {
+  transition: border-color .15s, background .15s, transform .08s ease;
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px) scale(.985);
+}
+
+.btn-primary:active:not(:disabled) {
+  filter: brightness(.94);
+}
+
+.reduced-motion .ring-fill,
+.reduced-motion .xpbar i,
+.reduced-motion .chargebar i,
+.reduced-motion .level-chip,
+.reduced-motion .streak-flame,
+.reduced-motion .sync-chip,
+.reduced-motion .boot-ring,
+.reduced-motion .boot-heart,
+.reduced-motion .boot-dots i,
+.reduced-motion .btn {
+  animation: none !important;
+  transition: none !important;
+}

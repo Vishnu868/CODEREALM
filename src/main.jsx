@@ -37,7 +37,20 @@ function Root() {
   }
 
   if (!index) {
-    return <div style={{ padding: 40, fontFamily: 'system-ui', color: '#5d6879' }}>Connecting to the Core…</div>
+    // The boot screen. Plain text on black was the one moment the product
+    // looked unfinished, and it is the first thing anyone sees.
+    return (
+      <div className="boot">
+        <svg className="boot-core" viewBox="0 0 120 120" aria-hidden="true">
+          <circle className="boot-ring r1" cx="60" cy="60" r="46" fill="none" strokeWidth="1.5" />
+          <circle className="boot-ring r2" cx="60" cy="60" r="34" fill="none" strokeWidth="1.5" />
+          <circle className="boot-ring r3" cx="60" cy="60" r="22" fill="none" strokeWidth="1.5" />
+          <circle className="boot-heart" cx="60" cy="60" r="7" />
+        </svg>
+        <div className="boot-label">CONNECTING TO THE CORE</div>
+        <div className="boot-dots"><i /><i /><i /></div>
+      </div>
+    )
   }
 
   return (

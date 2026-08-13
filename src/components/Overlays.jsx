@@ -1,12 +1,69 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useGame } from '../game/store'
 import { ACHIEVEMENTS, ITEMS, TIER_LABEL, computeMastery, playerLevelFor } from '../game/rules'
 
 const TOTAL_CAMPAIGN_LEVELS = 100
 
+/** Counts a number up when it changes, rather than snapping to the new value. */
+function useCountUp(value, reduced) {
+  const [shown, setShown] = useState(value)
+  const from = useRef(value)
+  useEffect(() => {
+    if (reduced || value === from.current) { setShown(value); from.current = value; return }
+    const start = from.current
+    const delta = value - start
+    const began = performance.now()
+    const DURATION = 900
+    let frame
+    const tick = (now) => {
+      const t = Math.min(1, (now - began) / DURATION)
+      // Ease out, so it decelerates into the final number.
+      const eased = 1 - Math.pow(1 - t, 3)
+      setShown(Math.round(start + delta * eased))
+      if (t < 1) frame = requestAnimationFrame(tick)
+      else from.current = value
+    }
+    frame = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(frame)
+  }, [value, reduced])
+  return shown
+}
+
+/**
+ * The HUD.
+ *
+ * Everything here used to be static text that jumped to a new value. It now
+ * behaves like a game readout: XP counts up, the bar fills, a level-up flashes,
+ * and the streak charges toward its next reward instead of being a bare number.
+ */
 export function Hud({ onOpenProfile, onOpenAuth }) {
-  const { xp, streak, highestCleared, cloudEnabled, session, syncing } = useGame()
+  const { xp, streak, highestCleared, cloudEnabled, session, syncing, settings } = useGame()
+  const reduced = settings.reducedMotion
   const { level, into, need } = playerLevelFor(xp)
+  const shownXp = useCountUp(xp, reduced)
+
+  // Flash the level chip when the player level actually changes.
+  const [levelled, setLevelled] = useState(false)
+  const prevLevel = useRef(level)
+  useEffect(() => {
+    if (level !== prevLevel.current) {
+      prevLevel.current = level
+      if (reduced) return
+      setLevelled(true)
+      const t = setTimeout(() => setLevelled(false), 1600)
+      return () => clearTimeout(t)
+    }
+  }, [level, reduced])
+
+  // The streak charges toward its next reward: 3, 5, 10, 15, 20.
+  const marks = [3, 5, 10, 15, 20]
+  const nextMark = marks.find((m) => m > streak) ?? null
+  const prevMark = [...marks].reverse().find((m) => m <= streak) ?? 0
+  const chargeSpan = nextMark ? nextMark - prevMark : 1
+  const charge = nextMark ? ((streak - prevMark) / chargeSpan) * 100 : 100
+
+  const campaignPct = Math.round((highestCleared / 100) * 100)
+
   return (
     <header className="hud">
       <div className="hud-brand">
@@ -14,24 +71,44 @@ export function Hud({ onOpenProfile, onOpenAuth }) {
         <span>Restore the Core</span>
       </div>
       <div className="hud-spacer" />
-      <div className="hud-stat">
+
+      {/* Campaign progress as a ring rather than a fraction. */}
+      <div className="hud-stat hud-campaign">
         <small>Campaign</small>
-        <b>{highestCleared} / {TOTAL_CAMPAIGN_LEVELS}</b>
+        <div className="campaign-row">
+          <svg className="ring" viewBox="0 0 36 36" aria-hidden="true">
+            <circle className="ring-track" cx="18" cy="18" r="15" fill="none" strokeWidth="3" />
+            <circle className="ring-fill" cx="18" cy="18" r="15" fill="none" strokeWidth="3"
+              strokeDasharray={`${campaignPct * 0.942} 999`} strokeLinecap="round" />
+          </svg>
+          <b>{highestCleared} / 100</b>
+        </div>
       </div>
+
       <div className="hud-stat">
-        <small>Player level {level}</small>
-        <b>{xp.toLocaleString()} XP</b>
+        <small>
+          Player level <span className={`level-chip ${levelled ? 'levelled' : ''}`}>{level}</span>
+        </small>
+        <b className="xp-value">{shownXp.toLocaleString()} XP</b>
         <div className="xpbar" aria-label={`${into} of ${need} XP to next level`}>
           <i style={{ width: `${Math.round((into / need) * 100)}%` }} />
         </div>
       </div>
-      <div className="hud-stat">
+
+      <div className={`hud-stat streak-stat ${streak >= 3 ? 'hot' : ''}`}>
         <small>Clean streak</small>
-        <b>{streak} {streak >= 3 ? '▲' : ''}</b>
+        <b className="streak-value">
+          {streak}
+          {streak >= 3 && <span className="streak-flame" aria-hidden="true">▲</span>}
+        </b>
+        <div className="chargebar" aria-label={nextMark ? `${nextMark - streak} to the next reward` : 'Maximum streak'}>
+          <i style={{ width: `${charge}%` }} />
+        </div>
       </div>
+
       {cloudEnabled && (
         session
-          ? <span className="sync-chip" title={session.user.email}>
+          ? <span className={`sync-chip ${syncing ? 'busy' : ''}`} title={session.user.email}>
             {syncing ? 'Syncing…' : 'Synced'}
           </span>
           : <button className="btn" onClick={onOpenAuth}>Sign in</button>
@@ -39,24 +116,6 @@ export function Hud({ onOpenProfile, onOpenAuth }) {
       <button className="btn" onClick={onOpenProfile}>Profile</button>
     </header>
   )
-}
-
-/** Reveals text a character at a time, like an incoming transmission. */
-function useTransmission(text, active) {
-  const [shown, setShown] = useState(active ? text.length : 0)
-  useEffect(() => {
-    if (!active) { setShown(text.length); return }
-    setShown(0)
-    let i = 0
-    // ~14 ms a character reads as arriving, not as waiting.
-    const timer = setInterval(() => {
-      i += 2
-      if (i >= text.length) { setShown(text.length); clearInterval(timer) }
-      else setShown(i)
-    }, 14)
-    return () => clearInterval(timer)
-  }, [text, active])
-  return { text: text.slice(0, shown), done: shown >= text.length, skip: () => setShown(text.length) }
 }
 
 export function Briefing({ mission, onAccept, onClose }) {
