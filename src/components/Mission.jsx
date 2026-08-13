@@ -156,7 +156,7 @@ export default function Mission({ mission, onExit, onResult }) {
           <select className="lang" value={language} aria-label="Language"
             onChange={(e) => setLanguage(e.target.value)}>
             {LANGUAGES.map((l) => (
-              <option key={l.id} value={l.id} disabled={l.where === 'server' && !serverEnabled}>
+              <option key={l.id} value={l.id} disabled={!isAvailable(l.id)}>
                 {l.label}
               </option>
             ))}

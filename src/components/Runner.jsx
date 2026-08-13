@@ -1,77 +1,177 @@
 /**
- * The CodeRealm.
+ * Execution front-end.
  *
- * A character standing at the player's current sector, with a drone companion.
- * Drawn as SVG rather than illustrated: vector art costs nothing to download,
- * scales with the map, recolours per zone, and animates through CSS instead of
- * sprite sheets.
- *
- * Stylised rather than cartoonish — the palette and the restraint of the rest
- * of the interface are doing real work, and a character that fights them would
- * cheapen the whole screen. Silhouette and motion carry the personality; there
- * is no face.
- *
- * States:
- *   idle       breathing, drone bobbing alongside
- *   working    the player is in a mission; drone scans
- *   cheer      a sector was just cleared
+ * Owns worker lifecycle, enforces wall-clock timeouts by terminating the
+ * worker, and compares player output against the reference solution.
  */
-export default function Runner({ x, y, accent = '#4dd6c1', state = 'idle', flip = false }) {
-      return (
-            <g
-                  className={`runner runner-${state}`}
-                  transform={`translate(${x}, ${y}) scale(${flip ? -1 : 1}, 1)`}
-                  pointerEvents="none"
-                  aria-hidden="true"
-            >
-                  {/* The pool of light they stand in. */}
-                  <ellipse className="runner-shadow" cx="0" cy="4" rx="17" ry="4.5" fill={accent} opacity="0.16" />
 
-                  <g className="runner-body">
-                        {/* Legs */}
-                        <path className="leg leg-back" d="M -3 -18 L -6 -4" stroke={accent} strokeWidth="3.4"
-                              strokeLinecap="round" opacity="0.55" />
-                        <path className="leg leg-front" d="M 3 -18 L 5 -4" stroke={accent} strokeWidth="3.4"
-                              strokeLinecap="round" opacity="0.8" />
+import { LANGUAGES as ALL_LANGUAGES, byId, serverEnabled, provider, pistonUrl, wandboxUrl } from './languages'
 
-                        {/* Torso: a courier's jacket, cut as one shape. */}
-                        <path d="M -7 -40 Q 0 -43 7 -40 L 8 -18 Q 0 -16 -8 -18 Z"
-                              fill="#111a24" stroke={accent} strokeWidth="1.6" strokeLinejoin="round" />
-                        {/* The charge they carry — the thing being delivered to each relay. */}
-                        <circle className="runner-core" cx="0" cy="-30" r="3.2" fill={accent} />
+const WORKERS = {
+      javascript: '/js-runner.worker.js',
+      python: '/py-runner.worker.js'
+}
 
-                        {/* Arms */}
-                        <path className="arm arm-back" d="M -7 -37 L -12 -25" stroke={accent} strokeWidth="2.8"
-                              strokeLinecap="round" opacity="0.5" />
-                        <path className="arm arm-front" d="M 7 -37 L 12 -26" stroke={accent} strokeWidth="2.8"
-                              strokeLinecap="round" opacity="0.75" />
+export const LANGUAGES = [
+      { id: 'javascript', label: 'JavaScript' },
+      { id: 'python', label: 'Python' }
+]
 
-                        {/* Head and visor. No face — the silhouette does the work. */}
-                        <circle cx="0" cy="-48" r="6.4" fill="#111a24" stroke={accent} strokeWidth="1.6" />
-                        <path d="M -4 -49 Q 0 -51.5 4 -49" stroke={accent} strokeWidth="1.8" fill="none"
-                              strokeLinecap="round" opacity="0.9" />
-                  </g>
+/**
+ * Time budgets are weighted per language so Python solutions are not judged
+ * against V8 timings. These values are MEASURED by `npm run content:measure`
+ * (which runs an identical workload under both runtimes) and delivered in the
+ * content index — they are not estimates.
+ */
+// Compiled languages run on the judge and are broadly comparable to C++, so
+// they share a weight of 1 until content:measure supplies a measured value.
+let WEIGHTS = { javascript: 1, python: 5 }
 
-                  {/* Drone companion. */}
-                  <g className="drone">
-                        <circle cx="20" cy="-52" r="5" fill="#111a24" stroke={accent} strokeWidth="1.5" />
-                        <circle className="drone-eye" cx="20" cy="-52" r="1.9" fill={accent} />
-                        <line x1="15.5" y1="-55" x2="12" y2="-57" stroke={accent} strokeWidth="1.3"
-                              strokeLinecap="round" opacity="0.6" />
-                        <line x1="24.5" y1="-55" x2="28" y2="-57" stroke={accent} strokeWidth="1.3"
-                              strokeLinecap="round" opacity="0.6" />
-                        {/* The link between runner and drone. */}
-                        <line className="drone-link" x1="8" y1="-46" x2="16" y2="-51" stroke={accent}
-                              strokeWidth="1" strokeDasharray="2 3" opacity="0.4" />
-                  </g>
+export function setLanguageWeights(weights) {
+      if (weights) WEIGHTS = { ...WEIGHTS, ...weights }
+}
 
-                  {/* Celebration sparks, only rendered by the cheer state via CSS. */}
-                  <g className="runner-sparks">
-                        {[[-14, -58], [14, -62], [0, -66], [-20, -48], [22, -44]].map(([sx, sy], i) => (
-                              <circle key={i} cx={sx} cy={sy} r="2" fill={accent}
-                                    style={{ animationDelay: `${i * 90}ms` }} />
-                        ))}
-                  </g>
-            </g>
-      )
+export function languageWeight(id) {
+      return WEIGHTS[id] ?? 1
+}
+
+let pythonPreloaded = false
+
+/** Warm the Python runtime in the background so the first Run is not a wait. */
+export function preloadPython(onReady) {
+      if (pythonPreloaded) return
+      pythonPreloaded = true
+      const w = new Worker(WORKERS.python)
+      w.onmessage = (e) => {
+            if (e.data.type === 'ready' || e.data.type === 'fatal') {
+                  w.terminate()
+                  onReady?.(e.data.type === 'ready')
+            }
+      }
+      w.postMessage({ type: 'preload' })
+}
+
+/**
+ * Execute `code` against `cases`.
+ * Resolves to { status, results, lastIndex } where status is
+ * 'ok' | 'syntax' | 'missing_entry' | 'timeout' | 'boot'.
+ */
+export function execute({ language, code, entry, cases, timeoutMs, signature }) {
+      const lang = byId(language)
+      if (lang && lang.where === 'server') {
+            if (!serverEnabled) {
+                  return Promise.resolve({
+                        status: 'unavailable',
+                        message: `${lang.label} runs on an execution service, which is not configured. ` +
+                              `Set VITE_WANDBOX_URL=default for the free public service, or VITE_PISTON_URL / ` +
+                              `VITE_JUDGE_URL for your own. JavaScript and Python need neither.`,
+                        results: [],
+                        lastIndex: 0
+                  })
+            }
+            return executeOnServer({ language, code, entry, cases, timeoutMs, signature })
+      }
+      return new Promise((resolve) => {
+            const worker = new Worker(WORKERS[language])
+            let lastIndex = 0
+            let settled = false
+
+            const finish = (payload) => {
+                  if (settled) return
+                  settled = true
+                  clearTimeout(timer)
+                  worker.terminate()
+                  resolve(payload)
+            }
+
+            const timer = setTimeout(() => {
+                  finish({ status: 'timeout', results: [], lastIndex })
+            }, timeoutMs)
+
+            worker.onerror = (err) => {
+                  finish({ status: 'syntax', message: err.message || 'Execution failed.', results: [], lastIndex })
+            }
+
+            worker.onmessage = (e) => {
+                  const msg = e.data
+                  if (msg.type === 'progress') { lastIndex = msg.index; return }
+                  if (msg.type === 'fatal') {
+                        finish({ status: msg.kind === 'boot' ? 'boot' : msg.kind, message: msg.message, results: [], lastIndex })
+                        return
+                  }
+                  if (msg.type === 'done') finish({ status: 'ok', results: msg.results, lastIndex })
+            }
+
+            worker.postMessage({
+                  type: 'run',
+                  code,
+                  entry,
+                  cases: cases.map((c) => ({ argsJson: JSON.stringify(c.args) }))
+            })
+      })
+}
+
+/**
+ * Canonical comparison. Both sides arrive as JSON strings, so this normalises
+ * numeric formatting (Python's 15.0 vs JavaScript's 15) before comparing.
+ */
+export function outputsMatch(expected, actualJson) {
+      let actual
+      try {
+            actual = JSON.parse(actualJson)
+      } catch {
+            return false
+      }
+      return canonical(expected) === canonical(actual)
+}
+
+function canonical(v) {
+      if (typeof v === 'number') return Number.isFinite(v) ? String(Number(v.toFixed(9))) : String(v)
+      if (Array.isArray(v)) return '[' + v.map(canonical).join(',') + ']'
+      if (v && typeof v === 'object') {
+            return '{' + Object.keys(v).sort().map((k) => JSON.stringify(k) + ':' + canonical(v[k])).join(',') + '}'
+      }
+      return JSON.stringify(v)
+}
+
+/** Pretty-print a value for the results console. */
+export function display(v) {
+      if (typeof v === 'string') return JSON.stringify(v)
+      if (Array.isArray(v) && v.length > 12) {
+            return `[${v.slice(0, 12).join(', ')}, … +${v.length - 12} more]`
+      }
+      return JSON.stringify(v)
+}
+
+/** Compiled languages: wrap the player's function in a harness and submit it. */
+async function executeOnServer({ language, code, entry, cases, timeoutMs, signature }) {
+      try {
+            // The harness generator and the service client are only needed for compiled
+            // languages, so they load on demand rather than in the initial bundle.
+            const { buildProgram } = await import('./harness')
+            const program = buildProgram(language, signature, entry, code)
+            const timeLimitS = Math.max(1, Math.round(timeoutMs / 1000))
+
+            let results
+            if (provider === 'judge') {
+                  const { runOnJudge } = await import('./judge')
+                  results = await runOnJudge({ language, program, signature, cases, timeLimitS })
+            } else if (provider === 'piston') {
+                  const { runOnPiston } = await import('./piston')
+                  results = await runOnPiston({ language, program, signature, cases, url: pistonUrl, timeLimitS })
+            } else {
+                  const { runOnWandbox } = await import('./wandbox')
+                  results = await runOnWandbox({ language, program, signature, cases, url: wandboxUrl, timeLimitS })
+            }
+            const compileError = results.find((r) => r.errorKind === 'compile')
+            if (compileError) {
+                  return { status: 'syntax', message: compileError.message, results: [], lastIndex: 0 }
+            }
+            if (results.some((r) => r.errorKind === 'timeout')) {
+                  return { status: 'timeout', results, lastIndex: results.findIndex((r) => r.errorKind === 'timeout') }
+            }
+            return { status: 'ok', results, lastIndex: results.length - 1 }
+      } catch (err) {
+            return { status: 'boot', message: `Could not reach the execution server: ${err.message}`, results: [], lastIndex: 0 }
+      }
 }

@@ -15,6 +15,7 @@
  * environment. See LANGUAGES.md.
  */
 import { encodeBatch, decodeBatch } from './wire'
+import { pistonKey } from './languages'
 
 const DEFAULT_URL = 'https://emkc.org/api/v2/piston'
 
@@ -84,7 +85,11 @@ async function postWithRetry(url, body, attempts = 3) {
   for (let i = 0; i < attempts; i++) {
     const res = await fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        // Only sent when configured; a self-hosted instance needs no key.
+        ...(pistonKey ? { Authorization: pistonKey } : {})
+      },
       body: JSON.stringify(body)
     })
     if (res.status === 429) { await sleep(800 * (i + 1)); continue }
@@ -95,10 +100,12 @@ async function postWithRetry(url, body, attempts = 3) {
     // hunting for a network problem that does not exist.
     if (res.status === 401 || res.status === 403) {
       throw new Error(
-        `The execution service refused the request (${res.status}). ` +
-        `It no longer accepts anonymous use, or ${url} is not a Piston endpoint. ` +
-        `Self-host Piston and set VITE_PISTON_URL to your own instance, or use ` +
-        `VITE_JUDGE_URL for a Judge0 instance. JavaScript and Python need neither.`
+        pistonKey
+          ? `The execution service rejected the key (${res.status}). Check VITE_PISTON_KEY.`
+          : `The execution service requires authentication (${res.status}). ` +
+          `The public endpoint no longer runs code anonymously. Either self-host ` +
+          `Piston and point VITE_PISTON_URL at it, or set VITE_PISTON_KEY if your ` +
+          `instance issues keys. JavaScript and Python need neither.`
       )
     }
     if (res.status === 404) {

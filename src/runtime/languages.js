@@ -34,6 +34,7 @@ export const LANGUAGES = [
 
 const judgeUrlRaw = import.meta.env.VITE_JUDGE_URL || ''
 const pistonUrlRaw = import.meta.env.VITE_PISTON_URL || ''
+const wandboxUrlRaw = import.meta.env.VITE_WANDBOX_URL || ''
 
 export const judgeUrl = judgeUrlRaw
 export const pistonUrl = pistonUrlRaw === 'default' ? '' : pistonUrlRaw
@@ -47,8 +48,16 @@ export const pistonUrl = pistonUrlRaw === 'default' ? '' : pistonUrlRaw
  */
 export const pistonKey = import.meta.env.VITE_PISTON_KEY || ''
 
-/** 'judge' | 'piston' | null */
-export const provider = judgeUrlRaw ? 'judge' : (pistonUrlRaw ? 'piston' : null)
+export const wandboxUrl = wandboxUrlRaw === 'default' ? '' : wandboxUrlRaw
+
+/**
+ * Which execution service to use, in order of preference: your own Judge0, your
+ * own or a keyed Piston, then Wandbox as the no-server fallback.
+ *
+ * 'judge' | 'piston' | 'wandbox' | null
+ */
+export const provider =
+  judgeUrlRaw ? 'judge' : pistonUrlRaw ? 'piston' : wandboxUrlRaw ? 'wandbox' : null
 export const serverEnabled = provider !== null
 
 export const byId = (id) => LANGUAGES.find((l) => l.id === id)
@@ -57,7 +66,14 @@ export function availableLanguages() {
   return LANGUAGES.filter((l) => l.where === 'browser' || serverEnabled)
 }
 
+/** Wandbox covers most of the set, but not Kotlin or Swift. */
+const WANDBOX_MISSING = new Set(['kotlin', 'swift'])
+
 export function isAvailable(id) {
   const l = byId(id)
-  return !!l && (l.where === 'browser' || serverEnabled)
+  if (!l) return false
+  if (l.where === 'browser') return true
+  if (!serverEnabled) return false
+  if (provider === 'wandbox' && WANDBOX_MISSING.has(id)) return false
+  return true
 }
