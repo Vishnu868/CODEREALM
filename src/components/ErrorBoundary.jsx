@@ -24,7 +24,7 @@ export default class ErrorBoundary extends Component {
   componentDidCatch(error, info) {
     this.setState({ info })
     // Still log it, so the console has the full trace with source maps.
-    console.error('Code Runner crashed:', error, info)
+    console.error('CodeRealm crashed:', error, info)
   }
 
   render() {
@@ -62,7 +62,7 @@ export default class ErrorBoundary extends Component {
                 // Corrupt saved progress can also cause this; offer the escape.
                 try {
                   localStorage.removeItem('code-runner:prototype-save:v1')
-                } catch {}
+                } catch { }
                 window.location.hash = '#/map'
                 window.location.reload()
               }}

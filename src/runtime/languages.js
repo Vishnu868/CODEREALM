@@ -38,6 +38,15 @@ const pistonUrlRaw = import.meta.env.VITE_PISTON_URL || ''
 export const judgeUrl = judgeUrlRaw
 export const pistonUrl = pistonUrlRaw === 'default' ? '' : pistonUrlRaw
 
+/**
+ * Optional key for a Piston instance that requires one.
+ *
+ * The public endpoint at emkc.org stopped serving /execute anonymously — it
+ * answers /runtimes with 200 and /execute with 401. A self-hosted instance needs
+ * no key at all; leave this blank for that.
+ */
+export const pistonKey = import.meta.env.VITE_PISTON_KEY || ''
+
 /** 'judge' | 'piston' | null */
 export const provider = judgeUrlRaw ? 'judge' : (pistonUrlRaw ? 'piston' : null)
 export const serverEnabled = provider !== null

@@ -88,10 +88,25 @@ async function postWithRetry(url, body, attempts = 3) {
       body: JSON.stringify(body)
     })
     if (res.status === 429) { await sleep(800 * (i + 1)); continue }
-    if (!res.ok) throw new Error(`execution service returned ${res.status}`)
-    return res.json()
+    if (res.ok) return res.json()
+
+    // Distinguish "could not reach it" from "it reached us and said no" — the
+    // two have completely different fixes, and conflating them sends people
+    // hunting for a network problem that does not exist.
+    if (res.status === 401 || res.status === 403) {
+      throw new Error(
+        `The execution service refused the request (${res.status}). ` +
+        `It no longer accepts anonymous use, or ${url} is not a Piston endpoint. ` +
+        `Self-host Piston and set VITE_PISTON_URL to your own instance, or use ` +
+        `VITE_JUDGE_URL for a Judge0 instance. JavaScript and Python need neither.`
+      )
+    }
+    if (res.status === 404) {
+      throw new Error(`No execution service at ${url} (404). Check VITE_PISTON_URL.`)
+    }
+    throw new Error(`The execution service returned ${res.status}.`)
   }
-  throw new Error('the execution service is busy — try again in a moment')
+  throw new Error('The execution service is busy — try again in a moment.')
 }
 
 // Compiler messages name the generated harness file, which the player did not

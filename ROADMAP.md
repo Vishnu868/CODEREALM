@@ -124,7 +124,7 @@ Level 50 now has milestone treatment: a ringed, enlarged map node, a priority-tr
 briefing, and a Core status report on completion — diegetic, not a congratulation screen.
 
 Level 100 has boss treatment: a gold map node labelled THE CORE, a final-transmission
-briefing, and a closing status report — ALL SECTORS ONLINE, CODE RUNNER STATUS: MASTER.
+briefing, and a closing status report — ALL SECTORS ONLINE, CodeRealm STATUS: MASTER.
 
 **Still open:** optional sound.
 

@@ -83,7 +83,7 @@ export default function Mission({ mission, onExit, onResult }) {
         <div className="tabs" role="tablist" style={{ marginTop: 16 }}>
           {['brief', 'examples', 'hints'].map((t) => (
             <button key={t} role="tab" aria-selected={tab === t}
-                    className={`tab ${tab === t ? 'on' : ''}`} onClick={() => setTab(t)}>
+              className={`tab ${tab === t ? 'on' : ''}`} onClick={() => setTab(t)}>
               {t === 'brief' ? 'Mission' : t === 'examples' ? 'Examples' : `Hints (${revealed}/3)`}
             </button>
           ))}
@@ -154,7 +154,7 @@ export default function Mission({ mission, onExit, onResult }) {
       <div className="panel-code">
         <div className="code-bar">
           <select className="lang" value={language} aria-label="Language"
-                  onChange={(e) => setLanguage(e.target.value)}>
+            onChange={(e) => setLanguage(e.target.value)}>
             {LANGUAGES.map((l) => (
               <option key={l.id} value={l.id} disabled={l.where === 'server' && !serverEnabled}>
                 {l.label}
@@ -292,14 +292,14 @@ function Console({ report, busy, mission, langLabel, language }) {
             <div className="hidden-pips">
               {Array.from({ length: report.hidden.total }, (_, i) => (
                 <i key={i} className={i < report.hidden.passed ? 'on' : ''}
-                   style={{ animationDelay: reduced ? '0ms' : `${i * 45}ms` }} />
+                  style={{ animationDelay: reduced ? '0ms' : `${i * 45}ms` }} />
               ))}
             </div>
           </div>
         )}
 
         {failure && <FailureReport failure={failure} report={report} mission={mission} game={game}
-                                   extraInput={extraInput} setExtraInput={setExtraInput} />}
+          extraInput={extraInput} setExtraInput={setExtraInput} />}
 
         {report?.mode === 'submit' && report.tier && (
           <div className="analysis" style={{ borderLeftColor: 'var(--good)' }}>
@@ -402,7 +402,7 @@ function FailureReport({ failure, report, mission, game, extraInput, setExtraInp
     timeout: 'Time limit exceeded',
     syntax: 'Code could not be parsed',
     missing_entry: 'Entry function not found',
-    boot: 'Execution server unreachable',
+    boot: 'Execution service unavailable',
     unavailable: 'Language unavailable',
     compile: 'Compilation failed'
   }[failure.kind] || 'Failed'
@@ -430,7 +430,7 @@ function FailureReport({ failure, report, mission, game, extraInput, setExtraInp
 
       {canUseCell && (
         <button className="btn" style={{ marginTop: 10 }}
-                onClick={() => { if (game.consumeItem('energy_cell')) setExtraInput(true) }}>
+          onClick={() => { if (game.consumeItem('energy_cell')) setExtraInput(true) }}>
           {ITEMS.energy_cell.icon} Use Energy Cell — reveal this hidden test's input
         </button>
       )}

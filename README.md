@@ -1,4 +1,4 @@
-# Code Runner — Restore the Core
+# CodeRealm — Restore the Core
 
 A browser-based coding adventure game. You travel a 2D map, and every node is a real
 programming mission: read the briefing, write actual code, run it against real tests, and

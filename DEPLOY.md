@@ -31,7 +31,7 @@ Vercel deploys from a repository.
 ```bash
 git init
 git add .
-git commit -m "Code Runner"
+git commit -m "CodeRealm"
 git branch -M main
 git remote add origin https://github.com/YOURNAME/code-runner.git
 git push -u origin main

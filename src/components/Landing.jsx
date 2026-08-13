@@ -77,7 +77,7 @@ export default function Landing({ onEnter }) {
       <section className="hero">
         <div className="hero-inner">
           <div className="eyebrow">Signal received</div>
-          <h1 className="hero-title">CODE RUNNER</h1>
+          <h1 className="hero-title">CodeRealm</h1>
           <div className="hero-sub">Restore the Core</div>
 
           <p className="hero-lede">
@@ -87,7 +87,7 @@ export default function Landing({ onEnter }) {
           <p className="hero-lede">
             The network is broken because <em>its logic is broken</em>. A gate rejects valid signals
             because its comparison is wrong. A junction cannot route power because nobody wrote the
-            rule. You are a Code Runner. You repair the system by writing the code that makes it
+            rule. You are a CodeRealm. You repair the system by writing the code that makes it
             work, one sector at a time, until the Core comes back online.
           </p>
 

@@ -42,7 +42,7 @@ export default function AuthPanel({ onClose }) {
   return (
     <div className="overlay" role="dialog" aria-modal="true" aria-label="Account">
       <div className="modal" style={{ width: 'min(420px, 100%)' }}>
-        <div className="eyebrow">Code Runner</div>
+        <div className="eyebrow">CodeRealm</div>
         <h2>{mode === 'signin' ? 'Sign in' : 'Create an account'}</h2>
         <p style={{ color: 'var(--fg-dim)', fontSize: 13.5, marginTop: 6 }}>
           Signing in syncs your progress across devices. Anything you have already earned in
@@ -57,15 +57,15 @@ export default function AuthPanel({ onClose }) {
         <label className="field">
           <span>Email</span>
           <input type="email" autoComplete="email" value={email}
-                 onChange={(e) => setEmail(e.target.value)}
-                 onKeyDown={(e) => e.key === 'Enter' && submit()} />
+            onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && submit()} />
         </label>
         <label className="field">
           <span>Password</span>
           <input type="password" value={password}
-                 autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
-                 onChange={(e) => setPassword(e.target.value)}
-                 onKeyDown={(e) => e.key === 'Enter' && submit()} />
+            autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
+            onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && submit()} />
         </label>
 
         {error && <p className="form-error" role="alert">{error}</p>}

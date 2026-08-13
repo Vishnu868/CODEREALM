@@ -107,7 +107,7 @@ export default function CoreRestored({ onClose }) {
         </p>
 
         <div className="ending-rank">
-          <small>Code Runner status</small>
+          <small>CodeRealm status</small>
           <b>{stats.perfectRun ? 'MASTER · FLAWLESS' : 'MASTER'}</b>
         </div>
 
