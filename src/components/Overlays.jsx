@@ -118,6 +118,33 @@ export function Hud({ onOpenProfile, onOpenAuth }) {
   )
 }
 
+/**
+ * Reveals text a character at a time, like an incoming transmission.
+ *
+ * Roughly 14 ms a character: fast enough to read as arriving rather than as
+ * waiting, and the caller exposes a skip so nobody is ever made to sit through
+ * it.
+ */
+function useTransmission(text, active) {
+  const [shown, setShown] = useState(active ? 0 : text.length)
+  useEffect(() => {
+    if (!active) { setShown(text.length); return }
+    setShown(0)
+    let i = 0
+    const timer = setInterval(() => {
+      i += 2
+      if (i >= text.length) { setShown(text.length); clearInterval(timer) }
+      else setShown(i)
+    }, 14)
+    return () => clearInterval(timer)
+  }, [text, active])
+  return {
+    text: text.slice(0, shown),
+    done: shown >= text.length,
+    skip: () => setShown(text.length)
+  }
+}
+
 export function Briefing({ mission, onAccept, onClose }) {
   const { progress, settings } = useGame()
   const saved = progress[mission.id]

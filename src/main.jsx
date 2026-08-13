@@ -4,6 +4,7 @@ import App from './App'
 import { GameProvider } from './game/store'
 import { loadIndex } from './data/content'
 import { setLanguageWeights } from './runtime/runner'
+import ErrorBoundary from './components/ErrorBoundary'
 import './styles/app.css'
 
 /**
@@ -62,6 +63,8 @@ function Root() {
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Root />
+    <ErrorBoundary>
+      <Root />
+    </ErrorBoundary>
   </React.StrictMode>
 )
