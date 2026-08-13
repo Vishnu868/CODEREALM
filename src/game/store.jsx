@@ -1,8 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useRef, useState, useCallback } from 'react'
-import {
-  cloudEnabled, fetchState, pushProfile, pushProgress, mergeStates,
-  authSignIn, authSignUp, authSignOut, watchSession
-} from './cloud'
+import { cloudEnabled, fetchState, pushProfile, pushProgress, mergeStates,
+         authSignIn, authSignUp, authSignOut, watchSession } from './cloud'
 import { STREAK_REWARDS, ACHIEVEMENTS, calculateXp, TIER_RANK } from './rules'
 
 /**
@@ -56,7 +54,7 @@ export function GameProvider({ children, catalogue }) {
   // Local write happens on every change, always. The cloud is a mirror, never
   // the thing the UI waits on.
   useEffect(() => {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)) } catch { }
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)) } catch {}
   }, [state])
 
   // ---- auth session ----

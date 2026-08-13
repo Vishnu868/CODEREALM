@@ -79,7 +79,7 @@ export function Hud({ onOpenProfile, onOpenAuth }) {
           <svg className="ring" viewBox="0 0 36 36" aria-hidden="true">
             <circle className="ring-track" cx="18" cy="18" r="15" fill="none" strokeWidth="3" />
             <circle className="ring-fill" cx="18" cy="18" r="15" fill="none" strokeWidth="3"
-              strokeDasharray={`${campaignPct * 0.942} 999`} strokeLinecap="round" />
+                    strokeDasharray={`${campaignPct * 0.942} 999`} strokeLinecap="round" />
           </svg>
           <b>{highestCleared} / 100</b>
         </div>
@@ -109,8 +109,8 @@ export function Hud({ onOpenProfile, onOpenAuth }) {
       {cloudEnabled && (
         session
           ? <span className={`sync-chip ${syncing ? 'busy' : ''}`} title={session.user.email}>
-            {syncing ? 'Syncing…' : 'Synced'}
-          </span>
+              {syncing ? 'Syncing…' : 'Synced'}
+            </span>
           : <button className="btn" onClick={onOpenAuth}>Sign in</button>
       )}
       <button className="btn" onClick={onOpenProfile}>Profile</button>
@@ -203,7 +203,7 @@ export function ResultModal({ mission, outcome, events, onNext, onStay }) {
 
   return (
     <div className="overlay" role="dialog" aria-modal="true" aria-label="Sector restored"
-      onClick={() => !reduced && setStep(4)}>
+         onClick={() => !reduced && setStep(4)}>
       <div className={`modal result-modal step-${step}`} onClick={(e) => e.stopPropagation()}>
 
         {/* The relay coming back online. */}
@@ -320,19 +320,19 @@ export function ProfilePanel({ onClose }) {
             <div className="section-h">Account</div>
             {game.session
               ? <p style={{ fontSize: 13.5 }}>
-                Signed in as <b>{game.session.user.email}</b>. Progress syncs automatically.
-                {game.syncError && <span style={{ color: 'var(--bad)' }}> Last sync failed: {game.syncError}</span>}
-              </p>
+                  Signed in as <b>{game.session.user.email}</b>. Progress syncs automatically.
+                  {game.syncError && <span style={{ color: 'var(--bad)' }}> Last sync failed: {game.syncError}</span>}
+                </p>
               : <p style={{ fontSize: 13.5, color: 'var(--fg-dim)' }}>
-                Playing offline. Progress is stored in this browser only.
-              </p>}
+                  Playing offline. Progress is stored in this browser only.
+                </p>}
           </>
         )}
 
         <div className="section-h">Settings</div>
         <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 14 }}>
           <input type="checkbox" checked={game.settings.reducedMotion}
-            onChange={(e) => game.setSettings({ reducedMotion: e.target.checked })} />
+                 onChange={(e) => game.setSettings({ reducedMotion: e.target.checked })} />
           Reduce motion (disables map pulses and toast animation)
         </label>
 

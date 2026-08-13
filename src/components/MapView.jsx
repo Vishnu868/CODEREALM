@@ -191,14 +191,14 @@ export default function MapView({ onOpen, onShowIntro, justCleared, onSurgeDone 
           {/* Dust drifting through the dark. Purely ambient. */}
           {dust.map((d, i) => (
             <circle key={i} className="dust" cx={d.x} cy={d.y} r={d.r}
-              opacity={d.o}
-              style={{ animationDelay: `${d.delay}s`, animationDuration: `${d.dur}s` }} />
+                    opacity={d.o}
+                    style={{ animationDelay: `${d.delay}s`, animationDuration: `${d.dur}s` }} />
           ))}
 
           {bands.map((b, i) => (
             <g key={i}>
               <rect x="0" y={b.top} width={width} height={b.bottom - b.top}
-                fill={ZONE_ACCENT[b.zone] ?? '#4dd6c1'} opacity="0.04" />
+                    fill={ZONE_ACCENT[b.zone] ?? '#4dd6c1'} opacity="0.04" />
               {/* Scenery sits under the route and nodes, never over them. */}
               <ZoneScenery
                 id={i}
@@ -209,9 +209,9 @@ export default function MapView({ onOpen, onShowIntro, justCleared, onSurgeDone 
                 accent={ZONE_ACCENT[b.zone] ?? '#4dd6c1'}
               />
               <line x1="0" y1={b.top} x2={width} y2={b.top}
-                stroke={ZONE_ACCENT[b.zone] ?? '#4dd6c1'} opacity="0.2" />
+                    stroke={ZONE_ACCENT[b.zone] ?? '#4dd6c1'} opacity="0.2" />
               <text x="24" y={b.top + 26} fontSize="12" letterSpacing="3"
-                fill={ZONE_ACCENT[b.zone] ?? '#4dd6c1'} opacity="0.85">
+                    fill={ZONE_ACCENT[b.zone] ?? '#4dd6c1'} opacity="0.85">
                 {(ZONE_LABEL[b.zone] ?? b.zone).toUpperCase()}
               </text>
             </g>
@@ -223,14 +223,14 @@ export default function MapView({ onOpen, onShowIntro, justCleared, onSurgeDone 
           {/* A faint current searching along the dead line. */}
           {!settings.reducedMotion && (
             <path className="route-idle" d={line} fill="none" stroke="#2f3d52"
-              strokeWidth="4" strokeLinecap="round" strokeDasharray="12 220" />
+                  strokeWidth="4" strokeLinecap="round" strokeDasharray="12 220" />
           )}
 
           <path className="route-live" d={line} fill="none" stroke="#4dd6c1" strokeWidth="4"
-            strokeLinecap="round" filter="url(#soften)"
-            pathLength={Math.max(points.length - 1, 1)}
-            strokeDasharray={`${Math.max(0, clearedCount)} ${points.length}`}
-            opacity="0.8" />
+                strokeLinecap="round" filter="url(#soften)"
+                pathLength={Math.max(points.length - 1, 1)}
+                strokeDasharray={`${Math.max(0, clearedCount)} ${points.length}`}
+                opacity="0.8" />
 
           {/* Power travelling down the restored stretch. */}
           {!settings.reducedMotion && clearedCount > 0 && [0, 1, 2].map((i) => (
@@ -267,8 +267,9 @@ export default function MapView({ onOpen, onShowIntro, justCleared, onSurgeDone 
                 role="button"
                 tabIndex={unlocked ? 0 : -1}
                 aria-disabled={!unlocked}
-                aria-label={`Level ${mission.level}, ${mission.title}. ${tier ? `Completed, rating ${tier}.` : unlocked ? 'Available.' : 'Locked.'
-                  }`}
+                aria-label={`Level ${mission.level}, ${mission.title}. ${
+                  tier ? `Completed, rating ${tier}.` : unlocked ? 'Available.' : 'Locked.'
+                }`}
                 onClick={() => unlocked && onOpen(mission)}
                 onKeyDown={(e) => {
                   if (unlocked && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); onOpen(mission) }
@@ -277,43 +278,43 @@ export default function MapView({ onOpen, onShowIntro, justCleared, onSurgeDone 
                 {isCurrent && !settings.reducedMotion && (
                   <>
                     <circle className="node-pulse" cx={x} cy={y} r={r + 6} fill="none"
-                      stroke="#6aa9ff" strokeWidth="2" />
+                            stroke="#6aa9ff" strokeWidth="2" />
                     <circle className="node-scan" cx={x} cy={y} r={r + 13} fill="none"
-                      stroke="#6aa9ff" strokeWidth="1.5" strokeDasharray="3 9"
-                      style={{ transformOrigin: `${x}px ${y}px` }} />
+                            stroke="#6aa9ff" strokeWidth="1.5" strokeDasharray="3 9"
+                            style={{ transformOrigin: `${x}px ${y}px` }} />
                   </>
                 )}
                 {tier && !settings.reducedMotion && (
                   <circle className="node-live" cx={x} cy={y} r={r + 4} fill="none"
-                    stroke={accent} strokeWidth="1.5"
-                    style={{ animationDelay: `${(mission.level % 7) * 0.4}s` }} />
+                          stroke={accent} strokeWidth="1.5"
+                          style={{ animationDelay: `${(mission.level % 7) * 0.4}s` }} />
                 )}
                 {mission.milestone && (
                   <circle cx={x} cy={y} r={r + 10} fill="none" stroke={tier ? accent : '#2b3547'}
-                    strokeWidth="1.5" strokeDasharray="4 5" />
+                          strokeWidth="1.5" strokeDasharray="4 5" />
                 )}
                 {surging && (
                   <circle className="surge-ring" cx={x} cy={y} r={r} fill="none"
-                    stroke={accent} strokeWidth="2.5" />
+                          stroke={accent} strokeWidth="2.5" />
                 )}
                 <circle className="node-ring" cx={x} cy={y} r={r} fill={fill} stroke={stroke}
-                  strokeWidth={mission.milestone ? 3 : 2.5} />
+                        strokeWidth={mission.milestone ? 3 : 2.5} />
                 <text x={x} y={y + 7} textAnchor="middle" fontSize="19" fontWeight="600"
-                  className={!unlocked && !settings.reducedMotion ? 'locked-flicker' : undefined}
-                  style={!unlocked ? { animationDelay: `${(mission.level % 11) * 0.7}s` } : undefined}
-                  fill={tier ? '#06231f' : unlocked ? '#e6ecf5' : '#4a5568'}
-                  fontFamily="var(--mono)" pointerEvents="none">
+                      className={!unlocked && !settings.reducedMotion ? 'locked-flicker' : undefined}
+                      style={!unlocked ? { animationDelay: `${(mission.level % 11) * 0.7}s` } : undefined}
+                      fill={tier ? '#06231f' : unlocked ? '#e6ecf5' : '#4a5568'}
+                      fontFamily="var(--mono)" pointerEvents="none">
                   {unlocked ? mission.level : '\u25cf'}
                 </text>
                 <text x={x} y={y + r + 26} textAnchor="middle" className="node-title"
-                  fontSize="14" pointerEvents="none">{mission.title}</text>
+                      fontSize="14" pointerEvents="none">{mission.title}</text>
                 <text x={x} y={y + r + 44} textAnchor="middle" className="node-label"
-                  pointerEvents="none">
+                      pointerEvents="none">
                   {tier ? TIER_ICON[tier] : unlocked ? 'AVAILABLE' : 'LOCKED'}
                 </text>
                 {mission.milestone && (
                   <text x={x} y={y - r - 18} textAnchor="middle" className="node-label"
-                    fill={tier ? accent : '#5d6879'} letterSpacing="2" pointerEvents="none">
+                        fill={tier ? accent : '#5d6879'} letterSpacing="2" pointerEvents="none">
                     {mission.milestone === 'final' ? 'THE CORE' : 'MILESTONE'}
                   </text>
                 )}
@@ -328,7 +329,7 @@ export default function MapView({ onOpen, onShowIntro, justCleared, onSurgeDone 
 
       {/* One control: jump back to where the player actually is. */}
       <button className="btn map-jump" onClick={() => centreOn(current, true)}
-        title={`Scroll to level ${current?.mission.level ?? 1}`}>
+              title={`Scroll to level ${current?.mission.level ?? 1}`}>
         ⌖ Go to level {current?.mission.level ?? 1}
       </button>
 

@@ -54,7 +54,7 @@ export default function App({ index }) {
     if (route) return route.view === 'level' ? 'map' : route.view
     try {
       if (localStorage.getItem('code-runner:seen-intro') === '1') return 'map'
-    } catch { }
+    } catch {}
     return 'landing'
   })
   const bootRoute = useRef(readHash())
@@ -151,7 +151,7 @@ export default function App({ index }) {
       if (route.view === 'level') {
         const entry = game.catalogue.find((m) => m.level === route.level)
         if (entry && game.isUnlocked(route.level)) {
-          loadMission(entry.id).then(setActive).catch(() => { })
+          loadMission(entry.id).then(setActive).catch(() => {})
           setView('map')
           return
         }
@@ -165,7 +165,7 @@ export default function App({ index }) {
   }, [game.catalogue, game.isUnlocked])
 
   const dismissSavePrompt = useCallback(() => {
-    try { localStorage.setItem('code-runner:save-prompt-seen', '1') } catch { }
+    try { localStorage.setItem('code-runner:save-prompt-seen', '1') } catch {}
     setSavePrompt(false)
   }, [])
 
@@ -183,10 +183,10 @@ export default function App({ index }) {
             </button>
           )}
           <button className="notice-close" aria-label="Dismiss this notice"
-            onClick={() => {
-              try { localStorage.setItem('code-runner:hide-storage-note', '1') } catch { }
-              setNoticeHidden(true)
-            }}>✕</button>
+                  onClick={() => {
+                    try { localStorage.setItem('code-runner:hide-storage-note', '1') } catch {}
+                    setNoticeHidden(true)
+                  }}>✕</button>
         </div>
       )}
 
@@ -196,14 +196,14 @@ export default function App({ index }) {
 
       {view === 'landing' ? (
         <Landing onEnter={() => {
-          try { localStorage.setItem('code-runner:seen-intro', '1') } catch { }
+          try { localStorage.setItem('code-runner:seen-intro', '1') } catch {}
           setView('map')
         }} />
       ) : active ? (
         <Mission mission={active} onExit={() => setActive(null)} onResult={handleResult} />
       ) : (
         <MapView onOpen={openBriefing} onShowIntro={() => setView('landing')}
-          justCleared={justCleared} onSurgeDone={() => setJustCleared(null)} />
+                 justCleared={justCleared} onSurgeDone={() => setJustCleared(null)} />
       )}
 
       {briefing && (
