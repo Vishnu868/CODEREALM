@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { loadMission } from './data/content'
 import Landing from './components/Landing'
 import CoreRestored from './components/CoreRestored'
+import ZoneTransition from './components/ZoneTransition'
 import MapView from './components/MapView'
 import Mission from './components/Mission'
 import { Briefing, Hud, ProfilePanel, ResultModal, Toasts } from './components/Overlays'
@@ -63,6 +64,7 @@ export default function App({ index }) {
   const [savePrompt, setSavePrompt] = useState(false)
   // The sector cleared most recently, so the map can show it powering up.
   const [justCleared, setJustCleared] = useState(null)
+  const [gateZone, setGateZone] = useState(null)
   // The storage banner is information, not an alarm; let it be dismissed.
   const [noticeHidden, setNoticeHidden] = useState(() => {
     try { return localStorage.getItem('code-runner:hide-storage-note') === '1' } catch { return false }
@@ -216,7 +218,16 @@ export default function App({ index }) {
         <ResultModal
           {...result}
           onStay={() => setResult(null)}
-          onNext={() => { setResult(null); setActive(null) }}
+          onNext={() => {
+            // If that clear finished a zone, the gate opens before the map.
+            const zone = result.mission.zone
+            const zoneDone = game.catalogue
+              .filter((m) => m.zone === zone)
+              .every((m) => game.progress[m.id]?.bestTier)
+            setResult(null)
+            setActive(null)
+            if (zoneDone) setGateZone(zone)
+          }}
         />
       )}
 
@@ -229,6 +240,8 @@ export default function App({ index }) {
           ◆ Replay the ending
         </button>
       )}
+
+      {gateZone && <ZoneTransition zone={gateZone} onDone={() => setGateZone(null)} />}
 
       {ending && <CoreRestored onClose={() => setEnding(false)} />}
 

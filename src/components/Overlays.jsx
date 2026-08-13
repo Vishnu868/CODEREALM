@@ -41,12 +41,32 @@ export function Hud({ onOpenProfile, onOpenAuth }) {
   )
 }
 
+/** Reveals text a character at a time, like an incoming transmission. */
+function useTransmission(text, active) {
+  const [shown, setShown] = useState(active ? text.length : 0)
+  useEffect(() => {
+    if (!active) { setShown(text.length); return }
+    setShown(0)
+    let i = 0
+    // ~14 ms a character reads as arriving, not as waiting.
+    const timer = setInterval(() => {
+      i += 2
+      if (i >= text.length) { setShown(text.length); clearInterval(timer) }
+      else setShown(i)
+    }, 14)
+    return () => clearInterval(timer)
+  }, [text, active])
+  return { text: text.slice(0, shown), done: shown >= text.length, skip: () => setShown(text.length) }
+}
+
 export function Briefing({ mission, onAccept, onClose }) {
-  const { progress } = useGame()
+  const { progress, settings } = useGame()
   const saved = progress[mission.id]
+  const wire = useTransmission(mission.story.briefing, !settings.reducedMotion)
   return (
     <div className="overlay" role="dialog" aria-modal="true" aria-label={`Briefing for level ${mission.level}`}>
-      <div className="modal">
+      <div className="modal modal-brief">
+        <div className="wire-bar" aria-hidden="true"><i /></div>
         <div className="eyebrow">
           {mission.milestone === 'final'
             ? 'THE CORE · Final transmission'
@@ -55,7 +75,10 @@ export function Briefing({ mission, onAccept, onClose }) {
               : `Incoming transmission · Sector ${mission.level}`}
         </div>
         <h2>{mission.title}</h2>
-        <p className="story">{mission.story.briefing}</p>
+        <p className={`story story-wire ${wire.done ? 'done' : ''}`} onClick={wire.skip}>
+          {wire.text}
+          {!wire.done && <span className="caret" aria-hidden="true" />}
+        </p>
         <div className="meta-grid">
           <div className="meta"><small>Skill practised</small><b>{mission.topic}</b></div>
           <div className="meta"><small>Difficulty</small><b>{'◆'.repeat(mission.difficulty)}</b></div>

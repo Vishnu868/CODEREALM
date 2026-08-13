@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { useGame } from '../game/store'
 import { TIER_ICON } from '../game/rules'
 import ZoneScenery from './ZoneScenery'
+import Runner from './Runner'
 
 /**
  * The campaign map.
@@ -150,6 +151,13 @@ export default function MapView({ onOpen, onShowIntro, justCleared, onSurgeDone 
     const t = setTimeout(onSurgeDone, settings.reducedMotion ? 0 : 1800)
     return () => clearTimeout(t)
   }, [justCleared, onSurgeDone, settings.reducedMotion])
+
+  // The Runner stands beside the current sector and slides across when it
+  // moves, so clearing a level visibly advances them down the route.
+  const runnerAt = current
+    ? { x: current.x - 52, y: current.y + 30, accent: ZONE_ACCENT[current.mission.zone] ?? '#4dd6c1' }
+    : null
+  const runnerState = justCleared ? 'cheer' : 'idle'
 
   const line = points.map((p, i) => (i === 0 ? `M ${p.x} ${p.y}` : `L ${p.x} ${p.y}`)).join(' ')
   const clearedCount = points.filter((p) => progress[p.mission.id]?.bestTier).length
@@ -312,6 +320,9 @@ export default function MapView({ onOpen, onShowIntro, justCleared, onSurgeDone 
               </g>
             )
           })}
+          {runnerAt && (
+            <Runner x={runnerAt.x} y={runnerAt.y} accent={runnerAt.accent} state={runnerState} />
+          )}
         </svg>
       </div>
 
