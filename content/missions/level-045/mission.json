@@ -1,0 +1,102 @@
+{
+  "id": "level_045",
+  "level": 45,
+  "zone": "network",
+  "title": "Midpoint Probe",
+  "topic": "linked_lists",
+  "difficulty": 5,
+  "prerequisites": [
+    "linked_lists"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "A probe has to be dropped exactly halfway along the chain. The chain does not know its own length, and the probe gets one pass.",
+    "success": "Probe placed at the midpoint. The chain reports from its centre."
+  },
+  "description": "Using the same chain format — an array of [value, next] nodes and a head index, with -1 ending the chain — return the value at the middle node. When the chain has an even number of nodes, return the value of the second of the two middle nodes. An empty chain returns -1.",
+  "constraints": "0 <= nodes.length <= 300000, the chain never revisits a node",
+  "entry": {
+    "javascript": "chainMiddle",
+    "python": "chain_middle"
+  },
+  "starter": {
+    "javascript": "function chainMiddle(nodes, head) {\n  // Value at the middle node, or -1.\n  \n}",
+    "python": "def chain_middle(nodes, head):\n    # Value at the middle node, or -1.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "nodes = [[5, 2], [9, -1], [4, 1]], head = 0",
+      "output": "4",
+      "explanation": "Three nodes: 5, 4, 9. The middle is 4."
+    },
+    {
+      "input": "nodes = [[1, 1], [2, -1]], head = 0",
+      "output": "2",
+      "explanation": "Even length, so the second middle node wins."
+    },
+    {
+      "input": "nodes = [], head = -1",
+      "output": "-1"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          [
+            5,
+            2
+          ],
+          [
+            9,
+            -1
+          ],
+          [
+            4,
+            1
+          ]
+        ],
+        0
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            -1
+          ]
+        ],
+        0
+      ]
+    },
+    {
+      "args": [
+        [],
+        -1
+      ]
+    }
+  ],
+  "hints": [
+    "Counting the length first and then walking half of it works and is perfectly acceptable. There is also a way to do it in one pass.",
+    "If one probe advances twice as fast as another, then when the fast one reaches the end the slow one is at the middle. Where exactly it lands on an even-length chain is what the second example pins down.",
+    "Move a slow position one step and a fast position two steps per iteration, continuing while the fast position and its next are both valid. The slow position then holds the middle. Check the even case against the example before submitting."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "nodes",
+        "type": "int[][]"
+      },
+      {
+        "name": "head",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

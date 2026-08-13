@@ -1,0 +1,79 @@
+{
+  "id": "level_028",
+  "level": 28,
+  "zone": "forest",
+  "title": "First Unique",
+  "topic": "hashing",
+  "difficulty": 4,
+  "prerequisites": [
+    "hashing",
+    "strings"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Every padding character in this packet repeats. The one that does not is the marker, and its position is the offset the decoder needs.",
+    "success": "Marker located. The decoder locks on."
+  },
+  "description": "Given a string, return the index of the first character that appears exactly once in the whole string. If every character repeats, or the string is empty, return -1.",
+  "constraints": "0 <= packet.length <= 200000, ASCII characters only",
+  "entry": {
+    "javascript": "firstUnique",
+    "python": "first_unique"
+  },
+  "starter": {
+    "javascript": "function firstUnique(packet) {\n  // Index of the first non-repeating character, or -1.\n  \n}",
+    "python": "def first_unique(packet):\n    # Index of the first non-repeating character, or -1.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "packet = \"aabbcd\"",
+      "output": "4",
+      "explanation": "c is the first character occurring once."
+    },
+    {
+      "input": "packet = \"aabb\"",
+      "output": "-1"
+    },
+    {
+      "input": "packet = \"x\"",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        "aabbcd"
+      ]
+    },
+    {
+      "args": [
+        "aabb"
+      ]
+    },
+    {
+      "args": [
+        "x"
+      ]
+    }
+  ],
+  "hints": [
+    "You cannot know whether the first character is unique until you have looked at the whole string. That suggests more than one pass.",
+    "Count first, decide second. Trying to answer during a single pass leads to re-scanning the tail for every character.",
+    "Pass one: count every character. Pass two: walk the string from the start and return the index of the first character whose count is 1. Return -1 if none qualifies."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 7.32
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "packet",
+        "type": "string"
+      }
+    ],
+    "returns": "int"
+  }
+}

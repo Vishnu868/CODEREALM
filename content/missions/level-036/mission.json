@@ -1,0 +1,97 @@
+{
+  "id": "level_036",
+  "level": 36,
+  "zone": "network",
+  "title": "Merge Streams",
+  "topic": "sorting",
+  "difficulty": 4,
+  "prerequisites": [
+    "arrays",
+    "two_pointers"
+  ],
+  "expectedComplexity": "O(n + m)",
+  "story": {
+    "briefing": "Two relays recorded the same window, each already in order. The archive wants one ordered stream, and re-sorting from scratch wastes what the relays already did.",
+    "success": "Streams merged. The archive accepts a single ordered record."
+  },
+  "description": "Given two arrays each sorted in non-decreasing order, return a single array containing all their values in non-decreasing order. Duplicates are kept — if a value appears in both inputs, it appears twice in the output. Either array may be empty.",
+  "constraints": "0 <= a.length, b.length <= 300000, both non-decreasing",
+  "entry": {
+    "javascript": "mergeStreams",
+    "python": "merge_streams"
+  },
+  "starter": {
+    "javascript": "function mergeStreams(a, b) {\n  // One sorted array containing everything from both.\n  \n}",
+    "python": "def merge_streams(a, b):\n    # One sorted list containing everything from both.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "a = [1, 4], b = [2, 4, 6]",
+      "output": "[1, 2, 4, 4, 6]",
+      "explanation": "The repeated 4 is kept twice."
+    },
+    {
+      "input": "a = [], b = [3]",
+      "output": "[3]"
+    },
+    {
+      "input": "a = [1], b = []",
+      "output": "[1]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4,
+          6
+        ]
+      ]
+    },
+    {
+      "args": [
+        [],
+        [
+          3
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          1
+        ],
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Both inputs are already ordered, so the next value of the merged result is always one of two candidates: the front of one stream or the front of the other.",
+    "The fiddly part is what happens when one stream runs out. Handle that explicitly rather than hoping the comparison copes.",
+    "Keep an index into each array. While both have values left, append the smaller and advance that index. When one runs out, append everything remaining from the other."
+  ],
+  "perf": {
+    "scale": 300000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 4.97
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "a",
+        "type": "int[]"
+      },
+      {
+        "name": "b",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int[]"
+  }
+}

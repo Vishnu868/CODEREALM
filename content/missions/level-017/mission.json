@@ -1,0 +1,72 @@
+{
+  "id": "level_017",
+  "level": 17,
+  "zone": "district",
+  "title": "Longest Run",
+  "topic": "strings",
+  "difficulty": 3,
+  "prerequisites": [
+    "strings"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "A stuck transmitter repeats one character until it clears. The longest stretch of repetition tells the engineers how bad the fault was.",
+    "success": "Fault duration measured. The transmitter is scheduled for replacement."
+  },
+  "description": "Given a string, return the length of the longest run of identical characters appearing consecutively. An empty string returns 0.",
+  "constraints": "0 <= stream.length <= 200000, ASCII characters only",
+  "entry": {
+    "javascript": "longestRun",
+    "python": "longest_run"
+  },
+  "starter": {
+    "javascript": "function longestRun(stream) {\n  // Length of the longest run of one repeated character.\n  \n}",
+    "python": "def longest_run(stream):\n    # Length of the longest run of one repeated character.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "stream = \"aabbbc\"",
+      "output": "3",
+      "explanation": "The run of three b characters."
+    },
+    {
+      "input": "stream = \"xyz\"",
+      "output": "1"
+    },
+    {
+      "input": "stream = \"\"",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        "aabbbc"
+      ]
+    },
+    {
+      "args": [
+        "xyz"
+      ]
+    },
+    {
+      "args": [
+        ""
+      ]
+    }
+  ],
+  "hints": [
+    "You only ever need to know how long the current run is and how long the best run so far was.",
+    "The final run ends when the string ends, not when a different character appears. Code that only updates the best on a change will miss a run that reaches the last character.",
+    "Walk the string keeping a current-run counter. Reset it to 1 when the character differs from the previous one, otherwise increment it, and update the best after every step."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "stream",
+        "type": "string"
+      }
+    ],
+    "returns": "int"
+  }
+}

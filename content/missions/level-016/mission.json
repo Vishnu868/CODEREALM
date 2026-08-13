@@ -1,0 +1,96 @@
+{
+  "id": "level_016",
+  "level": 16,
+  "zone": "district",
+  "title": "Window Scan",
+  "topic": "sliding_window",
+  "difficulty": 4,
+  "prerequisites": [
+    "arrays"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "The district meters its power in fixed intervals. Find the busiest interval of exactly the length the meter is calibrated for.",
+    "success": "Peak interval identified. The meter recalibrates and stops tripping."
+  },
+  "description": "Given an array of readings and a window size k, return the largest sum obtainable from k consecutive readings. If k is less than 1, or larger than the number of readings, return -1.",
+  "constraints": "0 <= readings.length <= 1500000, -10^9 <= readings[i] <= 10^9, -10 <= k <= 300000",
+  "entry": {
+    "javascript": "windowScan",
+    "python": "window_scan"
+  },
+  "starter": {
+    "javascript": "function windowScan(readings, k) {\n  // Largest sum of k consecutive readings, or -1.\n  \n}",
+    "python": "def window_scan(readings, k):\n    # Largest sum of k consecutive readings, or -1.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "readings = [1, 5, 2, 3], k = 2",
+      "output": "7",
+      "explanation": "5 + 2."
+    },
+    {
+      "input": "readings = [4], k = 1",
+      "output": "4"
+    },
+    {
+      "input": "readings = [1, 2], k = 5",
+      "output": "-1",
+      "explanation": "The window does not fit."
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          1,
+          5,
+          2,
+          3
+        ],
+        2
+      ]
+    },
+    {
+      "args": [
+        [
+          4
+        ],
+        1
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ],
+        5
+      ]
+    }
+  ],
+  "hints": [
+    "Neighbouring windows overlap almost entirely. Recomputing the whole sum for each one throws away work you already did.",
+    "Moving the window one step right adds exactly one reading and removes exactly one. That is two operations per step, not k.",
+    "Sum the first k readings. Then for each following position, add the entering reading and subtract the leaving one, tracking the maximum you have seen."
+  ],
+  "perf": {
+    "scale": 1500000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 3.15
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "readings",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "id": "level_043",
+  "level": 43,
+  "zone": "network",
+  "title": "Chain Traversal",
+  "topic": "linked_lists",
+  "difficulty": 4,
+  "prerequisites": [
+    "arrays"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Below the network the relays are chained, each holding only the address of the next. There is no index — the only way through is to follow the links.",
+    "success": "Chain walked end to end. Every relay reports in."
+  },
+  "description": "A chain is given as an array of nodes and a starting index. Each node is a two-element array [value, next], where next is the index of the following node, or -1 at the end of the chain. The head may be -1, meaning the chain is empty. Return the sum of all values along the chain. An empty chain sums to 0.",
+  "constraints": "0 <= nodes.length <= 300000, -1000 <= value <= 1000, the chain never revisits a node",
+  "entry": {
+    "javascript": "chainSum",
+    "python": "chain_sum"
+  },
+  "starter": {
+    "javascript": "function chainSum(nodes, head) {\n  // Follow the links from head, summing values.\n  \n}",
+    "python": "def chain_sum(nodes, head):\n    # Follow the links from head, summing values.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "nodes = [[5, 2], [9, -1], [4, 1]], head = 0",
+      "output": "18",
+      "explanation": "Node 0 holds 5 and points to node 2, which holds 4 and points to node 1, which holds 9."
+    },
+    {
+      "input": "nodes = [[7, -1]], head = 0",
+      "output": "7"
+    },
+    {
+      "input": "nodes = [], head = -1",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          [
+            5,
+            2
+          ],
+          [
+            9,
+            -1
+          ],
+          [
+            4,
+            1
+          ]
+        ],
+        0
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            7,
+            -1
+          ]
+        ],
+        0
+      ]
+    },
+    {
+      "args": [
+        [],
+        -1
+      ]
+    }
+  ],
+  "hints": [
+    "The order of the nodes in the array tells you nothing. Only the next field decides where you go, and the chain usually does not run left to right.",
+    "You need a variable holding your current position, not a loop counter over the array. The loop ends when that position becomes -1, not when it reaches the array length.",
+    "Set a position to head and a total to 0. While the position is not -1, add that node value to the total and set the position to the node next field. Return the total."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "nodes",
+        "type": "int[][]"
+      },
+      {
+        "name": "head",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

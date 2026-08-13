@@ -1,0 +1,78 @@
+{
+  "id": "level_074",
+  "level": 74,
+  "zone": "core",
+  "title": "All Orderings",
+  "topic": "backtracking",
+  "difficulty": 5,
+  "prerequisites": [
+    "recursion"
+  ],
+  "expectedComplexity": "O(n! x n)",
+  "story": {
+    "briefing": "The lock will accept exactly one arrangement of the key fragments, and nobody remembers which. Enumerate every arrangement so the Core can try them in order.",
+    "success": "Every arrangement enumerated. The lock yields on the seventh try."
+  },
+  "description": "Given an array of distinct integers, return every possible ordering of them. The orderings must appear in increasing lexicographic order — compare two orderings by their first differing position. An empty input returns a list containing one empty ordering.",
+  "constraints": "0 <= fragments.length <= 7, all values distinct",
+  "entry": {
+    "javascript": "allOrderings",
+    "python": "all_orderings"
+  },
+  "starter": {
+    "javascript": "function allOrderings(fragments) {\n  // Every ordering, lexicographically increasing.\n  \n}",
+    "python": "def all_orderings(fragments):\n    # Every ordering, lexicographically increasing.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "fragments = [2, 1]",
+      "output": "[[1, 2], [2, 1]]",
+      "explanation": "Sorted order first, regardless of the input order."
+    },
+    {
+      "input": "fragments = [5]",
+      "output": "[[5]]"
+    },
+    {
+      "input": "fragments = []",
+      "output": "[[]]",
+      "explanation": "One ordering exists: the empty one."
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          5
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Build one ordering position by position. At each position try every value not yet used, then undo that choice and try the next.",
+    "The required output order falls out for free if you sort the values first and always try them smallest to largest. Do not sort the results afterwards.",
+    "Sort the input. Recurse carrying a partial ordering and a used-marker per value. When the partial ordering is full, record a copy of it — a copy, not the array itself, which you are about to modify."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "fragments",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int[][]"
+  }
+}

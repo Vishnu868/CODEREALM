@@ -1,0 +1,101 @@
+{
+  "id": "level_029",
+  "level": 29,
+  "zone": "forest",
+  "title": "Pulse Distribution",
+  "topic": "prefix_sums",
+  "difficulty": 5,
+  "prerequisites": [
+    "prefix_sums"
+  ],
+  "expectedComplexity": "O(n + p)",
+  "story": {
+    "briefing": "Each pulse charges a whole stretch of the canopy at once. Applying them one cell at a time takes longer than the pulses themselves last.",
+    "success": "Charge distributed. The canopy lights in a single sweep."
+  },
+  "description": "A line of `n` cells all start at 0. You are given a list of pulses, each a three-element array [l, r, v], meaning add v to every cell from index l to index r inclusive. Return the final state of all n cells. Pulses are always within bounds and l is never greater than r.",
+  "constraints": "1 <= n <= 500000, 0 <= pulses.length <= 200000, -1000 <= v <= 1000",
+  "entry": {
+    "javascript": "distribute",
+    "python": "distribute"
+  },
+  "starter": {
+    "javascript": "function distribute(n, pulses) {\n  // Return the final array of n cells.\n  \n}",
+    "python": "def distribute(n, pulses):\n    # Return the final list of n cells.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "n = 4, pulses = [[0, 1, 5], [1, 3, 2]]",
+      "output": "[5, 7, 2, 2]"
+    },
+    {
+      "input": "n = 3, pulses = []",
+      "output": "[0, 0, 0]"
+    },
+    {
+      "input": "n = 1, pulses = [[0, 0, -4]]",
+      "output": "[-4]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        4,
+        [
+          [
+            0,
+            1,
+            5
+          ],
+          [
+            1,
+            3,
+            2
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        3,
+        []
+      ]
+    },
+    {
+      "args": [
+        1,
+        [
+          [
+            0,
+            0,
+            -4
+          ]
+        ]
+      ]
+    }
+  ],
+  "hints": [
+    "Writing to every cell of every range does work proportional to the total width of all pulses. Recording only where each pulse starts and stops changing things does not.",
+    "Instead of storing values, store *changes*. A pulse of v affects the running change at exactly two positions: where it begins, and just after where it ends.",
+    "Build an array of size n + 1. For each pulse add v at index l and subtract v at index r + 1. Then sweep once from left to right keeping a running total — that total is each cell final value."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 4.52
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "pulses",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int[]"
+  }
+}

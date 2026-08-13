@@ -1,0 +1,105 @@
+{
+  "id": "level_067",
+  "level": 67,
+  "zone": "core",
+  "title": "Two-Colour Split",
+  "topic": "graphs",
+  "difficulty": 6,
+  "prerequisites": [
+    "graphs"
+  ],
+  "expectedComplexity": "O(n + m)",
+  "story": {
+    "briefing": "The Core wants every node assigned to one of two power phases, with no link ever joining two nodes on the same phase. Sometimes the layout simply forbids it.",
+    "success": "Phases assigned. No link carries the same phase at both ends."
+  },
+  "description": "A graph is given as n, the number of nodes numbered 0 to n-1, and edges, an array of [u, v] pairs. Edges are undirected unless stated otherwise, and there are no self-loops or duplicate edges. Return true if every node can be given one of two labels such that no edge joins two nodes with the same label, and false otherwise. A graph with no edges is always splittable.",
+  "constraints": "1 <= n <= 200000, 0 <= edges.length <= 300000",
+  "entry": {
+    "javascript": "canSplit",
+    "python": "can_split"
+  },
+  "starter": {
+    "javascript": "function canSplit(n, edges) {\n  // True if a valid two-way split exists.\n  \n}",
+    "python": "def can_split(n, edges):\n    # True if a valid two-way split exists.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "n = 4, edges = [[0, 1], [1, 2], [2, 3]]",
+      "output": "true"
+    },
+    {
+      "input": "n = 3, edges = [[0, 1], [1, 2], [2, 0]]",
+      "output": "false",
+      "explanation": "A triangle cannot be split two ways."
+    },
+    {
+      "input": "n = 2, edges = []",
+      "output": "true"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        4,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        3,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            0
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        2,
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Once one node is assigned, every neighbour is forced to the other label, and their neighbours are forced back again. There is no freedom after the first choice in each component.",
+    "Do not stop after one component. A graph can be perfectly splittable in one piece and impossible in another, so every unvisited node needs its own start.",
+    "Walk each component assigning alternating labels. If you ever reach an already-labelled node carrying the same label as the node you came from, no split exists."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "edges",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "bool"
+  }
+}

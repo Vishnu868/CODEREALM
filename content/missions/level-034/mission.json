@@ -1,0 +1,92 @@
+{
+  "id": "level_034",
+  "level": 34,
+  "zone": "network",
+  "title": "Insertion Point",
+  "topic": "binary_search",
+  "difficulty": 4,
+  "prerequisites": [
+    "binary_search"
+  ],
+  "expectedComplexity": "O(log n)",
+  "story": {
+    "briefing": "New nodes join the network constantly, and the table must stay sorted. Before inserting anything, you have to know exactly where it belongs.",
+    "success": "Insertion point computed. New nodes slot in without a resort."
+  },
+  "description": "Given an array sorted in non-decreasing order and a target, return the index at which the target should be inserted to keep the array sorted. If the target already appears, return the index of its first occurrence. An empty array returns 0.",
+  "constraints": "0 <= table.length <= 300000, non-decreasing, -10^9 <= table[i] <= 10^9",
+  "entry": {
+    "javascript": "insertionPoint",
+    "python": "insertion_point"
+  },
+  "starter": {
+    "javascript": "function insertionPoint(table, target) {\n  // Index where target belongs.\n  \n}",
+    "python": "def insertion_point(table, target):\n    # Index where target belongs.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "table = [1, 3, 5], target = 4",
+      "output": "2"
+    },
+    {
+      "input": "table = [1, 3, 3, 5], target = 3",
+      "output": "1",
+      "explanation": "The first occurrence, not after the run."
+    },
+    {
+      "input": "table = [1, 2], target = 9",
+      "output": "2",
+      "explanation": "Past the end is a valid answer."
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          1,
+          3,
+          5
+        ],
+        4
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          3,
+          3,
+          5
+        ],
+        3
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ],
+        9
+      ]
+    }
+  ],
+  "hints": [
+    "You are looking for the first position whose value is not smaller than the target. That single sentence is the whole specification.",
+    "Unlike a plain search, this never fails — every target has an answer, and it can legitimately be one past the last index. Make sure your bounds allow that.",
+    "Set lo to 0 and hi to the array length, not the last index. While lo is below hi, move lo past the middle when the middle value is smaller than the target, otherwise bring hi down to the middle. Return lo."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "table",
+        "type": "int[]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

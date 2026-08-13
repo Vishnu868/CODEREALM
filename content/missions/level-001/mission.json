@@ -1,0 +1,69 @@
+{
+  "id": "level_001",
+  "level": 1,
+  "zone": "valley",
+  "title": "Signal Echo",
+  "topic": "output",
+  "difficulty": 1,
+  "prerequisites": [],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "The Core has gone quiet. Before anything can be repaired, the relay in Sector 1 has to prove it can still speak. Send it a pulse.",
+    "success": "Relay 1 answers. The valley lights up, one node at a time."
+  },
+  "description": "Return a single string containing the word SIGNAL repeated `count` times, separated by single spaces. If `count` is 0, return an empty string.",
+  "constraints": "0 <= count <= 1000",
+  "entry": {
+    "javascript": "echo",
+    "python": "echo"
+  },
+  "starter": {
+    "javascript": "function echo(count) {\n  // Build the pulse string and return it.\n  \n}",
+    "python": "def echo(count):\n    # Build the pulse string and return it.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "count = 3",
+      "output": "\"SIGNAL SIGNAL SIGNAL\""
+    },
+    {
+      "input": "count = 1",
+      "output": "\"SIGNAL\""
+    },
+    {
+      "input": "count = 0",
+      "output": "\"\""
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        3
+      ]
+    },
+    {
+      "args": [
+        1
+      ]
+    },
+    {
+      "args": [
+        0
+      ]
+    }
+  ],
+  "hints": [
+    "A string can be built up piece by piece inside a loop, or produced all at once from a list.",
+    "Watch the separator. Joining a list of words with a space avoids a trailing space at the end.",
+    "Make a list of `count` copies of \"SIGNAL\", then join it with a single space. Zero copies naturally joins to an empty string."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "count",
+        "type": "int"
+      }
+    ],
+    "returns": "string"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "id": "level_011",
+  "level": 11,
+  "zone": "district",
+  "title": "Sensor Array Walk",
+  "topic": "arrays",
+  "difficulty": 3,
+  "prerequisites": [
+    "arrays"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Past the gate, the Programming District logs everything. Somewhere in this stream the signal first turns upward, and that turning point is where the fault began.",
+    "success": "Turning point located. The district opens its records to you."
+  },
+  "description": "Given an array of readings, return the index of the first reading that is strictly greater than the reading immediately before it. Index 0 has nothing before it and can never qualify. If no reading is greater than its predecessor, return -1.",
+  "constraints": "0 <= readings.length <= 200000, -10^9 <= readings[i] <= 10^9",
+  "entry": {
+    "javascript": "firstRise",
+    "python": "first_rise"
+  },
+  "starter": {
+    "javascript": "function firstRise(readings) {\n  // Return the index of the first rise, or -1.\n  \n}",
+    "python": "def first_rise(readings):\n    # Return the index of the first rise, or -1.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "readings = [9, 4, 7, 2]",
+      "output": "2",
+      "explanation": "7 is greater than the 4 before it."
+    },
+    {
+      "input": "readings = [5, 5, 5]",
+      "output": "-1",
+      "explanation": "Equal is not greater."
+    },
+    {
+      "input": "readings = [3]",
+      "output": "-1"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          9,
+          4,
+          7,
+          2
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          5,
+          5,
+          5
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          3
+        ]
+      ]
+    }
+  ],
+  "hints": [
+    "Each element is compared against the one before it, so the comparison involves two positions at once rather than a single value.",
+    "Starting the loop at index 0 would read position -1, which does not exist. Decide where the first valid comparison actually is.",
+    "Start at index 1. As soon as readings[i] is greater than readings[i - 1], return i. If the loop finishes without returning, return -1."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "readings",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  }
+}

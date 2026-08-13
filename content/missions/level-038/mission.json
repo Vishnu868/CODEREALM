@@ -1,0 +1,95 @@
+{
+  "id": "level_038",
+  "level": 38,
+  "zone": "network",
+  "title": "Kth Strongest",
+  "topic": "sorting",
+  "difficulty": 5,
+  "prerequisites": [
+    "sorting"
+  ],
+  "expectedComplexity": "O(n log n)",
+  "story": {
+    "briefing": "Not the strongest signal — the kth strongest. The network reserves that slot for a relay that has to be identified precisely.",
+    "success": "Relay identified. The reserved slot is assigned."
+  },
+  "description": "Given an array of signal strengths and an integer k, return the kth largest strength, counting duplicates separately so that in [7, 7, 3] the second largest is 7. If k is less than 1 or greater than the number of strengths, return -1.",
+  "constraints": "0 <= strengths.length <= 300000, -10^9 <= strengths[i] <= 10^9, -10 <= k <= 300010",
+  "entry": {
+    "javascript": "kthStrongest",
+    "python": "kth_strongest"
+  },
+  "starter": {
+    "javascript": "function kthStrongest(strengths, k) {\n  // The kth largest strength, or -1.\n  \n}",
+    "python": "def kth_strongest(strengths, k):\n    # The kth largest strength, or -1.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "strengths = [3, 9, 5], k = 2",
+      "output": "5"
+    },
+    {
+      "input": "strengths = [7, 7, 3], k = 2",
+      "output": "7",
+      "explanation": "Duplicates count separately."
+    },
+    {
+      "input": "strengths = [1], k = 4",
+      "output": "-1"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          3,
+          9,
+          5
+        ],
+        2
+      ]
+    },
+    {
+      "args": [
+        [
+          7,
+          7,
+          3
+        ],
+        2
+      ]
+    },
+    {
+      "args": [
+        [
+          1
+        ],
+        4
+      ]
+    }
+  ],
+  "hints": [
+    "Once the values are in order, the answer is at a fixed position. Getting them in order is the entire task.",
+    "Check k against the array length before you index anything, and remember that k counts from 1 while array indices count from 0.",
+    "Return -1 when k is below 1 or above the length. Otherwise sort a copy in decreasing order and return the value at index k minus 1."
+  ],
+  "perf": {
+    "scale": 300000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 63.46
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "strengths",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "id": "level_033",
+  "level": 33,
+  "zone": "network",
+  "title": "Boundary Locator",
+  "topic": "binary_search",
+  "difficulty": 5,
+  "prerequisites": [
+    "binary_search"
+  ],
+  "expectedComplexity": "O(log n)",
+  "story": {
+    "briefing": "This log is sorted but full of repeats. The network needs the exact span a value occupies, not merely whether it is present.",
+    "success": "Boundaries located. The span is reported to the byte."
+  },
+  "description": "Given an array sorted in non-decreasing order (values may repeat) and a target, return the first and last index at which the target appears, as a two-element array. If the target does not appear, return [-1, -1].",
+  "constraints": "0 <= log.length <= 300000, non-decreasing, -10^9 <= log[i] <= 10^9",
+  "entry": {
+    "javascript": "findSpan",
+    "python": "find_span"
+  },
+  "starter": {
+    "javascript": "function findSpan(log, target) {\n  // Return [first, last] or [-1, -1].\n  \n}",
+    "python": "def find_span(log, target):\n    # Return [first, last] or [-1, -1].\n    pass"
+  },
+  "examples": [
+    {
+      "input": "log = [1, 2, 2, 2, 5], target = 2",
+      "output": "[1, 3]"
+    },
+    {
+      "input": "log = [1, 3], target = 2",
+      "output": "[-1, -1]"
+    },
+    {
+      "input": "log = [4], target = 4",
+      "output": "[0, 0]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          2,
+          2,
+          5
+        ],
+        2
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          3
+        ],
+        2
+      ]
+    },
+    {
+      "args": [
+        [
+          4
+        ],
+        4
+      ]
+    }
+  ],
+  "hints": [
+    "Finding some occurrence is the easy part. Finding the *first* one means that on a match you have not finished — there may be another match to the left.",
+    "Do not walk outwards from a match you found. A long run of equal values turns that into a linear scan and defeats the point.",
+    "Run two separate searches. In the first, on a match record the position and continue searching the left half. In the second, on a match record it and continue searching the right half."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "log",
+        "type": "int[]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": "int[]"
+  }
+}

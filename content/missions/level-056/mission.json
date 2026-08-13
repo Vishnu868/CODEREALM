@@ -1,0 +1,87 @@
+{
+  "id": "level_056",
+  "level": 56,
+  "zone": "forest",
+  "title": "Ordered Tree",
+  "topic": "bst",
+  "difficulty": 4,
+  "prerequisites": [
+    "trees",
+    "binary_search"
+  ],
+  "expectedComplexity": "O(h)",
+  "story": {
+    "briefing": "This lattice is ordered. Knowing that, you should never have to look at more than a handful of junctions to answer whether a value is present.",
+    "success": "Lookup confirmed in a handful of steps. The ordered lattice proves its worth."
+  },
+  "description": "A binary search tree holds, at every node, only smaller values in its left subtree and only larger values in its right. All values are distinct. Given such a tree and a target, return true if the target appears in it and false otherwise. Do not examine more of the tree than you need to. A tree is given as an array where the node at index i has its left child at index 2i+1 and its right child at index 2i+2. A null entry means there is no node there, and nothing exists beneath it. An empty array is an empty tree.",
+  "constraints": "0 <= tree.length <= 500000, all values distinct",
+  "entry": {
+    "javascript": "bstContains",
+    "python": "bst_contains"
+  },
+  "starter": {
+    "javascript": "function bstContains(tree, target) {\n  // True if target is in the search tree.\n  \n}",
+    "python": "def bst_contains(tree, target):\n    # True if target is in the search tree.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "tree = [5, 3, 8], target = 8",
+      "output": "true"
+    },
+    {
+      "input": "tree = [5, 3, 8], target = 4",
+      "output": "false"
+    },
+    {
+      "input": "tree = [], target = 1",
+      "output": "false"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          5,
+          3,
+          8
+        ],
+        8
+      ]
+    },
+    {
+      "args": [
+        [
+          5,
+          3,
+          8
+        ],
+        4
+      ]
+    },
+    {
+      "args": [
+        [],
+        1
+      ]
+    }
+  ],
+  "hints": [
+    "Comparing the target against a node value tells you which single subtree could possibly contain it. The other subtree can be ignored entirely.",
+    "This is binary search wearing a different costume. Scanning every node also gives the right answer, which is exactly why it is worth checking that you did not.",
+    "Start at the root. If the value matches, return true. If the target is smaller go left, otherwise go right. Return false when you run off the tree."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "tree",
+        "type": "int[]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": "bool"
+  }
+}

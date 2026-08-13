@@ -1,0 +1,89 @@
+{
+  "id": "level_090",
+  "level": 90,
+  "zone": "core",
+  "title": "State-Machine DP",
+  "topic": "dynamic_programming",
+  "difficulty": 6,
+  "prerequisites": [
+    "dynamic_programming"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Charge can be bought and sold across the cycle, one unit at a time, but the regulator needs a full cycle to cool after every sale. Maximise the profit.",
+    "success": "Trading plan optimal. The regulator never overheats, and the Core banks the difference."
+  },
+  "description": "You are given the price of a charge unit on each cycle. You may buy and sell repeatedly, but you may hold at most one unit at a time, you must sell before buying again, and after any sale you must skip at least one cycle before buying. Return the largest total profit achievable. Doing nothing earns 0.",
+  "constraints": "0 <= prices.length <= 200000, 0 <= prices[i] <= 10000",
+  "entry": {
+    "javascript": "bestProfit",
+    "python": "best_profit"
+  },
+  "starter": {
+    "javascript": "function bestProfit(prices) {\n  // Largest profit with a one-cycle cooldown after each sale.\n  \n}",
+    "python": "def best_profit(prices):\n    # Largest profit with a one-cycle cooldown after each sale.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "prices = [1, 2, 3, 0, 2]",
+      "output": "3",
+      "explanation": "Buy at 1, sell at 3, cool down, buy at 0, sell at 2."
+    },
+    {
+      "input": "prices = [5, 4, 3]",
+      "output": "0",
+      "explanation": "Prices only fall, so do nothing."
+    },
+    {
+      "input": "prices = []",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          0,
+          2
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          5,
+          4,
+          3
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "At the end of every cycle you are in exactly one of three situations: holding a unit, just sold one, or free to buy. Track the best profit for each.",
+    "The cooldown is what forces the third state to exist. Without it, \"just sold\" and \"free to buy\" would be the same thing — and your answer would be too high.",
+    "Sweep the prices updating three running values. Holding comes from staying held or buying while free. Just-sold comes from selling what you held. Free comes from staying free or from yesterday just-sold. The answer is the best of the two non-holding states."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 3.55
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "prices",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  }
+}

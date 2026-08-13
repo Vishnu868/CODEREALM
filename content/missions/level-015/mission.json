@@ -1,0 +1,99 @@
+{
+  "id": "level_015",
+  "level": 15,
+  "zone": "district",
+  "title": "Converging Probes",
+  "topic": "two_pointers",
+  "difficulty": 4,
+  "prerequisites": [
+    "arrays",
+    "two_pointers"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Two probes enter the conduit from opposite ends. Their combined charge has to hit the target exactly, and the conduit readings are already sorted from low to high.",
+    "success": "Probes converge. The conduit discharges cleanly and the district powers up."
+  },
+  "description": "Given an array of integers sorted in strictly increasing order (no value repeats) and a target, find two different positions whose values add up to the target exactly. Return their indices as an array of two numbers, smaller index first. If more than one pair works, return the one with the smallest first index. If no pair works, return an empty array.",
+  "constraints": "0 <= charges.length <= 2000000, strictly increasing, -10^9 <= charges[i] <= 10^9",
+  "entry": {
+    "javascript": "converge",
+    "python": "converge"
+  },
+  "starter": {
+    "javascript": "function converge(charges, target) {\n  // Return [i, j] or [].\n  \n}",
+    "python": "def converge(charges, target):\n    # Return [i, j] or [].\n    pass"
+  },
+  "examples": [
+    {
+      "input": "charges = [1, 3, 4, 8], target = 7",
+      "output": "[1, 2]",
+      "explanation": "3 + 4. Indices, not values."
+    },
+    {
+      "input": "charges = [2, 5], target = 100",
+      "output": "[]"
+    },
+    {
+      "input": "charges = [-4, -1, 5], target = 1",
+      "output": "[0, 2]",
+      "explanation": "Index 0 pairs with index 2, and no pair starts earlier."
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          1,
+          3,
+          4,
+          8
+        ],
+        7
+      ]
+    },
+    {
+      "args": [
+        [
+          2,
+          5
+        ],
+        100
+      ]
+    },
+    {
+      "args": [
+        [
+          -4,
+          -1,
+          5
+        ],
+        1
+      ]
+    }
+  ],
+  "hints": [
+    "The array being sorted is the gift here. If a sum is too small, you know which end has to move; if it is too large, you know the other end does.",
+    "Start one pointer at each end. Every comparison lets you discard a position permanently, which is why this finishes in a single pass rather than n squared.",
+    "Put i at 0 and j at the last index. While i is less than j: if the sum equals the target return [i, j]; if the sum is too small increase i; otherwise decrease j. Return an empty array if they meet."
+  ],
+  "perf": {
+    "scale": 2000000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 7.18
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "charges",
+        "type": "int[]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": "int[]"
+  }
+}

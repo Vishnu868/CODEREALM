@@ -1,0 +1,109 @@
+{
+  "id": "level_048",
+  "level": 48,
+  "zone": "network",
+  "title": "Constant-Time Minimum",
+  "topic": "stacks",
+  "difficulty": 6,
+  "prerequisites": [
+    "stacks"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "The buffer is a stack, and the controller asks for its smallest value constantly. Scanning the whole buffer for every question is what is currently melting the controller.",
+    "success": "Minimum tracked alongside the buffer. The controller stops overheating."
+  },
+  "description": "Process a list of operations against a stack and return the results of the queries. The operations are given as two parallel arrays: `ops` holds the operation names and `values` holds the argument for each one. An operation named \"push\" adds the matching value; \"pop\" removes the most recent value and ignores its value entry; \"min\" asks for the smallest value currently on the stack and ignores its value entry. Return an array holding one result per \"min\" operation, in order, using -1 when the stack is empty. Pop is never called on an empty stack.",
+  "constraints": "0 <= ops.length <= 300000, values.length equals ops.length, -10^9 <= values[i] <= 10^9",
+  "entry": {
+    "javascript": "trackMinimum",
+    "python": "track_minimum"
+  },
+  "starter": {
+    "javascript": "function trackMinimum(ops, values) {\n  // One result per \"min\" operation.\n  \n}",
+    "python": "def track_minimum(ops, values):\n    # One result per \"min\" operation.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "ops = [\"push\", \"push\", \"min\", \"pop\", \"min\"], values = [5, 2, 0, 0, 0]",
+      "output": "[2, 5]",
+      "explanation": "After the pop, 2 is gone and the minimum returns to 5."
+    },
+    {
+      "input": "ops = [\"min\"], values = [0]",
+      "output": "[-1]"
+    },
+    {
+      "input": "ops = [\"push\", \"pop\", \"min\"], values = [4, 0, 0]",
+      "output": "[-1]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          "push",
+          "push",
+          "min",
+          "pop",
+          "min"
+        ],
+        [
+          5,
+          2,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          "min"
+        ],
+        [
+          0
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          "push",
+          "pop",
+          "min"
+        ],
+        [
+          4,
+          0,
+          0
+        ]
+      ]
+    }
+  ],
+  "hints": [
+    "A pop can change the answer, so a single remembered minimum is not enough — you need to know what the minimum *was* before each push.",
+    "Every position in the stack has its own answer to \"what is the smallest at or below me?\". Storing that alongside each value makes the query immediate.",
+    "Keep a second stack of running minima. On each push, store the smaller of the new value and the current top of that second stack. Pop both together, and answer a query by reading its top."
+  ],
+  "perf": {
+    "scale": 300000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 10.32
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "ops",
+        "type": "string[]"
+      },
+      {
+        "name": "values",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int[]"
+  }
+}

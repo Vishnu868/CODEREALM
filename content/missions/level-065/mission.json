@@ -1,0 +1,94 @@
+{
+  "id": "level_065",
+  "level": 65,
+  "zone": "core",
+  "title": "Component Count",
+  "topic": "graphs",
+  "difficulty": 5,
+  "prerequisites": [
+    "graphs"
+  ],
+  "expectedComplexity": "O(n + m)",
+  "story": {
+    "briefing": "The same question as the floor plan, asked of the network itself. How many separate pieces did the outage leave behind?",
+    "success": "Fragments counted. The scale of the break is finally known."
+  },
+  "description": "A graph is given as n, the number of nodes numbered 0 to n-1, and edges, an array of [u, v] pairs. Edges are undirected unless stated otherwise, and there are no self-loops or duplicate edges. Return the number of connected pieces the graph falls into. A node with no edges is a piece of its own.",
+  "constraints": "1 <= n <= 200000, 0 <= edges.length <= 300000",
+  "entry": {
+    "javascript": "componentCount",
+    "python": "component_count"
+  },
+  "starter": {
+    "javascript": "function componentCount(n, edges) {\n  // Number of connected pieces.\n  \n}",
+    "python": "def component_count(n, edges):\n    # Number of connected pieces.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "n = 4, edges = [[0, 1], [2, 3]]",
+      "output": "2"
+    },
+    {
+      "input": "n = 3, edges = []",
+      "output": "3",
+      "explanation": "Every isolated node is its own piece."
+    },
+    {
+      "input": "n = 1, edges = []",
+      "output": "1"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        4,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        3,
+        []
+      ]
+    },
+    {
+      "args": [
+        1,
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "This is the grid problem again with different scenery: start from an unvisited node, mark everything connected to it, and that is one piece.",
+    "Do not restart the search from every node. A node already marked belongs to a piece you have counted, and searching from it again is wasted work.",
+    "Build a neighbour list and a visited array. Loop over every node; when you find an unvisited one, add one to the count and walk its whole component, marking as you go."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 60.12
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "edges",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int"
+  }
+}

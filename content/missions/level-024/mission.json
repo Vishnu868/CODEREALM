@@ -1,0 +1,109 @@
+{
+  "id": "level_024",
+  "level": 24,
+  "zone": "forest",
+  "title": "Running Total",
+  "topic": "prefix_sums",
+  "difficulty": 4,
+  "prerequisites": [
+    "arrays"
+  ],
+  "expectedComplexity": "O(n + q)",
+  "story": {
+    "briefing": "The canopy sensors are queried constantly, always for the total across some stretch of the array. Each answer is easy; a hundred thousand answers are not.",
+    "success": "Totals precomputed. Every query now returns in a single step."
+  },
+  "description": "Given an array of values and a list of queries, answer each query. Each query is a two-element array [l, r] asking for the sum of values from index l to index r inclusive. Return the answers in query order. Every query is within bounds, and l is never greater than r.",
+  "constraints": "1 <= values.length <= 1000000, 0 <= queries.length <= 200000, -10^9 <= values[i] <= 10^9",
+  "entry": {
+    "javascript": "rangeSums",
+    "python": "range_sums"
+  },
+  "starter": {
+    "javascript": "function rangeSums(values, queries) {\n  // Return one sum per query.\n  \n}",
+    "python": "def range_sums(values, queries):\n    # Return one sum per query.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "values = [1, 2, 3, 4], queries = [[0, 1], [1, 3]]",
+      "output": "[3, 9]",
+      "explanation": "1 + 2, then 2 + 3 + 4."
+    },
+    {
+      "input": "values = [5], queries = [[0, 0]]",
+      "output": "[5]"
+    },
+    {
+      "input": "values = [1, 2], queries = []",
+      "output": "[]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            3
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          5
+        ],
+        [
+          [
+            0,
+            0
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ],
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Every query re-adds numbers that other queries have already added. Doing that work once, up front, is the whole idea.",
+    "If you know the total from the start up to each position, any range total is the difference between two of those. Getting the off-by-one right at the left edge is the hard part.",
+    "Build an array where prefix[i] is the sum of the first i values, so prefix[0] is 0. Then the sum from l to r inclusive is prefix[r + 1] minus prefix[l]."
+  ],
+  "perf": {
+    "scale": 1000000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 8.87
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "values",
+        "type": "int[]"
+      },
+      {
+        "name": "queries",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int[]"
+  }
+}

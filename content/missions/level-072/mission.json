@@ -1,0 +1,100 @@
+{
+  "id": "level_072",
+  "level": 72,
+  "zone": "core",
+  "title": "Maximum Throughput",
+  "topic": "greedy",
+  "difficulty": 5,
+  "prerequisites": [
+    "sorting"
+  ],
+  "expectedComplexity": "O(n log n)",
+  "story": {
+    "briefing": "Every approved window still needs a channel. How many channels does the Core need so that no two simultaneous windows ever share one?",
+    "success": "Channel count settled. Nothing collides, and nothing is wasted."
+  },
+  "description": "Given a list of windows, each a two-element array [start, end] with start strictly less than end, return the smallest number of channels needed so that no channel ever carries two windows at the same moment. A window ending exactly when another begins may reuse the same channel. An empty list returns 0.",
+  "constraints": "0 <= windows.length <= 200000, 0 <= start < end <= 10^9",
+  "entry": {
+    "javascript": "channelsNeeded",
+    "python": "channels_needed"
+  },
+  "starter": {
+    "javascript": "function channelsNeeded(windows) {\n  // Fewest channels so nothing collides.\n  \n}",
+    "python": "def channels_needed(windows):\n    # Fewest channels so nothing collides.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "windows = [[1, 4], [2, 5], [7, 9]]",
+      "output": "2",
+      "explanation": "The first two overlap; the third reuses a channel."
+    },
+    {
+      "input": "windows = [[1, 2], [2, 3]]",
+      "output": "1"
+    },
+    {
+      "input": "windows = []",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            7,
+            9
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "The answer is the largest number of windows that are ever open at the same instant. You never need more channels than that, and never fewer.",
+    "You do not need to know which windows overlap — only how many are open at once. Treat each start and each end as a separate event on a timeline.",
+    "Make a list of starts and a list of ends, both sorted. Sweep them together, adding a channel on each start and releasing one on each end, and record the highest count reached. Process an end before a start at the same instant."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 130.29
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "windows",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int"
+  }
+}

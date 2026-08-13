@@ -1,0 +1,100 @@
+{
+  "id": "level_062",
+  "level": 62,
+  "zone": "core",
+  "title": "Breadth Sweep",
+  "topic": "graphs",
+  "difficulty": 5,
+  "prerequisites": [
+    "graphs",
+    "queues"
+  ],
+  "expectedComplexity": "O(n + m)",
+  "story": {
+    "briefing": "A signal leaves node 0 and spreads outward one link at a time. The Core wants to know how many hops it takes to reach every node, and which nodes it never reaches at all.",
+    "success": "Propagation mapped. The Core knows its own reach."
+  },
+  "description": "A graph is given as n, the number of nodes numbered 0 to n-1, and edges, an array of [u, v] pairs. Edges are undirected unless stated otherwise, and there are no self-loops or duplicate edges. Starting from node 0, return an array of length n giving the fewest edges needed to reach each node. Node 0 is 0 hops from itself. Use -1 for any node that cannot be reached.",
+  "constraints": "1 <= n <= 200000, 0 <= edges.length <= 300000",
+  "entry": {
+    "javascript": "hopCounts",
+    "python": "hop_counts"
+  },
+  "starter": {
+    "javascript": "function hopCounts(n, edges) {\n  // Fewest edges from node 0 to each node, -1 if unreachable.\n  \n}",
+    "python": "def hop_counts(n, edges):\n    # Fewest edges from node 0 to each node, -1 if unreachable.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "n = 3, edges = [[0, 1], [1, 2]]",
+      "output": "[0, 1, 2]"
+    },
+    {
+      "input": "n = 3, edges = [[0, 1]]",
+      "output": "[0, 1, -1]",
+      "explanation": "Node 2 has no links at all."
+    },
+    {
+      "input": "n = 1, edges = []",
+      "output": "[0]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        3,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        3,
+        [
+          [
+            0,
+            1
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        1,
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Working from the edge list directly means searching it every time you need a node neighbours. Build a neighbour list once, first.",
+    "Exploring the nearest nodes before the farther ones is what makes the first arrival at a node also the shortest. Handle nodes in the order you discovered them.",
+    "Build a neighbour list from the edges. Put node 0 in a queue with distance 0. Repeatedly take the front node and, for each unvisited neighbour, record one more than the current distance and add it to the queue."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 56.8
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "edges",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int[]"
+  }
+}

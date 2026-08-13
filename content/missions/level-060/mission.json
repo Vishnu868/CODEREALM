@@ -1,0 +1,80 @@
+{
+  "id": "level_060",
+  "level": 60,
+  "zone": "forest",
+  "title": "Lattice Signature",
+  "topic": "trees",
+  "difficulty": 6,
+  "prerequisites": [
+    "trees",
+    "recursion"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "The forest gate wants the whole lattice compressed into one line it can compare against its records. Shape and values both have to survive the compression.",
+    "success": "Signature accepted. The forest closes out, and the Core is one zone away."
+  },
+  "description": "Produce a signature string for a binary tree. Walk the tree from the root, node before children, left before right. Append each node value; for each missing child of an existing node, append the letter x instead. Join every entry with a single comma. An empty tree gives exactly \"x\". A tree is given as an array where the node at index i has its left child at index 2i+1 and its right child at index 2i+2. A null entry means there is no node there, and nothing exists beneath it. An empty array is an empty tree.",
+  "constraints": "0 <= tree.length <= 200000",
+  "entry": {
+    "javascript": "signature",
+    "python": "signature"
+  },
+  "starter": {
+    "javascript": "function signature(tree) {\n  // Comma-joined preorder signature, x for absent nodes.\n  \n}",
+    "python": "def signature(tree):\n    # Comma-joined preorder signature, x for absent nodes.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "tree = [2, 1, 3]",
+      "output": "\"2,1,x,x,3,x,x\""
+    },
+    {
+      "input": "tree = [5, null, 9]",
+      "output": "\"5,x,9,x,x\""
+    },
+    {
+      "input": "tree = []",
+      "output": "\"x\""
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          2,
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          5,
+          null,
+          9
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Every existing node contributes exactly three things: its own value, then the signature of its left child, then the signature of its right. An absent node contributes a single x.",
+    "Building the string by repeated concatenation copies everything already written each time, which becomes very expensive on a large tree. Collect the pieces and join once.",
+    "Recurse from index 0. Push x and return when the index is out of range or null. Otherwise push the value, then recurse into both children. Join the collected pieces with commas at the end."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "tree",
+        "type": "int[]"
+      }
+    ],
+    "returns": "string"
+  }
+}

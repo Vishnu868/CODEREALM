@@ -1,0 +1,91 @@
+{
+  "id": "level_030",
+  "level": 30,
+  "zone": "forest",
+  "title": "Signal Registry",
+  "topic": "mixed",
+  "difficulty": 5,
+  "prerequisites": [
+    "arrays",
+    "prefix_sums"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "The registry wants the single strongest stretch of the capture — any contiguous run, however long or short, whose readings sum higher than any other.",
+    "success": "Strongest stretch registered. The forest zone closes out and the network beyond comes into view."
+  },
+  "description": "Given a non-empty array of readings, find the contiguous stretch with the largest sum and return that sum. The stretch must contain at least one reading, so when every reading is negative the answer is the single largest reading.",
+  "constraints": "1 <= readings.length <= 500000, -10^9 <= readings[i] <= 10^9",
+  "entry": {
+    "javascript": "strongestStretch",
+    "python": "strongest_stretch"
+  },
+  "starter": {
+    "javascript": "function strongestStretch(readings) {\n  // Largest sum of any contiguous stretch.\n  \n}",
+    "python": "def strongest_stretch(readings):\n    # Largest sum of any contiguous stretch.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "readings = [2, -3, 4, 1]",
+      "output": "5",
+      "explanation": "4 + 1."
+    },
+    {
+      "input": "readings = [-5, -2, -9]",
+      "output": "-2",
+      "explanation": "Every reading is negative, so the best is the single largest."
+    },
+    {
+      "input": "readings = [3]",
+      "output": "3"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          2,
+          -3,
+          4,
+          1
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          -5,
+          -2,
+          -9
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          3
+        ]
+      ]
+    }
+  ],
+  "hints": [
+    "At each position there are only two possibilities: the best stretch ending here extends the one ending just before it, or it starts fresh at this reading.",
+    "Starting your best-so-far at 0 quietly assumes an empty stretch is allowed. The specification says at least one reading, and the all-negative example is there to catch exactly that.",
+    "Keep a running best-ending-here. At each reading, set it to the larger of the reading alone and the reading plus the previous running value. Track the maximum of those across the whole array."
+  ],
+  "perf": {
+    "scale": 500000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 3.34
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "readings",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  }
+}

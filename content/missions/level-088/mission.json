@@ -1,0 +1,79 @@
+{
+  "id": "level_088",
+  "level": 88,
+  "zone": "core",
+  "title": "Transformation Cost",
+  "topic": "dynamic_programming",
+  "difficulty": 6,
+  "prerequisites": [
+    "dynamic_programming"
+  ],
+  "expectedComplexity": "O(n x m)",
+  "story": {
+    "briefing": "The stored instruction has drifted from the original. Each repair — inserting a character, deleting one, or replacing one — costs the Core a cycle. Find the cheapest correction.",
+    "success": "Instruction corrected at minimum cost. The drift is undone."
+  },
+  "description": "Given two strings, return the fewest single-character operations needed to turn the first into the second. The permitted operations are inserting a character, deleting a character, and replacing a character, each costing 1.",
+  "constraints": "0 <= a.length, b.length <= 300, ASCII characters only",
+  "entry": {
+    "javascript": "repairCost",
+    "python": "repair_cost"
+  },
+  "starter": {
+    "javascript": "function repairCost(a, b) {\n  // Fewest insert/delete/replace operations to turn a into b.\n  \n}",
+    "python": "def repair_cost(a, b):\n    # Fewest insert/delete/replace operations to turn a into b.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "a = \"core\", b = \"care\"",
+      "output": "1",
+      "explanation": "Replace o with a."
+    },
+    {
+      "input": "a = \"ab\", b = \"abc\"",
+      "output": "1"
+    },
+    {
+      "input": "a = \"\", b = \"xy\"",
+      "output": "2"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        "core",
+        "care"
+      ]
+    },
+    {
+      "args": [
+        "ab",
+        "abc"
+      ]
+    },
+    {
+      "args": [
+        "",
+        "xy"
+      ]
+    }
+  ],
+  "hints": [
+    "When the current characters match, no operation is needed there. When they differ, three repairs are possible, and you take whichever leads to the cheapest total.",
+    "The edges of the table are not zero here. Turning a string of length i into an empty one costs i deletions, and those base cases carry the whole calculation.",
+    "Fill a table indexed by positions in both strings, with the first row and column counting up from 0. On a match, copy the diagonal; otherwise take one plus the smallest of the diagonal, the left, and the above entries."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "a",
+        "type": "string"
+      },
+      {
+        "name": "b",
+        "type": "string"
+      }
+    ],
+    "returns": "int"
+  }
+}

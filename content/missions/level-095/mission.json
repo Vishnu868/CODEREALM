@@ -1,0 +1,84 @@
+{
+  "id": "level_095",
+  "level": 95,
+  "zone": "core",
+  "title": "Pattern Lock",
+  "topic": "strings",
+  "difficulty": 6,
+  "prerequisites": [
+    "strings"
+  ],
+  "expectedComplexity": "O(n + m)",
+  "story": {
+    "briefing": "The lock scans an enormous stream for its key pattern and counts every occurrence, overlaps included. Anything slower than a single pass times out.",
+    "success": "Pattern counted across the whole stream. The lock disengages."
+  },
+  "description": "Given a stream and a pattern, count how many times the pattern occurs in the stream. Occurrences may overlap, so the pattern \"aa\" occurs twice in \"aaa\". If the pattern is empty or longer than the stream, return 0.\n\nThis level requires linear time: checking the pattern at every position will exceed the limit.",
+  "constraints": "0 <= stream.length <= 300000, 0 <= pattern.length <= 1000, ASCII characters only",
+  "entry": {
+    "javascript": "countPattern",
+    "python": "count_pattern"
+  },
+  "starter": {
+    "javascript": "function countPattern(stream, pattern) {\n  // Occurrences of pattern in stream, overlaps counted.\n  \n}",
+    "python": "def count_pattern(stream, pattern):\n    # Occurrences of pattern in stream, overlaps counted.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "stream = \"aaa\", pattern = \"aa\"",
+      "output": "2",
+      "explanation": "Overlapping occurrences both count."
+    },
+    {
+      "input": "stream = \"abcabc\", pattern = \"abc\"",
+      "output": "2"
+    },
+    {
+      "input": "stream = \"abc\", pattern = \"\"",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        "aaa",
+        "aa"
+      ]
+    },
+    {
+      "args": [
+        "abcabc",
+        "abc"
+      ]
+    },
+    {
+      "args": [
+        "abc",
+        ""
+      ]
+    }
+  ],
+  "hints": [
+    "When a partial match fails, restarting from the next character throws away everything you just learned. Some of what you matched may already be the start of the next occurrence.",
+    "Precompute, for each prefix of the pattern, the length of the longest proper prefix that is also a suffix of it. That table tells you exactly how far to fall back without re-reading the stream.",
+    "Build that fallback table from the pattern alone. Then sweep the stream once, keeping how much of the pattern currently matches: on a mismatch, fall back through the table rather than restarting; on a full match, count it and fall back the same way."
+  ],
+  "perf": {
+    "scale": 300000,
+    "silverFactor": 6,
+    "goldFactor": 3
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "stream",
+        "type": "string"
+      },
+      {
+        "name": "pattern",
+        "type": "string"
+      }
+    ],
+    "returns": "int"
+  }
+}

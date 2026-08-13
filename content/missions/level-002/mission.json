@@ -1,0 +1,72 @@
+{
+  "id": "level_002",
+  "level": 2,
+  "zone": "valley",
+  "title": "Threshold Check",
+  "topic": "conditionals",
+  "difficulty": 1,
+  "prerequisites": [
+    "output"
+  ],
+  "expectedComplexity": "O(1)",
+  "story": {
+    "briefing": "Power is flowing again, but nothing is watching it. Install a monitor that classifies each reading before a surge reaches the next sector.",
+    "success": "Monitor online. The grid can tell safe from dangerous again."
+  },
+  "description": "Given an integer power reading, classify it. Return \"LOW\" if the reading is below 20, \"CRITICAL\" if it is above 80, and \"NOMINAL\" for anything in between — including exactly 20 and exactly 80.",
+  "constraints": "-1000 <= reading <= 1000",
+  "entry": {
+    "javascript": "classify",
+    "python": "classify"
+  },
+  "starter": {
+    "javascript": "function classify(reading) {\n  // Return \"LOW\", \"NOMINAL\", or \"CRITICAL\".\n  \n}",
+    "python": "def classify(reading):\n    # Return \"LOW\", \"NOMINAL\", or \"CRITICAL\".\n    pass"
+  },
+  "examples": [
+    {
+      "input": "reading = 5",
+      "output": "\"LOW\""
+    },
+    {
+      "input": "reading = 20",
+      "output": "\"NOMINAL\"",
+      "explanation": "20 is inclusive, so it is not LOW."
+    },
+    {
+      "input": "reading = 94",
+      "output": "\"CRITICAL\""
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        5
+      ]
+    },
+    {
+      "args": [
+        20
+      ]
+    },
+    {
+      "args": [
+        94
+      ]
+    }
+  ],
+  "hints": [
+    "There are three outcomes, so you need to distinguish three ranges.",
+    "The boundaries are the risky part. Decide carefully what happens at exactly 20 and exactly 80.",
+    "Check \"below 20\" first, then \"above 80\", and let everything remaining fall through to NOMINAL. That ordering handles both boundaries for free."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "reading",
+        "type": "int"
+      }
+    ],
+    "returns": "string"
+  }
+}

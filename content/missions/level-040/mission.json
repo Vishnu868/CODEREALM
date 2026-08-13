@@ -1,0 +1,92 @@
+{
+  "id": "level_040",
+  "level": 40,
+  "zone": "network",
+  "title": "Search on Answer",
+  "topic": "binary_search",
+  "difficulty": 6,
+  "prerequisites": [
+    "binary_search",
+    "greedy"
+  ],
+  "expectedComplexity": "O(n log S)",
+  "story": {
+    "briefing": "The whole backlog must clear in a fixed number of cycles, packets sent strictly in order. Find the smallest per-cycle capacity that still gets everything through in time.",
+    "success": "Minimum capacity found. The backlog clears exactly on schedule, and the network zone falls quiet."
+  },
+  "description": "You are given packet sizes that must be sent in the given order, and a number of cycles. Each cycle you may send any number of packets from the front of the queue, provided their total size does not exceed the capacity. Return the smallest capacity that lets every packet be sent within the given number of cycles. The number of cycles is always at least 1 and never more than the number of packets.",
+  "constraints": "1 <= packets.length <= 50000, 1 <= packets[i] <= 10000, 1 <= cycles <= packets.length",
+  "entry": {
+    "javascript": "minCapacity",
+    "python": "min_capacity"
+  },
+  "starter": {
+    "javascript": "function minCapacity(packets, cycles) {\n  // Smallest workable capacity.\n  \n}",
+    "python": "def min_capacity(packets, cycles):\n    # Smallest workable capacity.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "packets = [1, 2, 3, 4, 5], cycles = 2",
+      "output": "9",
+      "explanation": "Send 1+2+3+... as 1,2,3,4 then 5 needs 10; the best split is 1,2,3 then 4,5 giving 9."
+    },
+    {
+      "input": "packets = [7], cycles = 1",
+      "output": "7"
+    },
+    {
+      "input": "packets = [2, 2, 2], cycles = 3",
+      "output": "2"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        2
+      ]
+    },
+    {
+      "args": [
+        [
+          7
+        ],
+        1
+      ]
+    },
+    {
+      "args": [
+        [
+          2,
+          2,
+          2
+        ],
+        3
+      ]
+    }
+  ],
+  "hints": [
+    "Do not try to construct the best split directly. Ask a simpler question instead: given a specific capacity, can it be done in time? That question is easy to answer greedily.",
+    "The answer to \"is capacity C enough?\" is false for every value below the answer and true for every value above it. That monotonic pattern is exactly what binary search consumes — so search over capacities, not over the array.",
+    "The answer lies between the largest single packet and the sum of all packets. Binary search that range; for each candidate, greedily fill cycles from the front and count how many are needed. Shrink the upper bound when it fits, raise the lower bound when it does not."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "packets",
+        "type": "int[]"
+      },
+      {
+        "name": "cycles",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

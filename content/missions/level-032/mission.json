@@ -1,0 +1,96 @@
+{
+  "id": "level_032",
+  "level": 32,
+  "zone": "network",
+  "title": "Halving Search",
+  "topic": "binary_search",
+  "difficulty": 4,
+  "prerequisites": [
+    "searching"
+  ],
+  "expectedComplexity": "O(q log n)",
+  "story": {
+    "briefing": "The routing table is sorted, and the network queries it constantly. Sweeping it once is fine; sweeping it for every one of ten thousand lookups is not.",
+    "success": "Routing table indexed. Lookups drop from a sweep to a handful of steps."
+  },
+  "description": "You are given an array sorted in strictly increasing order and a list of targets. For each target, return the index where it appears, or -1 if it does not. Return the answers in the same order as the targets.",
+  "constraints": "0 <= table.length <= 1000000, strictly increasing, 0 <= targets.length <= 1000000",
+  "entry": {
+    "javascript": "lookupAll",
+    "python": "lookup_all"
+  },
+  "starter": {
+    "javascript": "function lookupAll(table, targets) {\n  // One index per target, or -1.\n  \n}",
+    "python": "def lookup_all(table, targets):\n    # One index per target, or -1.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "table = [1, 3, 5, 7], targets = [5, 2]",
+      "output": "[2, -1]"
+    },
+    {
+      "input": "table = [], targets = [1]",
+      "output": "[-1]"
+    },
+    {
+      "input": "table = [9], targets = []",
+      "output": "[]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          1,
+          3,
+          5,
+          7
+        ],
+        [
+          5,
+          2
+        ]
+      ]
+    },
+    {
+      "args": [
+        [],
+        [
+          1
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          9
+        ],
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "The table being sorted means one comparison against the middle element eliminates half the remaining candidates.",
+    "Getting the loop to terminate is where most attempts go wrong. Be precise about whether your bounds are inclusive, and make sure the search range shrinks on every single iteration.",
+    "For each target, set lo to 0 and hi to the last index. While lo is not past hi, compare against the middle: return it on a match, move lo past the middle when the middle is too small, otherwise move hi below it. Return -1 if the range empties."
+  ],
+  "perf": {
+    "scale": 1000000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 4.08
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "table",
+        "type": "int[]"
+      },
+      {
+        "name": "targets",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int[]"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "id": "level_071",
+  "level": 71,
+  "zone": "core",
+  "title": "Overlapping Windows",
+  "topic": "greedy",
+  "difficulty": 5,
+  "prerequisites": [
+    "sorting"
+  ],
+  "expectedComplexity": "O(n log n)",
+  "story": {
+    "briefing": "Maintenance windows have been requested all over the Core, and many collide. Approve as many as possible, given that two overlapping windows cannot both run.",
+    "success": "Schedule approved. The maximum number of crews get their slot."
+  },
+  "description": "Given a list of requested windows, each a two-element array [start, end] with start strictly less than end, return the largest number of them that can be approved so that no two approved windows overlap. Two windows that merely touch — one ending exactly when another starts — do not overlap. An empty list returns 0.",
+  "constraints": "0 <= windows.length <= 200000, 0 <= start < end <= 10^9",
+  "entry": {
+    "javascript": "approveWindows",
+    "python": "approve_windows"
+  },
+  "starter": {
+    "javascript": "function approveWindows(windows) {\n  // Largest number of non-overlapping windows.\n  \n}",
+    "python": "def approve_windows(windows):\n    # Largest number of non-overlapping windows.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "windows = [[1, 3], [2, 5], [4, 6]]",
+      "output": "2",
+      "explanation": "Approve [1,3] and [4,6]."
+    },
+    {
+      "input": "windows = [[1, 2], [2, 3]]",
+      "output": "2",
+      "explanation": "Touching is not overlapping."
+    },
+    {
+      "input": "windows = []",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            4,
+            6
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Some order lets you decide each window as you meet it, without ever reconsidering. Think about which window you would always be safe taking first.",
+    "Choosing the earliest start, or the shortest window, both fail on small examples — construct one and check. What matters is which choice leaves the most room afterwards.",
+    "Sort by end time. Walk through keeping the end of the last approval; approve a window whenever its start is at least that value, and update it. Taking the earliest-ending window can never cost you a better solution."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 96.5
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "windows",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int"
+  }
+}

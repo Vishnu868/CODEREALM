@@ -1,0 +1,93 @@
+{
+  "id": "level_089",
+  "level": 89,
+  "zone": "core",
+  "title": "Obstructed Lattice",
+  "topic": "dynamic_programming",
+  "difficulty": 6,
+  "prerequisites": [
+    "dynamic_programming"
+  ],
+  "expectedComplexity": "O(rows x cols)",
+  "story": {
+    "briefing": "The conduit grid again, but sections of it have collapsed. Count the routes that still get through, right and down only.",
+    "success": "Surviving routes counted. The controller reroutes around the collapse."
+  },
+  "description": "Given a grid of 0 (open) and 1 (blocked), count the routes from the top-left cell to the bottom-right cell, moving only right or down and passing through open cells only. Return 0 if either corner is blocked or no route exists.",
+  "constraints": "1 <= rows <= 100, 1 <= columns <= 100",
+  "entry": {
+    "javascript": "openRoutes",
+    "python": "open_routes"
+  },
+  "starter": {
+    "javascript": "function openRoutes(grid) {\n  // Routes from top-left to bottom-right through open cells.\n  \n}",
+    "python": "def open_routes(grid):\n    # Routes from top-left to bottom-right through open cells.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "grid = [[0, 0], [1, 0]]",
+      "output": "1"
+    },
+    {
+      "input": "grid = [[0, 1], [1, 0]]",
+      "output": "0"
+    },
+    {
+      "input": "grid = [[0]]",
+      "output": "1"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            0
+          ]
+        ]
+      ]
+    }
+  ],
+  "hints": [
+    "This is the open-grid route count with one extra rule: a blocked cell has no routes through it at all, whatever its neighbours say.",
+    "Set a blocked cell to zero rather than skipping it, so the cells after it inherit the zero naturally. The first row and column need the same treatment — one block cuts everything beyond it.",
+    "Fill a table in reading order. A blocked cell gets 0. The start cell gets 1 if open. Every other open cell is the sum of the cells above and to its left, treating anything off the grid as 0."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int"
+  }
+}

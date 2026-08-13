@@ -1,0 +1,86 @@
+{
+  "id": "level_083",
+  "level": 83,
+  "zone": "core",
+  "title": "Non-Adjacent Selection",
+  "topic": "dynamic_programming",
+  "difficulty": 5,
+  "prerequisites": [
+    "dynamic_programming"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Draining two neighbouring cells at once collapses the bank. Take the most charge you can without ever taking from two cells side by side.",
+    "success": "Charge drawn at maximum, and the bank holds."
+  },
+  "description": "Given an array of cell charges, choose a set of cells with no two adjacent, maximising the total charge taken. Return that total. All charges are non-negative, and an empty array returns 0.",
+  "constraints": "0 <= cells.length <= 200000, 0 <= cells[i] <= 10000",
+  "entry": {
+    "javascript": "maxCharge",
+    "python": "max_charge"
+  },
+  "starter": {
+    "javascript": "function maxCharge(cells) {\n  // Largest total from non-adjacent cells.\n  \n}",
+    "python": "def max_charge(cells):\n    # Largest total from non-adjacent cells.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "cells = [3, 7, 4, 6]",
+      "output": "13",
+      "explanation": "Take 7 and 6."
+    },
+    {
+      "input": "cells = [5, 1]",
+      "output": "5"
+    },
+    {
+      "input": "cells = []",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          3,
+          7,
+          4,
+          6
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          5,
+          1
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "For each cell there are two possibilities: take it, which rules out its neighbour, or skip it. The best answer up to a cell depends only on the best answers just before it.",
+    "You do not need to know which cells were chosen — only the two running totals: the best including the current cell, and the best excluding it.",
+    "Track two values as you sweep. The new \"including\" is the old \"excluding\" plus this charge; the new \"excluding\" is the larger of the two old values. Return the larger at the end."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 2.82
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "cells",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "id": "level_052",
+  "level": 52,
+  "zone": "forest",
+  "title": "Level Sweep",
+  "topic": "trees",
+  "difficulty": 4,
+  "prerequisites": [
+    "trees",
+    "queues"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Power reaches the lattice one tier at a time. The maintenance crew wants the junctions grouped by how far they sit from the trunk.",
+    "success": "Tiers mapped. The crew works one level at a time."
+  },
+  "description": "Return the values of a binary tree grouped by depth: an array of arrays, where the first holds the root, the second holds its children left to right, and so on. Empty levels never occur. An empty tree returns an empty array. A tree is given as an array where the node at index i has its left child at index 2i+1 and its right child at index 2i+2. A null entry means there is no node there, and nothing exists beneath it. An empty array is an empty tree.",
+  "constraints": "0 <= tree.length <= 200000",
+  "entry": {
+    "javascript": "levelSweep",
+    "python": "level_sweep"
+  },
+  "starter": {
+    "javascript": "function levelSweep(tree) {\n  // Values grouped by depth.\n  \n}",
+    "python": "def level_sweep(tree):\n    # Values grouped by depth.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "tree = [2, 1, 3]",
+      "output": "[[2], [1, 3]]"
+    },
+    {
+      "input": "tree = [5, null, 9]",
+      "output": "[[5], [9]]"
+    },
+    {
+      "input": "tree = []",
+      "output": "[]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          2,
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          5,
+          null,
+          9
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Depth-first recursion visits a whole branch before its siblings, which is the wrong order here. You need to finish each tier before starting the next.",
+    "Process nodes in the order you discovered them — first in, first out. The trick is knowing where one tier ends, which you can do by counting how many nodes are waiting when the tier begins.",
+    "Start a queue holding the root index. While it is not empty, note its current size, take exactly that many nodes as one level, and add each existing child back onto the queue."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "tree",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int[][]"
+  }
+}

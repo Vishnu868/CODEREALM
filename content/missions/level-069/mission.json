@@ -1,0 +1,95 @@
+{
+  "id": "level_069",
+  "level": 69,
+  "zone": "core",
+  "title": "Least-Cost Route",
+  "topic": "shortest_paths",
+  "difficulty": 6,
+  "prerequisites": [
+    "graphs"
+  ],
+  "expectedComplexity": "O(m log n)",
+  "story": {
+    "briefing": "The links no longer cost the same to traverse. Find the cheapest route from the entry node to the Core itself, or establish that none exists.",
+    "success": "Cheapest route computed. Power is rerouted along it immediately."
+  },
+  "description": "A network is given as n nodes numbered 0 to n-1 and an array of edges [u, v, w], each an undirected link between u and v costing w to traverse. Return the smallest total cost of a route from node 0 to node n-1, or -1 if no route exists. When n is 1 the answer is 0.",
+  "constraints": "1 <= n <= 100000, 0 <= edges.length <= 200000, 1 <= w <= 1000",
+  "entry": {
+    "javascript": "cheapestRoute",
+    "python": "cheapest_route"
+  },
+  "starter": {
+    "javascript": "function cheapestRoute(n, edges) {\n  // Cheapest total cost from 0 to n-1, or -1.\n  \n}",
+    "python": "def cheapest_route(n, edges):\n    # Cheapest total cost from 0 to n-1, or -1.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "n = 3, edges = [[0, 1, 4], [1, 2, 1], [0, 2, 9]]",
+      "output": "5",
+      "explanation": "Going through node 1 costs 5, which beats the direct link at 9."
+    },
+    {
+      "input": "n = 2, edges = []",
+      "output": "-1"
+    },
+    {
+      "input": "n = 1, edges = []",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        3,
+        [
+          [
+            0,
+            1,
+            4
+          ],
+          [
+            1,
+            2,
+            1
+          ],
+          [
+            0,
+            2,
+            9
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        2,
+        []
+      ]
+    },
+    {
+      "args": [
+        1,
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Counting hops no longer works, because a route with more links can be cheaper. You need to always extend whichever reached node currently has the lowest total cost.",
+    "Once a node is settled with the lowest cost, that cost can never improve — provided every cost is positive, which the constraints guarantee. That is what lets you finalise nodes one at a time.",
+    "Keep tentative costs, all starting at infinity except node 0 at zero. Repeatedly take the unsettled node with the smallest tentative cost, settle it, and try to improve each neighbour. A heap or sorted structure keeps the \"smallest\" step cheap."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "edges",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int"
+  }
+}

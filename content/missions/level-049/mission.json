@@ -1,0 +1,86 @@
+{
+  "id": "level_049",
+  "level": 49,
+  "zone": "network",
+  "title": "Monotonic Scan",
+  "topic": "stacks",
+  "difficulty": 6,
+  "prerequisites": [
+    "stacks"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "For every reading, the operators want to know the next one that exceeds it. Asked one at a time it is trivial; asked for all of them at once it is a different problem.",
+    "success": "Every reading paired with its successor. The scan completes in a single sweep."
+  },
+  "description": "Given an array of readings, return an array of the same length where each position holds the first reading to its right that is strictly greater than it. Use -1 where no such reading exists. An empty array returns an empty array.",
+  "constraints": "0 <= readings.length <= 300000, -10^9 <= readings[i] <= 10^9",
+  "entry": {
+    "javascript": "nextGreater",
+    "python": "next_greater"
+  },
+  "starter": {
+    "javascript": "function nextGreater(readings) {\n  // For each reading, the next strictly greater one to its right, or -1.\n  \n}",
+    "python": "def next_greater(readings):\n    # For each reading, the next strictly greater one to its right, or -1.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "readings = [2, 5, 3, 4]",
+      "output": "[5, -1, 4, -1]"
+    },
+    {
+      "input": "readings = [3, 3]",
+      "output": "[-1, -1]",
+      "explanation": "Equal is not greater."
+    },
+    {
+      "input": "readings = []",
+      "output": "[]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          2,
+          5,
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          3,
+          3
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Scanning right from every position re-reads the same values over and over. Instead, think about which earlier positions are still waiting for an answer.",
+    "A position is still waiting only while everything since has been no greater than it. Those waiting positions form a decreasing sequence, which is what makes a stack the right structure.",
+    "Walk the array keeping a stack of positions still waiting. For each new reading, pop every waiting position whose value is smaller and answer it with the current reading. Then push the current position. Anything still waiting at the end gets -1."
+  ],
+  "perf": {
+    "scale": 300000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 6.46
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "readings",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int[]"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "id": "level_082",
+  "level": 82,
+  "zone": "core",
+  "title": "Lattice Routes",
+  "topic": "dynamic_programming",
+  "difficulty": 5,
+  "prerequisites": [
+    "dynamic_programming"
+  ],
+  "expectedComplexity": "O(rows x cols)",
+  "story": {
+    "briefing": "The conduit grid only carries flow rightward and downward. Count the routes from the top-left junction to the bottom-right one.",
+    "success": "Routes counted. The flow controller balances them evenly."
+  },
+  "description": "On a grid with the given number of rows and columns, count the distinct routes from the top-left cell to the bottom-right cell, moving only one cell right or one cell down at a time. A grid with a single cell has exactly one route: stay put.",
+  "constraints": "1 <= rows <= 15, 1 <= cols <= 15",
+  "entry": {
+    "javascript": "countRoutes",
+    "python": "count_routes"
+  },
+  "starter": {
+    "javascript": "function countRoutes(rows, cols) {\n  // Routes from top-left to bottom-right, moving right or down.\n  \n}",
+    "python": "def count_routes(rows, cols):\n    # Routes from top-left to bottom-right, moving right or down.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "rows = 2, cols = 3",
+      "output": "3"
+    },
+    {
+      "input": "rows = 1, cols = 5",
+      "output": "1",
+      "explanation": "One straight line, no choices."
+    },
+    {
+      "input": "rows = 1, cols = 1",
+      "output": "1"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        2,
+        3
+      ]
+    },
+    {
+      "args": [
+        1,
+        5
+      ]
+    },
+    {
+      "args": [
+        1,
+        1
+      ]
+    }
+  ],
+  "hints": [
+    "Any route into a cell arrived either from the cell above it or the cell to its left. So a cell count is the sum of those two.",
+    "The top row and the leftmost column have only one incoming direction each, so every one of those cells has exactly one route. Getting those edges right is most of the work.",
+    "Build a table the size of the grid. Fill the first row and first column with 1, then fill the rest left to right, top to bottom, each cell being the sum of the one above and the one to its left."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "rows",
+        "type": "int"
+      },
+      {
+        "name": "cols",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

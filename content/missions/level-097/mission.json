@@ -1,0 +1,85 @@
+{
+  "id": "level_097",
+  "level": 97,
+  "zone": "core",
+  "title": "Bitmask Assignment",
+  "topic": "dynamic_programming",
+  "difficulty": 6,
+  "prerequisites": [
+    "dynamic_programming"
+  ],
+  "expectedComplexity": "O(n x 2^n)",
+  "story": {
+    "briefing": "Every crew must take exactly one task, and every task exactly one crew. The costs differ for each pairing. Find the cheapest complete assignment.",
+    "success": "Assignment locked at minimum cost. Every crew moves out."
+  },
+  "description": "You are given an n by n cost grid where entry [i][j] is the cost of giving task j to crew i. Assign each crew exactly one distinct task and return the smallest possible total cost. An empty grid returns 0.",
+  "constraints": "0 <= n <= 12, 0 <= cost <= 10000",
+  "entry": {
+    "javascript": "cheapestAssignment",
+    "python": "cheapest_assignment"
+  },
+  "starter": {
+    "javascript": "function cheapestAssignment(costs) {\n  // Smallest total cost of a one-to-one assignment.\n  \n}",
+    "python": "def cheapest_assignment(costs):\n    # Smallest total cost of a one-to-one assignment.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "costs = [[4, 1], [2, 3]]",
+      "output": "3",
+      "explanation": "Crew 0 takes task 1, crew 1 takes task 0."
+    },
+    {
+      "input": "costs = [[7]]",
+      "output": "7"
+    },
+    {
+      "input": "costs = []",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          [
+            4,
+            1
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            7
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Giving each crew its own cheapest task fails, because two crews may want the same one. Every assignment has to be considered against the others.",
+    "The only thing that matters when assigning crew i is *which set* of tasks is already taken, not the order they were taken in. A set of up to 12 tasks fits in the bits of a single integer.",
+    "Index the state by a bitmask of used tasks. The number of bits set tells you which crew is being assigned. For each free task, take the best of the current cost plus the state with that bit added."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "costs",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int"
+  }
+}

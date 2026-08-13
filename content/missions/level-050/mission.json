@@ -1,0 +1,89 @@
+{
+  "id": "level_050",
+  "level": 50,
+  "zone": "network",
+  "title": "THE HALF-CORE",
+  "topic": "stacks",
+  "difficulty": 6,
+  "prerequisites": [
+    "stacks",
+    "arrays"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Halfway. The Half-Core is a wall of columns of differing heights, and the largest single rectangular panel that fits against it will seal the breach. Every column it spans must be at least as tall as the panel.",
+    "success": "Panel cut to size. The Half-Core seals, and for the first time the lights ahead are visible."
+  },
+  "description": "Given an array of column heights, all of equal width 1, find the largest rectangular area that fits entirely within the columns. A rectangle spanning a range of columns is limited by the shortest column in that range, so its area is that shortest height multiplied by the number of columns spanned. An empty array returns 0.",
+  "constraints": "0 <= heights.length <= 300000, 0 <= heights[i] <= 10^9",
+  "entry": {
+    "javascript": "largestPanel",
+    "python": "largest_panel"
+  },
+  "starter": {
+    "javascript": "function largestPanel(heights) {\n  // Largest rectangular area fitting within the columns.\n  \n}",
+    "python": "def largest_panel(heights):\n    # Largest rectangular area fitting within the columns.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "heights = [2, 1, 5, 6, 2, 3]",
+      "output": "10",
+      "explanation": "Columns 5 and 6 give a height of 5 across 2 columns."
+    },
+    {
+      "input": "heights = [4]",
+      "output": "4"
+    },
+    {
+      "input": "heights = []",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          2,
+          1,
+          5,
+          6,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          4
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Every possible panel is limited by exactly one column — its shortest. So ask, for each column: how far left and right can a panel of that height extend?",
+    "The boundaries you need are the nearest strictly shorter column on each side. That is the same shape of question as the previous level, which is why a stack solves it in one pass.",
+    "Keep a stack of positions whose heights are increasing. When a shorter column arrives, pop each taller position and compute its area: its height times the distance between the new position and the position now below it on the stack. Flush the stack at the end the same way."
+  ],
+  "perf": {
+    "scale": 300000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 6.64
+  },
+  "milestone": "midpoint",
+  "signature": {
+    "params": [
+      {
+        "name": "heights",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  }
+}

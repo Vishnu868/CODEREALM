@@ -1,0 +1,73 @@
+{
+  "id": "level_041",
+  "level": 41,
+  "zone": "network",
+  "title": "Descent",
+  "topic": "recursion",
+  "difficulty": 4,
+  "prerequisites": [
+    "functions"
+  ],
+  "expectedComplexity": "O(log n)",
+  "story": {
+    "briefing": "The shaft descends in halves. A reading that is even drops to half its value; an odd one steps down by one. Count the drops until it reaches the floor.",
+    "success": "Descent counted. The shaft opens onto the lower network."
+  },
+  "description": "Starting from an integer n, repeatedly apply one rule: if the value is even, halve it; if it is odd, subtract 1. Return how many steps it takes to reach 1. If n is already 1, the answer is 0.",
+  "constraints": "1 <= n <= 1000000",
+  "entry": {
+    "javascript": "descend",
+    "python": "descend"
+  },
+  "starter": {
+    "javascript": "function descend(n) {\n  // Steps to bring n down to 1.\n  \n}",
+    "python": "def descend(n):\n    # Steps to bring n down to 1.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "n = 6",
+      "output": "3",
+      "explanation": "6 → 3 → 2 → 1."
+    },
+    {
+      "input": "n = 1",
+      "output": "0"
+    },
+    {
+      "input": "n = 8",
+      "output": "3",
+      "explanation": "8 → 4 → 2 → 1."
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        6
+      ]
+    },
+    {
+      "args": [
+        1
+      ]
+    },
+    {
+      "args": [
+        8
+      ]
+    }
+  ],
+  "hints": [
+    "A recursive solution needs two things: a case that stops, and a case that makes the problem smaller. Identify both before writing anything.",
+    "Every step must strictly reduce the value, or the recursion never ends. Check that both rules do that — including the odd rule.",
+    "If n is 1, return 0. Otherwise return 1 plus the result of calling yourself with n halved when even, or n minus 1 when odd."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

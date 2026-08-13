@@ -1,0 +1,98 @@
+{
+  "id": "level_085",
+  "level": 85,
+  "zone": "core",
+  "title": "Capacity Allocation",
+  "topic": "dynamic_programming",
+  "difficulty": 6,
+  "prerequisites": [
+    "dynamic_programming"
+  ],
+  "expectedComplexity": "O(n x capacity)",
+  "story": {
+    "briefing": "One transport, a fixed mass allowance, and a yard full of salvage. Each piece can be taken once or left. Maximise the value carried.",
+    "success": "Transport loaded to maximum value. The yard signs it off."
+  },
+  "description": "Given arrays of item masses and item values of equal length, and a mass capacity, choose a subset of items whose total mass does not exceed the capacity while maximising total value. Each item may be taken at most once. Return the largest achievable value.",
+  "constraints": "0 <= masses.length <= 300, 1 <= mass <= 1000, 0 <= value <= 10000, 0 <= capacity <= 3000",
+  "entry": {
+    "javascript": "bestLoad",
+    "python": "best_load"
+  },
+  "starter": {
+    "javascript": "function bestLoad(masses, values, capacity) {\n  // Largest value within the mass capacity.\n  \n}",
+    "python": "def best_load(masses, values, capacity):\n    # Largest value within the mass capacity.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "masses = [3, 4], values = [5, 6], capacity = 5",
+      "output": "6",
+      "explanation": "Only one item fits; the heavier one is worth more."
+    },
+    {
+      "input": "masses = [1, 2], values = [1, 9], capacity = 3",
+      "output": "10"
+    },
+    {
+      "input": "masses = [], values = [], capacity = 7",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          3,
+          4
+        ],
+        [
+          5,
+          6
+        ],
+        5
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          9
+        ],
+        3
+      ]
+    },
+    {
+      "args": [
+        [],
+        [],
+        7
+      ]
+    }
+  ],
+  "hints": [
+    "Taking items in order of value, or of value per unit mass, both fail — each item is all or nothing, so a greedy choice can block a better pair.",
+    "For every item there are two branches: take it, using up its mass, or leave it. Track the best value achievable for each remaining capacity.",
+    "Keep an array indexed by capacity. For each item, update that array once. Sweep the capacities downward while doing so, or the same item will be taken more than once."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "masses",
+        "type": "int[]"
+      },
+      {
+        "name": "values",
+        "type": "int[]"
+      },
+      {
+        "name": "capacity",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

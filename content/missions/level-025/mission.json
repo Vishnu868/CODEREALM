@@ -1,0 +1,96 @@
+{
+  "id": "level_025",
+  "level": 25,
+  "zone": "forest",
+  "title": "Balanced Segment",
+  "topic": "prefix_sums",
+  "difficulty": 5,
+  "prerequisites": [
+    "prefix_sums",
+    "hashing"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "A segment of the canopy is balanced when its readings sum to exactly the calibration constant. Nobody knows how many such segments there are, and the Core wants the count.",
+    "success": "Balanced segments counted. The canopy reports itself stable."
+  },
+  "description": "Given an array of readings and a target, count how many contiguous segments sum to exactly the target. Segments are identified by their start and end positions, so two different position ranges count separately even when they contain the same values. An empty array has no segments and returns 0.",
+  "constraints": "0 <= readings.length <= 200000, -1000 <= readings[i] <= 1000, -10^9 <= target <= 10^9",
+  "entry": {
+    "javascript": "balancedSegments",
+    "python": "balanced_segments"
+  },
+  "starter": {
+    "javascript": "function balancedSegments(readings, target) {\n  // Count contiguous segments summing to target.\n  \n}",
+    "python": "def balanced_segments(readings, target):\n    # Count contiguous segments summing to target.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "readings = [1, 1, 1], target = 2",
+      "output": "2",
+      "explanation": "Positions 0-1 and positions 1-2."
+    },
+    {
+      "input": "readings = [0, 0], target = 0",
+      "output": "3",
+      "explanation": "Two single-element segments and the whole array."
+    },
+    {
+      "input": "readings = [5], target = 3",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          1,
+          1,
+          1
+        ],
+        2
+      ]
+    },
+    {
+      "args": [
+        [
+          0,
+          0
+        ],
+        0
+      ]
+    },
+    {
+      "args": [
+        [
+          5
+        ],
+        3
+      ]
+    }
+  ],
+  "hints": [
+    "A segment sum is the difference of two running totals. So the question becomes: how many earlier running totals differ from the current one by exactly the target?",
+    "Counting how many times each running total has occurred turns that question into a lookup. Note that negative readings mean running totals can repeat and go back down, so a sliding window will not work here.",
+    "Keep a running total and a map counting how often each running total has been seen, starting with total 0 seen once. At each step add the count of running total minus target, then record the current running total."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 6.39
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "readings",
+        "type": "int[]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

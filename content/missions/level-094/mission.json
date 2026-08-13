@@ -1,0 +1,102 @@
+{
+  "id": "level_094",
+  "level": 94,
+  "zone": "core",
+  "title": "Layered Route",
+  "topic": "graphs",
+  "difficulty": 6,
+  "prerequisites": [
+    "graphs",
+    "dynamic_programming"
+  ],
+  "expectedComplexity": "O(rows x cols x k)",
+  "story": {
+    "briefing": "The last corridor is blocked, but the crew carries charges. Each charge clears one obstruction. Find the shortest walk to the exit given how many charges you hold.",
+    "success": "Route cleared with charges to spare. The way to the Core stands open."
+  },
+  "description": "Given a grid of 0 (open) and 1 (blocked) and a number of charges k, return the fewest steps from the top-left cell to the bottom-right cell, moving up, down, left or right. Entering a blocked cell consumes one charge, and you may not enter one with no charges left. The starting cell never needs a charge. Return -1 if the exit cannot be reached.",
+  "constraints": "1 <= rows, columns <= 40, 0 <= k <= 20",
+  "entry": {
+    "javascript": "layeredRoute",
+    "python": "layered_route"
+  },
+  "starter": {
+    "javascript": "function layeredRoute(grid, k) {\n  // Fewest steps to the exit using at most k charges, or -1.\n  \n}",
+    "python": "def layered_route(grid, k):\n    # Fewest steps to the exit using at most k charges, or -1.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "grid = [[0, 1], [1, 0]], k = 1",
+      "output": "2",
+      "explanation": "One charge clears one blocked cell."
+    },
+    {
+      "input": "grid = [[0, 1], [1, 0]], k = 0",
+      "output": "-1"
+    },
+    {
+      "input": "grid = [[0]], k = 0",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        1
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        0
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            0
+          ]
+        ],
+        0
+      ]
+    }
+  ],
+  "hints": [
+    "Arriving at a cell is no longer one situation. Arriving with three charges left is genuinely different from arriving with none, and the two must be tracked separately.",
+    "Add the charges remaining as a third dimension to your visited marker. Without it, an early wasteful route blocks a later thrifty one that would have reached further.",
+    "Run a breadth-first search over states of cell plus charges remaining. Moving into an open cell keeps the count; moving into a blocked cell spends one and is forbidden at zero. The first arrival at the exit in any state is the answer."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

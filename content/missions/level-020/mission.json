@@ -1,0 +1,90 @@
+{
+  "id": "level_020",
+  "level": 20,
+  "zone": "district",
+  "title": "Array Gate",
+  "topic": "mixed",
+  "difficulty": 4,
+  "prerequisites": [
+    "arrays",
+    "loops"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "The gate out of the district only opens for a rising signal. It wants the length of the longest uninterrupted climb anywhere in the stream.",
+    "success": "Longest climb accepted. The gate grinds open onto the forest beyond."
+  },
+  "description": "Given an array of readings, return the length of the longest run of consecutive readings that is strictly increasing. A single reading counts as a run of length 1. An empty array returns 0.",
+  "constraints": "0 <= readings.length <= 2000000, -10^9 <= readings[i] <= 10^9",
+  "entry": {
+    "javascript": "longestClimb",
+    "python": "longest_climb"
+  },
+  "starter": {
+    "javascript": "function longestClimb(readings) {\n  // Length of the longest strictly increasing consecutive run.\n  \n}",
+    "python": "def longest_climb(readings):\n    # Length of the longest strictly increasing consecutive run.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "readings = [1, 2, 5, 3, 4]",
+      "output": "3",
+      "explanation": "1, 2, 5 is the longest climb."
+    },
+    {
+      "input": "readings = [9, 9, 9]",
+      "output": "1",
+      "explanation": "Equal is not increasing."
+    },
+    {
+      "input": "readings = []",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          5,
+          3,
+          4
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          9,
+          9,
+          9
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "This is the same shape as finding the longest run of a repeated character — only the test for \"does this element continue the run\" has changed.",
+    "A run of length 1 is always available, so the answer for a non-empty array is never 0. Decide what your best-so-far starts at.",
+    "Track the current run length and the best seen. When readings[i] is strictly greater than readings[i - 1], extend the current run; otherwise reset it to 1. Update the best each step."
+  ],
+  "perf": {
+    "scale": 2000000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 5.03
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "readings",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  }
+}

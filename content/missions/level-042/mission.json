@@ -1,0 +1,79 @@
+{
+  "id": "level_042",
+  "level": 42,
+  "zone": "network",
+  "title": "Self-Similar Structure",
+  "topic": "recursion",
+  "difficulty": 5,
+  "prerequisites": [
+    "recursion"
+  ],
+  "expectedComplexity": "O(log e)",
+  "story": {
+    "briefing": "The amplifier chains into itself. Raising the gain by an exponent one multiplication at a time works, but the structure of the problem allows something far shorter.",
+    "success": "Gain computed in a handful of steps. The amplifier holds."
+  },
+  "description": "Compute base raised to the power exp, where exp is a non-negative integer, and return the exact result. Any value raised to the power 0 is 1.",
+  "constraints": "-3 <= base <= 3, 0 <= exp <= 30",
+  "entry": {
+    "javascript": "gain",
+    "python": "gain"
+  },
+  "starter": {
+    "javascript": "function gain(base, exp) {\n  // base raised to the power exp.\n  \n}",
+    "python": "def gain(base, exp):\n    # base raised to the power exp.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "base = 2, exp = 10",
+      "output": "1024"
+    },
+    {
+      "input": "base = 3, exp = 0",
+      "output": "1"
+    },
+    {
+      "input": "base = -2, exp = 3",
+      "output": "-8",
+      "explanation": "An odd power keeps the sign."
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        2,
+        10
+      ]
+    },
+    {
+      "args": [
+        3,
+        0
+      ]
+    },
+    {
+      "args": [
+        -2,
+        3
+      ]
+    }
+  ],
+  "hints": [
+    "Raising to an even power is the same as squaring the result of raising to half that power. That halving is what makes this logarithmic rather than linear.",
+    "Compute the half-power once and reuse it. Calling yourself twice with the same argument throws the saving away and makes the work exponential.",
+    "If exp is 0 return 1. Otherwise compute half as the result for exp divided by two, rounded down. Return half times half when exp is even, and base times half times half when it is odd."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "base",
+        "type": "int"
+      },
+      {
+        "name": "exp",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

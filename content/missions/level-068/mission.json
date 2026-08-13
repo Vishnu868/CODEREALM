@@ -1,0 +1,93 @@
+{
+  "id": "level_068",
+  "level": 68,
+  "zone": "core",
+  "title": "Dependency Order",
+  "topic": "graphs",
+  "difficulty": 6,
+  "prerequisites": [
+    "graphs"
+  ],
+  "expectedComplexity": "O(n log n + m)",
+  "story": {
+    "briefing": "The repair tasks depend on one another. Produce an order that never starts a task before its prerequisites are done — and where several are ready at once, take the lowest-numbered first so the crew never argues.",
+    "success": "Schedule published. The crew works through it without a single conflict."
+  },
+  "description": "You are given n tasks numbered 0 to n-1 and a list of directed edges [u, v] meaning task u must finish before task v begins. The dependencies never form a cycle. Return a valid order as an array of all n tasks. Whenever several tasks are ready at the same time, the lowest-numbered one comes first, which makes the answer unique.",
+  "constraints": "1 <= n <= 100000, 0 <= edges.length <= 200000, the graph is acyclic",
+  "entry": {
+    "javascript": "schedule",
+    "python": "schedule"
+  },
+  "starter": {
+    "javascript": "function schedule(n, edges) {\n  // A valid task order, lowest-numbered ready task first.\n  \n}",
+    "python": "def schedule(n, edges):\n    # A valid task order, lowest-numbered ready task first.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "n = 3, edges = [[0, 2], [1, 2]]",
+      "output": "[0, 1, 2]",
+      "explanation": "0 and 1 are both ready first, so the lower number goes first."
+    },
+    {
+      "input": "n = 2, edges = [[1, 0]]",
+      "output": "[1, 0]"
+    },
+    {
+      "input": "n = 1, edges = []",
+      "output": "[0]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        3,
+        [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        2,
+        [
+          [
+            1,
+            0
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        1,
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "A task is ready when nothing is still waiting to finish before it. Counting how many prerequisites each task has left is the natural way to track that.",
+    "When a task completes, only its direct dependents can become ready. Rescanning everything after each step is the slow way to find them.",
+    "Count incoming edges per task. Keep the ready tasks in a structure that always yields the smallest. Take the smallest, append it, and decrement each dependent count, adding any that reach zero."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "edges",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int[]"
+  }
+}

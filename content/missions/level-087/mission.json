@@ -1,0 +1,79 @@
+{
+  "id": "level_087",
+  "level": 87,
+  "zone": "core",
+  "title": "Shared Sequence",
+  "topic": "dynamic_programming",
+  "difficulty": 6,
+  "prerequisites": [
+    "dynamic_programming"
+  ],
+  "expectedComplexity": "O(n x m)",
+  "story": {
+    "briefing": "Two damaged copies of the same instruction survive. What both agree on, read in order, is the most that can be trusted.",
+    "success": "Shared instruction recovered. The Core accepts what both copies agree on."
+  },
+  "description": "Given two strings, return the length of the longest sequence of characters appearing in both, in the same order, though not necessarily consecutively. If either string is empty, the answer is 0.",
+  "constraints": "0 <= a.length, b.length <= 300, ASCII characters only",
+  "entry": {
+    "javascript": "sharedLength",
+    "python": "shared_length"
+  },
+  "starter": {
+    "javascript": "function sharedLength(a, b) {\n  // Length of the longest common subsequence.\n  \n}",
+    "python": "def shared_length(a, b):\n    # Length of the longest common subsequence.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "a = \"relay\", b = \"delay\"",
+      "output": "4",
+      "explanation": "e, l, a, y."
+    },
+    {
+      "input": "a = \"abc\", b = \"cba\"",
+      "output": "1"
+    },
+    {
+      "input": "a = \"\", b = \"core\"",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        "relay",
+        "delay"
+      ]
+    },
+    {
+      "args": [
+        "abc",
+        "cba"
+      ]
+    },
+    {
+      "args": [
+        "",
+        "core"
+      ]
+    }
+  ],
+  "hints": [
+    "Compare the two strings one character at a time from the ends. If the characters match, that match is always safe to take; if not, you must try dropping one character from either string.",
+    "Written as plain recursion the two branches overlap enormously. The answer for any pair of positions depends only on positions after them, so each pair needs computing once.",
+    "Build a table indexed by positions in both strings. When characters match, the entry is one more than the diagonal neighbour; otherwise it is the larger of the neighbour above and the one to the left."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "a",
+        "type": "string"
+      },
+      {
+        "name": "b",
+        "type": "string"
+      }
+    ],
+    "returns": "int"
+  }
+}

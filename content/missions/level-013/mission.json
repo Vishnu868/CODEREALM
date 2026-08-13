@@ -1,0 +1,73 @@
+{
+  "id": "level_013",
+  "level": 13,
+  "zone": "district",
+  "title": "Mirror Check",
+  "topic": "strings",
+  "difficulty": 3,
+  "prerequisites": [
+    "strings"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Authentication here uses mirror codes. A valid code reads the same in both directions once you strip the formatting the operators used to add.",
+    "success": "Mirror verified. The archive doors accept you."
+  },
+  "description": "Determine whether a string is a mirror code. Ignore every character that is not a letter or a digit, and treat uppercase and lowercase letters as the same. Return true if what remains reads identically forwards and backwards. A string with no letters or digits at all counts as a mirror and returns true.",
+  "constraints": "0 <= code.length <= 100000, ASCII characters only",
+  "entry": {
+    "javascript": "isMirror",
+    "python": "is_mirror"
+  },
+  "starter": {
+    "javascript": "function isMirror(code) {\n  // Return true or false.\n  \n}",
+    "python": "def is_mirror(code):\n    # Return True or False.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "code = \"Relay-1-yaler\"",
+      "output": "true",
+      "explanation": "Stripped and lowercased this is relay1yaler."
+    },
+    {
+      "input": "code = \"core\"",
+      "output": "false"
+    },
+    {
+      "input": "code = \"--\"",
+      "output": "true",
+      "explanation": "Nothing remains after stripping, which counts as a mirror."
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        "Relay-1-yaler"
+      ]
+    },
+    {
+      "args": [
+        "core"
+      ]
+    },
+    {
+      "args": [
+        "--"
+      ]
+    }
+  ],
+  "hints": [
+    "Two separate jobs: decide which characters count, then decide whether what is left is symmetric. Doing them one at a time is much easier than doing both at once.",
+    "Case folding has to happen before comparing, or \"Aa\" fails when it should pass. Watch what your language considers a letter or digit.",
+    "Build a cleaned string of lowercase letters and digits only. Then compare the character at each position with the one the same distance from the end, walking two pointers inwards until they meet."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "code",
+        "type": "string"
+      }
+    ],
+    "returns": "bool"
+  }
+}

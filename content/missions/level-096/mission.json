@@ -1,0 +1,94 @@
+{
+  "id": "level_096",
+  "level": 96,
+  "zone": "core",
+  "title": "Equal Distribution",
+  "topic": "backtracking",
+  "difficulty": 6,
+  "prerequisites": [
+    "backtracking"
+  ],
+  "expectedComplexity": "exponential with pruning",
+  "story": {
+    "briefing": "The remaining charge must be split evenly between k banks, using every cell exactly once. Either it can be done or it cannot — and finding out needs pruning, not patience.",
+    "success": "Charge distributed evenly. Every bank reads the same figure."
+  },
+  "description": "Given an array of cell charges and a bank count k, decide whether the cells can be divided into exactly k groups with identical totals. Every cell must go into exactly one group, and no group may be empty. Return true or false. If k is larger than the number of cells, the answer is false.",
+  "constraints": "1 <= cells.length <= 16, 1 <= k <= 16, 1 <= charge <= 1000",
+  "entry": {
+    "javascript": "canDistribute",
+    "python": "can_distribute"
+  },
+  "starter": {
+    "javascript": "function canDistribute(cells, k) {\n  // True if the cells split into k equal-total groups.\n  \n}",
+    "python": "def can_distribute(cells, k):\n    # True if the cells split into k equal-total groups.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "cells = [4, 3, 2, 3, 5, 2, 1], k = 4",
+      "output": "true",
+      "explanation": "Four groups of 5."
+    },
+    {
+      "input": "cells = [1, 1, 1], k = 2",
+      "output": "false",
+      "explanation": "A total of 3 cannot split into two equal groups."
+    },
+    {
+      "input": "cells = [5], k = 1",
+      "output": "true"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          4,
+          3,
+          2,
+          3,
+          5,
+          2,
+          1
+        ],
+        4
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          1,
+          1
+        ],
+        2
+      ]
+    },
+    {
+      "args": [
+        [
+          5
+        ],
+        1
+      ]
+    }
+  ],
+  "hints": [
+    "Two checks rule out most inputs before any searching: the total must divide evenly by k, and no single cell may exceed the target group total.",
+    "Fill one group at a time rather than assigning cells to arbitrary groups — it collapses a huge number of equivalent arrangements into one.",
+    "Sort descending and place the largest remaining cell first; a cell that fits nowhere fails immediately rather than after exploring. Track which cells are used, fill a group until it reaches the target, then start the next."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "cells",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": "bool"
+  }
+}

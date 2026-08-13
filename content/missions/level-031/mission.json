@@ -1,0 +1,86 @@
+{
+  "id": "level_031",
+  "level": 31,
+  "zone": "network",
+  "title": "Linear Sweep",
+  "topic": "searching",
+  "difficulty": 2,
+  "prerequisites": [
+    "arrays"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "The network zone keeps no index at all. Before anything clever, the simplest possible search has to work correctly.",
+    "success": "Sweep confirmed. The network admits you know where to look."
+  },
+  "description": "Given an array of values and a target, return the index of the first occurrence of the target. If the target does not appear, return -1.",
+  "constraints": "0 <= values.length <= 200000, -10^9 <= values[i] <= 10^9",
+  "entry": {
+    "javascript": "sweepFind",
+    "python": "sweep_find"
+  },
+  "starter": {
+    "javascript": "function sweepFind(values, target) {\n  // Index of the first occurrence, or -1.\n  \n}",
+    "python": "def sweep_find(values, target):\n    # Index of the first occurrence, or -1.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "values = [4, 7, 4], target = 4",
+      "output": "0",
+      "explanation": "The first occurrence, not the last."
+    },
+    {
+      "input": "values = [1, 2], target = 9",
+      "output": "-1"
+    },
+    {
+      "input": "values = [], target = 1",
+      "output": "-1"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          4,
+          7,
+          4
+        ],
+        4
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ],
+        9
+      ]
+    },
+    {
+      "args": [
+        [],
+        1
+      ]
+    }
+  ],
+  "hints": [
+    "Walk from the start and stop the moment you find a match. Which end you start from decides whether you get the first occurrence or the last.",
+    "Returning at the end of the loop instead of the moment you match gives you the last occurrence, not the first.",
+    "Loop i from 0 upward. Return i as soon as values[i] equals the target. If the loop completes without a match, return -1."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "values",
+        "type": "int[]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

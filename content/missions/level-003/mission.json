@@ -1,0 +1,72 @@
+{
+  "id": "level_003",
+  "level": 3,
+  "zone": "valley",
+  "title": "Diagnostic Sweep",
+  "topic": "loops",
+  "difficulty": 2,
+  "prerequisites": [
+    "conditionals"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Sector 3 stores its charge across a numbered bank of cells. The Core will not route power any further without a total.",
+    "success": "Charge total accepted. Sector 3 releases the lock."
+  },
+  "description": "Return the sum of every integer from 1 up to and including n. If n is less than 1, return 0.",
+  "constraints": "-100 <= n <= 100000",
+  "entry": {
+    "javascript": "sweep",
+    "python": "sweep"
+  },
+  "starter": {
+    "javascript": "function sweep(n) {\n  // Total the cells from 1 to n.\n  \n}",
+    "python": "def sweep(n):\n    # Total the cells from 1 to n.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "n = 5",
+      "output": "15",
+      "explanation": "1 + 2 + 3 + 4 + 5"
+    },
+    {
+      "input": "n = 1",
+      "output": "1"
+    },
+    {
+      "input": "n = -4",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        5
+      ]
+    },
+    {
+      "args": [
+        1
+      ]
+    },
+    {
+      "args": [
+        -4
+      ]
+    }
+  ],
+  "hints": [
+    "Keep a running total and add to it once per cell.",
+    "Your loop needs to include n itself, not stop just before it. Off-by-one errors live here.",
+    "Start a total at 0, loop i from 1 through n adding each i, then return the total. A negative n means the loop never runs, which already returns 0."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

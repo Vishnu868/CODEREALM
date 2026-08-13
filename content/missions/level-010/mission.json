@@ -1,0 +1,86 @@
+{
+  "id": "level_010",
+  "level": 10,
+  "zone": "valley",
+  "title": "Boot Sequence",
+  "topic": "mixed",
+  "difficulty": 3,
+  "prerequisites": [
+    "loops",
+    "conditionals",
+    "arrays"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Ten sectors, ten repairs. The Core will attempt a restart, but it will only trust readings that sit inside the safe band — and it refuses to boot on no evidence at all.",
+    "success": "Boot sequence accepted. Beginner Valley is fully lit, and the gate ahead begins to cycle open."
+  },
+  "description": "Given an array of readings, add up only those that fall within the safe band from 20 to 80, including both ends, and return that total. If no reading falls inside the band, return -1 instead of 0, so the caller can tell \"nothing qualified\" apart from \"the qualifying readings summed to zero\".",
+  "constraints": "0 <= readings.length <= 100000, -1000 <= readings[i] <= 1000",
+  "entry": {
+    "javascript": "bootSequence",
+    "python": "boot_sequence"
+  },
+  "starter": {
+    "javascript": "function bootSequence(readings) {\n  // Sum the readings inside 20-80 inclusive, or return -1 if there are none.\n  \n}",
+    "python": "def boot_sequence(readings):\n    # Sum the readings inside 20-80 inclusive, or return -1 if there are none.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "readings = [10, 25, 80, 99]",
+      "output": "105",
+      "explanation": "25 + 80. Both 20 and 80 are inside the band."
+    },
+    {
+      "input": "readings = [5, 200]",
+      "output": "-1",
+      "explanation": "Nothing qualified, so the answer is -1 rather than 0."
+    },
+    {
+      "input": "readings = [0, 20]",
+      "output": "20"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          10,
+          25,
+          80,
+          99
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          5,
+          200
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          0,
+          20
+        ]
+      ]
+    }
+  ],
+  "hints": [
+    "This combines three things you have already built: walking an array, testing a range, and accumulating a total.",
+    "You cannot tell \"no readings qualified\" from \"the qualifying readings summed to zero\" by looking at the total alone. Track something extra as you go.",
+    "Keep a running total and a count of how many readings passed the range test. After the loop, return -1 if the count is 0, and the total otherwise."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "readings",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  }
+}

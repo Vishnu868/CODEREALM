@@ -1,0 +1,100 @@
+{
+  "id": "level_066",
+  "level": 66,
+  "zone": "core",
+  "title": "Cycle Alarm",
+  "topic": "graphs",
+  "difficulty": 5,
+  "prerequisites": [
+    "graphs"
+  ],
+  "expectedComplexity": "O(n + m)",
+  "story": {
+    "briefing": "A loop in the routing fabric sends packets round forever. Before the Core will accept this layout it wants to know whether any loop exists at all.",
+    "success": "Fabric cleared. No packet can circle indefinitely."
+  },
+  "description": "A graph is given as n, the number of nodes numbered 0 to n-1, and edges, an array of [u, v] pairs. Edges are undirected unless stated otherwise, and there are no self-loops or duplicate edges. Return true if the graph contains a cycle — a path that leaves a node and returns to it without reusing any edge — and false otherwise.",
+  "constraints": "1 <= n <= 200000, 0 <= edges.length <= 300000",
+  "entry": {
+    "javascript": "hasCycle",
+    "python": "has_cycle"
+  },
+  "starter": {
+    "javascript": "function hasCycle(n, edges) {\n  // True if the graph contains a cycle.\n  \n}",
+    "python": "def has_cycle(n, edges):\n    # True if the graph contains a cycle.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "n = 3, edges = [[0, 1], [1, 2], [2, 0]]",
+      "output": "true"
+    },
+    {
+      "input": "n = 3, edges = [[0, 1], [1, 2]]",
+      "output": "false"
+    },
+    {
+      "input": "n = 1, edges = []",
+      "output": "false"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        3,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            0
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        3,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        1,
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "While walking the graph, reaching a node you have already visited is suspicious — but not proof, because the edge you just came along leads straight back to where you were.",
+    "You have to ignore the edge you arrived on, and only that one. Remember which node you came from at each step.",
+    "Walk each unvisited component, carrying the node you came from. If you meet a visited node that is not the one you came from, there is a cycle. Track the parent per node, and use an explicit stack rather than recursion."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "edges",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "bool"
+  }
+}

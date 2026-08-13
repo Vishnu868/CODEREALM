@@ -1,0 +1,100 @@
+{
+  "id": "level_064",
+  "level": 64,
+  "zone": "core",
+  "title": "Isolated Regions",
+  "topic": "graphs",
+  "difficulty": 5,
+  "prerequisites": [
+    "graphs"
+  ],
+  "expectedComplexity": "O(rows x cols)",
+  "story": {
+    "briefing": "The Core floor plan is a grid of open cells and collapsed ones. Count how many separate open regions remain — a crew cannot walk between two of them.",
+    "success": "Regions counted. The crew knows how many separate teams it needs."
+  },
+  "description": "Given a grid of 0 (open) and 1 (blocked), count the separate regions of open cells. Two open cells belong to the same region when they touch horizontally or vertically — diagonal contact does not connect them. A grid with no open cells has 0 regions.",
+  "constraints": "1 <= rows <= 200000, 1 <= columns <= 200, rows x columns <= 600000",
+  "entry": {
+    "javascript": "countRegions",
+    "python": "count_regions"
+  },
+  "starter": {
+    "javascript": "function countRegions(grid) {\n  // Number of separate open regions.\n  \n}",
+    "python": "def count_regions(grid):\n    # Number of separate open regions.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "grid = [[0, 1], [1, 0]]",
+      "output": "2",
+      "explanation": "The two open cells touch only at a corner, so they are separate."
+    },
+    {
+      "input": "grid = [[0, 0], [0, 0]]",
+      "output": "1"
+    },
+    {
+      "input": "grid = [[1]]",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            1
+          ]
+        ]
+      ]
+    }
+  ],
+  "hints": [
+    "Every open cell belongs to exactly one region. Start from an unvisited open cell, mark everything connected to it, and that is one region accounted for.",
+    "Explore each region completely before counting the next, and mark cells as you enqueue them rather than as you process them, or the same cell gets queued many times.",
+    "Scan every cell. When you find an unvisited open cell, add one to the count and flood outward from it — up, down, left and right — marking every open cell you reach. Use an explicit stack, not recursion; a large region would exhaust the call stack."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 208.27
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int"
+  }
+}

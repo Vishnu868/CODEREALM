@@ -1,0 +1,82 @@
+{
+  "id": "level_019",
+  "level": 19,
+  "zone": "district",
+  "title": "Corrupted Log",
+  "topic": "debugging",
+  "difficulty": 3,
+  "prerequisites": [
+    "arrays",
+    "loops"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Another inherited routine. This one is supposed to total the positive readings in a log, and it has been quietly reporting the wrong figure to three departments.",
+    "success": "Totals reconciled. Three departments stop arguing."
+  },
+  "description": "The starter code should return the sum of all readings that are strictly greater than zero, but it is wrong. Find and fix the mistakes. An empty array should return 0.",
+  "constraints": "0 <= log.length <= 200000, -10^9 <= log[i] <= 10^9",
+  "entry": {
+    "javascript": "sumPositive",
+    "python": "sum_positive"
+  },
+  "starter": {
+    "javascript": "function sumPositive(log) {\n  let total = 0;\n  // Two things here are wrong.\n  for (let i = 0; i <= log.length; i++) {\n    if (log[i] >= 0) {\n      total = log[i];\n    }\n  }\n  return total;\n}",
+    "python": "def sum_positive(log):\n    total = 0\n    # Two things here are wrong.\n    for i in range(len(log) + 1):\n        if log[i] >= 0:\n            total = log[i]\n    return total"
+  },
+  "examples": [
+    {
+      "input": "log = [3, -1, 4]",
+      "output": "7"
+    },
+    {
+      "input": "log = [0, 5]",
+      "output": "5",
+      "explanation": "Zero is not strictly greater than zero."
+    },
+    {
+      "input": "log = [-2]",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          3,
+          -1,
+          4
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          0,
+          5
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          -2
+        ]
+      ]
+    }
+  ],
+  "hints": [
+    "Trace the code by hand on the first example, one iteration at a time, and write down what total holds after each step.",
+    "One bug means the total never accumulates — it only ever holds one value. The other is in the loop bound, and would read past the end of the array.",
+    "The assignment should be total += log[i], not total = log[i]. The loop condition should be i < log.length, not i <= log.length. The comparison should also be > 0 rather than >= 0."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "log",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  }
+}

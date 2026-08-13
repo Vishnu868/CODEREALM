@@ -1,0 +1,102 @@
+{
+  "id": "level_078",
+  "level": 78,
+  "zone": "core",
+  "title": "Grid Word Trace",
+  "topic": "backtracking",
+  "difficulty": 6,
+  "prerequisites": [
+    "backtracking"
+  ],
+  "expectedComplexity": "exponential with pruning",
+  "story": {
+    "briefing": "The access code is written across the floor plates, one letter per plate, traced by walking between neighbouring plates without stepping on the same plate twice.",
+    "success": "Code traced across the plates. The final door acknowledges."
+  },
+  "description": "Given a grid of single characters and a word, return true if the word can be traced by starting at any cell and moving repeatedly to a cell directly above, below, left or right. No cell may be used more than once in a single trace. An empty word is always traceable and returns true.",
+  "constraints": "1 <= rows, columns <= 6, 0 <= word.length <= 12",
+  "entry": {
+    "javascript": "canTrace",
+    "python": "can_trace"
+  },
+  "starter": {
+    "javascript": "function canTrace(grid, word) {\n  // True if the word can be traced through neighbouring cells.\n  \n}",
+    "python": "def can_trace(grid, word):\n    # True if the word can be traced through neighbouring cells.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "grid = [[\"a\", \"b\"], [\"c\", \"d\"]], word = \"abd\"",
+      "output": "true",
+      "explanation": "Right, then down."
+    },
+    {
+      "input": "grid = [[\"a\", \"b\"], [\"c\", \"d\"]], word = \"abc\"",
+      "output": "false"
+    },
+    {
+      "input": "grid = [[\"a\"]], word = \"aa\"",
+      "output": "false",
+      "explanation": "The single cell cannot be reused."
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "c",
+            "d"
+          ]
+        ],
+        "abd"
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            "a",
+            "b"
+          ],
+          [
+            "c",
+            "d"
+          ]
+        ],
+        "abc"
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            "a"
+          ]
+        ],
+        "aa"
+      ]
+    }
+  ],
+  "hints": [
+    "Try every cell as a possible starting point, then walk outward matching one letter at a time.",
+    "Marking a cell as used before recursing and unmarking it afterwards is the whole of backtracking. Forget the unmark and later traces will find the grid mysteriously blocked.",
+    "From a cell matching the current letter, mark it, then try all four neighbours against the next letter. Unmark before returning. Stop immediately when the whole word has matched."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "grid",
+        "type": "string[][]"
+      },
+      {
+        "name": "word",
+        "type": "string"
+      }
+    ],
+    "returns": "bool"
+  }
+}

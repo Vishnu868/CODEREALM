@@ -1,0 +1,97 @@
+{
+  "id": "level_023",
+  "level": 23,
+  "zone": "forest",
+  "title": "Paired Signal",
+  "topic": "hashing",
+  "difficulty": 4,
+  "prerequisites": [
+    "hashing",
+    "arrays"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Two transmitters somewhere in this unsorted capture combine to the resonant frequency. Unlike the conduit, nothing here arrives in order.",
+    "success": "Resonant pair found. The forest canopy stops humming."
+  },
+  "description": "Given an array of frequencies in no particular order and a target, find two different positions whose values add up to the target. Return their indices as [i, j] with i less than j. If more than one pair works, return the one whose *second* index is smallest — that is, the pair that completes earliest as you scan left to right. Return an empty array if no pair works.",
+  "constraints": "0 <= frequencies.length <= 300000, -10^9 <= frequencies[i] <= 10^9",
+  "entry": {
+    "javascript": "resonantPair",
+    "python": "resonant_pair"
+  },
+  "starter": {
+    "javascript": "function resonantPair(frequencies, target) {\n  // Return [i, j] or [].\n  \n}",
+    "python": "def resonant_pair(frequencies, target):\n    # Return [i, j] or [].\n    pass"
+  },
+  "examples": [
+    {
+      "input": "frequencies = [5, 1, 4, 3], target = 6",
+      "output": "[0, 1]",
+      "explanation": "5 + 1 completes at index 1, earlier than any other pair."
+    },
+    {
+      "input": "frequencies = [2, 2], target = 4",
+      "output": "[0, 1]"
+    },
+    {
+      "input": "frequencies = [1, 2], target = 99",
+      "output": "[]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          5,
+          1,
+          4,
+          3
+        ],
+        6
+      ]
+    },
+    {
+      "args": [
+        [
+          2,
+          2
+        ],
+        4
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ],
+        99
+      ]
+    }
+  ],
+  "hints": [
+    "For each value you can compute exactly what its partner must be. The question is whether you have already seen that partner.",
+    "Sorting would destroy the indices you have to report. Remember values as you pass them instead.",
+    "Walk the array once, keeping a map from value to its earliest index. At each position, look up target minus the current value; if it is present, you have the earliest-completing pair. Otherwise record the current value and continue."
+  ],
+  "perf": {
+    "scale": 300000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 33.99
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "frequencies",
+        "type": "int[]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": "int[]"
+  }
+}

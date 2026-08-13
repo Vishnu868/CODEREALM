@@ -1,0 +1,81 @@
+{
+  "id": "level_037",
+  "level": 37,
+  "zone": "network",
+  "title": "Frequency Order",
+  "topic": "sorting",
+  "difficulty": 5,
+  "prerequisites": [
+    "hashing",
+    "sorting"
+  ],
+  "expectedComplexity": "O(n log n)",
+  "story": {
+    "briefing": "The busiest channels should be listed first. Where two channels are equally busy, the lower channel number wins — the network hates ambiguity.",
+    "success": "Channel list reordered. The busiest traffic is visible at a glance."
+  },
+  "description": "Given an array of channel numbers, return the distinct channel numbers ordered by how often they appear, most frequent first. Where two channels appear equally often, the smaller channel number comes first. An empty input returns an empty array.",
+  "constraints": "0 <= channels.length <= 200000, 0 <= channels[i] <= 10^6",
+  "entry": {
+    "javascript": "byFrequency",
+    "python": "by_frequency"
+  },
+  "starter": {
+    "javascript": "function byFrequency(channels) {\n  // Distinct channels, most frequent first, ties by smaller number.\n  \n}",
+    "python": "def by_frequency(channels):\n    # Distinct channels, most frequent first, ties by smaller number.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "channels = [5, 3, 5, 3, 9]",
+      "output": "[3, 5, 9]",
+      "explanation": "3 and 5 both appear twice, so the smaller comes first."
+    },
+    {
+      "input": "channels = [7]",
+      "output": "[7]"
+    },
+    {
+      "input": "channels = []",
+      "output": "[]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          5,
+          3,
+          5,
+          3,
+          9
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          7
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Two steps that do not mix: work out how often each channel appears, then order the distinct channels using those counts.",
+    "The tie-break has to be part of the comparison itself. Sorting by count alone leaves equally frequent channels in whatever order the counting happened to produce, which is not stable across languages.",
+    "Count occurrences into a map. Take the distinct keys and sort them with a comparison that puts the higher count first, and where counts are equal puts the smaller channel number first."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "channels",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int[]"
+  }
+}

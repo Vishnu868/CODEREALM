@@ -1,0 +1,77 @@
+{
+  "id": "level_075",
+  "level": 75,
+  "zone": "core",
+  "title": "Power Set",
+  "topic": "backtracking",
+  "difficulty": 4,
+  "prerequisites": [
+    "recursion"
+  ],
+  "expectedComplexity": "O(2^n x n)",
+  "story": {
+    "briefing": "Any combination of the auxiliary generators may be switched on, including none of them. The Core wants the full list of possibilities.",
+    "success": "Every configuration enumerated. The Core picks the one it needs."
+  },
+  "description": "Given an array of distinct integers, return every subset. Order the results by treating subset number k as a binary pattern: the element at position i is included exactly when bit i of k is set, and the subsets appear in increasing order of k from 0 upward. Within each subset, elements keep their original input order. The first subset is always the empty one.",
+  "constraints": "0 <= generators.length <= 12, all values distinct",
+  "entry": {
+    "javascript": "allSubsets",
+    "python": "all_subsets"
+  },
+  "starter": {
+    "javascript": "function allSubsets(generators) {\n  // Every subset, in increasing binary-pattern order.\n  \n}",
+    "python": "def all_subsets(generators):\n    # Every subset, in increasing binary-pattern order.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "generators = [7, 9]",
+      "output": "[[], [7], [9], [7, 9]]",
+      "explanation": "Patterns 00, 01, 10, 11."
+    },
+    {
+      "input": "generators = [4]",
+      "output": "[[], [4]]"
+    },
+    {
+      "input": "generators = []",
+      "output": "[[]]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          7,
+          9
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          4
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "There are exactly two choices per element — in or out — so the number of subsets doubles with every extra element.",
+    "The required order is not arbitrary. Counting from 0 upward and reading each number bits gives it directly, with no sorting afterwards.",
+    "Loop k from 0 to 2 to the power n, minus 1. For each k, collect the elements whose bit position is set in k, in increasing position order, and append that subset."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "generators",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int[][]"
+  }
+}

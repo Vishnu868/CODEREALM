@@ -1,0 +1,82 @@
+{
+  "id": "level_009",
+  "level": 9,
+  "zone": "valley",
+  "title": "Broken Regulator",
+  "topic": "debugging",
+  "difficulty": 3,
+  "prerequisites": [
+    "loops",
+    "conditionals"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "The regulator here already has code in it. Someone wrote it in a hurry during the outage and it has been miscounting ever since. It is not your code, but it is your problem.",
+    "success": "Regulator corrected. Three characters, and the whole sector settles."
+  },
+  "description": "The starter code is supposed to count how many readings are strictly greater than 50, but it returns the wrong answer. Find the mistakes and fix them. Do not rewrite it from scratch unless you want to — the exercise is reading code that is nearly right.",
+  "constraints": "0 <= readings.length <= 100000, -1000 <= readings[i] <= 1000",
+  "entry": {
+    "javascript": "regulate",
+    "python": "regulate"
+  },
+  "starter": {
+    "javascript": "function regulate(readings) {\n  let count = 0;\n  // Two things in this loop are wrong.\n  for (let i = 1; i < readings.length; i++) {\n    if (readings[i] >= 50) {\n      count++;\n    }\n  }\n  return count;\n}",
+    "python": "def regulate(readings):\n    count = 0\n    # Two things in this loop are wrong.\n    for i in range(1, len(readings)):\n        if readings[i] >= 50:\n            count += 1\n    return count"
+  },
+  "examples": [
+    {
+      "input": "readings = [60, 50, 80]",
+      "output": "2",
+      "explanation": "Exactly 50 does not count, and the first element must not be skipped."
+    },
+    {
+      "input": "readings = [50, 50]",
+      "output": "0"
+    },
+    {
+      "input": "readings = [51]",
+      "output": "1"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          60,
+          50,
+          80
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          50,
+          50
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          51
+        ]
+      ]
+    }
+  ],
+  "hints": [
+    "Read the loop header and the comparison separately. Ask what each one does on the smallest possible input, then check that against the examples.",
+    "One bug means an element is never examined at all. The other means an element is counted that should not be. The examples were chosen to expose exactly these two.",
+    "The loop starts at index 1 and so skips the first reading; it should start at 0. The comparison uses >= 50, which includes exactly 50; the specification says strictly greater, so it should be > 50."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "readings",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  }
+}

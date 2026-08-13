@@ -1,0 +1,84 @@
+{
+  "id": "level_057",
+  "level": 57,
+  "zone": "forest",
+  "title": "Validity Audit",
+  "topic": "bst",
+  "difficulty": 6,
+  "prerequisites": [
+    "bst",
+    "recursion"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Someone claims this lattice is ordered. Before anything relies on that claim, audit it — and a junction can be locally fine while breaking the order globally.",
+    "success": "Audit complete. The ordering claim is settled one way or the other."
+  },
+  "description": "Return true if a binary tree is a valid binary search tree: every value in a node left subtree is strictly smaller than the node, and every value in its right subtree is strictly larger. This must hold for entire subtrees, not merely for immediate children. An empty tree is valid. A tree is given as an array where the node at index i has its left child at index 2i+1 and its right child at index 2i+2. A null entry means there is no node there, and nothing exists beneath it. An empty array is an empty tree.",
+  "constraints": "0 <= tree.length <= 200000, -10^9 <= value <= 10^9",
+  "entry": {
+    "javascript": "isOrdered",
+    "python": "is_ordered"
+  },
+  "starter": {
+    "javascript": "function isOrdered(tree) {\n  // True if the whole tree obeys search-tree ordering.\n  \n}",
+    "python": "def is_ordered(tree):\n    # True if the whole tree obeys search-tree ordering.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "tree = [5, 3, 8]",
+      "output": "true"
+    },
+    {
+      "input": "tree = [5, 3, 8, null, null, 1]",
+      "output": "false",
+      "explanation": "1 is a valid left child of 8, but it sits in the right subtree of 5 and must exceed 5."
+    },
+    {
+      "input": "tree = []",
+      "output": "true"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          5,
+          3,
+          8
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          5,
+          3,
+          8,
+          null,
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Checking each node against its two children is not enough — the second example passes that test and is still invalid.",
+    "Every node inherits a permitted range from the path taken to reach it. Going left tightens the upper bound; going right tightens the lower one.",
+    "Recurse carrying a low and high bound. A node must lie strictly inside them. Recurse left with the same low and the node value as the new high, and right with the node value as the new low."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "tree",
+        "type": "int[]"
+      }
+    ],
+    "returns": "bool"
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "id": "level_005",
+  "level": 5,
+  "zone": "valley",
+  "title": "Frequency Map",
+  "topic": "hashing",
+  "difficulty": 3,
+  "prerequisites": [
+    "arrays"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "One transmitter is flooding the channel. Its ID appears more than any other in the capture log. Name it, and the valley gate opens.",
+    "success": "Rogue transmitter isolated. The gate to the Programming District unlocks."
+  },
+  "description": "Given a non-empty array of integer IDs, return the ID that appears most often. If several IDs tie for most frequent, return the smallest of them.",
+  "constraints": "1 <= ids.length <= 200000, 0 <= ids[i] <= 10^6",
+  "entry": {
+    "javascript": "mostCommon",
+    "python": "most_common"
+  },
+  "starter": {
+    "javascript": "function mostCommon(ids) {\n  // Return the most frequent ID. Smallest ID wins ties.\n  \n}",
+    "python": "def most_common(ids):\n    # Return the most frequent ID. Smallest ID wins ties.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "ids = [4, 7, 4, 2, 7, 4]",
+      "output": "4"
+    },
+    {
+      "input": "ids = [9, 3, 3, 9]",
+      "output": "3",
+      "explanation": "Both appear twice, so the smaller ID wins."
+    },
+    {
+      "input": "ids = [11]",
+      "output": "11"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          4,
+          7,
+          4,
+          2,
+          7,
+          4
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          9,
+          3,
+          3,
+          9
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          11
+        ]
+      ]
+    }
+  ],
+  "hints": [
+    "Counting how many times each value appears is the whole problem. What structure gives you a count by key?",
+    "Comparing every element against every other element works, but grows quadratically — the large hidden inputs will time out.",
+    "Build a map from ID to count in one pass. Then walk the map once, keeping the entry with the highest count, and on equal counts keep the smaller ID."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 13.91
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "ids",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  }
+}

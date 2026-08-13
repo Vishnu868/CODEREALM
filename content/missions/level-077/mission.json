@@ -1,0 +1,87 @@
+{
+  "id": "level_077",
+  "level": 77,
+  "zone": "core",
+  "title": "Target Assembly",
+  "topic": "backtracking",
+  "difficulty": 6,
+  "prerequisites": [
+    "backtracking"
+  ],
+  "expectedComplexity": "exponential with pruning",
+  "story": {
+    "briefing": "The charge has to reach an exact figure, assembled from cells of fixed sizes. Any cell size may be used as often as needed. Count how many distinct assemblies work.",
+    "success": "Assemblies counted. The Core selects one and charges to the exact figure."
+  },
+  "description": "Given an array of distinct positive cell sizes and a target, count the distinct combinations of cells that sum to exactly the target. Each size may be used any number of times. Two combinations are the same if they use each size the same number of times, so order does not matter — using 2 then 3 is the same combination as 3 then 2. A target of 0 has exactly one combination: use nothing.",
+  "constraints": "1 <= sizes.length <= 12, 1 <= sizes[i] <= 40, 0 <= target <= 120",
+  "entry": {
+    "javascript": "countAssemblies",
+    "python": "count_assemblies"
+  },
+  "starter": {
+    "javascript": "function countAssemblies(sizes, target) {\n  // Number of distinct combinations summing to target.\n  \n}",
+    "python": "def count_assemblies(sizes, target):\n    # Number of distinct combinations summing to target.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "sizes = [2, 3], target = 6",
+      "output": "2",
+      "explanation": "Three 2s, or two 3s."
+    },
+    {
+      "input": "sizes = [5], target = 3",
+      "output": "0"
+    },
+    {
+      "input": "sizes = [4], target = 0",
+      "output": "1",
+      "explanation": "Using nothing is one valid combination."
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          2,
+          3
+        ],
+        6
+      ]
+    },
+    {
+      "args": [
+        [
+          5
+        ],
+        3
+      ]
+    },
+    {
+      "args": [
+        [
+          4
+        ],
+        0
+      ]
+    }
+  ],
+  "hints": [
+    "If you let yourself pick any size at every step you will count the same combination many times over, once per ordering. The fix is to never go back to an earlier size.",
+    "Recurse carrying both the remaining target and the index of the earliest size you are still allowed to use. Staying at the same index is what allows reuse.",
+    "From index i with remaining r: if r is 0 count one combination, and if r is negative or you have run out of sizes count none. Otherwise add the count using size i again with r reduced, plus the count skipping to index i plus 1."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "sizes",
+        "type": "int[]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

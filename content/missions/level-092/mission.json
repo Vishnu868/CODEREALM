@@ -1,0 +1,81 @@
+{
+  "id": "level_092",
+  "level": 92,
+  "zone": "core",
+  "title": "Deepest Signal",
+  "topic": "trees_dp",
+  "difficulty": 6,
+  "prerequisites": [
+    "trees",
+    "dynamic_programming"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Charge accumulates down every branch of the lattice. Find the branch that delivers the most from the trunk to a tip.",
+    "success": "Strongest branch found. The Core draws from it."
+  },
+  "description": "A tree is given as an array where the node at index i has its left child at index 2i+1 and its right child at index 2i+2. A null entry means there is no node there, and nothing exists beneath it. Return the largest sum obtainable along a path from the root down to a leaf — a leaf being a node with no children. An empty tree returns 0. Values may be negative, and the path must run all the way to a leaf.",
+  "constraints": "0 <= tree.length <= 100000, -1000 <= value <= 1000",
+  "entry": {
+    "javascript": "strongestBranch",
+    "python": "strongest_branch"
+  },
+  "starter": {
+    "javascript": "function strongestBranch(tree) {\n  // Largest root-to-leaf sum.\n  \n}",
+    "python": "def strongest_branch(tree):\n    # Largest root-to-leaf sum.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "tree = [1, 2, 3]",
+      "output": "4",
+      "explanation": "1 + 3."
+    },
+    {
+      "input": "tree = [5, -2]",
+      "output": "3",
+      "explanation": "The only leaf is -2, so the path must include it."
+    },
+    {
+      "input": "tree = []",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          5,
+          -2
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "The best sum from a node is its own value plus the better of its two subtree results — but only where a subtree actually exists.",
+    "A node with one child is not a leaf, so you must not treat the missing side as a zero. Doing so lets a path stop early, which the second example is built to catch.",
+    "Work bottom-up over the array, from the last index back to 0. A leaf holds its own value. A node with children holds its value plus the larger of whichever child results exist."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "tree",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  }
+}

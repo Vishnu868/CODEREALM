@@ -1,0 +1,86 @@
+{
+  "id": "level_014",
+  "level": 14,
+  "zone": "district",
+  "title": "Duplicate Nodes",
+  "topic": "hashing",
+  "difficulty": 4,
+  "prerequisites": [
+    "hashing",
+    "arrays"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Two nodes on this bus are claiming the same address. With a hundred thousand nodes on the line, the operators gave up looking by hand.",
+    "success": "Collision confirmed. The bus arbitrator can finally do its job."
+  },
+  "description": "Given an array of node addresses, return true if any address appears more than once, and false if every address is unique. An empty array returns false.",
+  "constraints": "0 <= addresses.length <= 300000, 0 <= addresses[i] <= 10^9",
+  "entry": {
+    "javascript": "hasCollision",
+    "python": "has_collision"
+  },
+  "starter": {
+    "javascript": "function hasCollision(addresses) {\n  // Return true if any address repeats.\n  \n}",
+    "python": "def has_collision(addresses):\n    # Return True if any address repeats.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "addresses = [4, 9, 4]",
+      "output": "true"
+    },
+    {
+      "input": "addresses = [1, 2, 3]",
+      "output": "false"
+    },
+    {
+      "input": "addresses = []",
+      "output": "false"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          4,
+          9,
+          4
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "The question is only ever \"have I seen this before?\". Some structures answer that in constant time; a plain array does not.",
+    "Comparing every address against every other one is correct but does roughly n squared comparisons. At three hundred thousand addresses that is far too slow — the hidden tests will time out.",
+    "Walk the array once, keeping a set of addresses already seen. If the current address is already in the set, return true immediately. Otherwise add it and continue. Return false at the end."
+  ],
+  "perf": {
+    "scale": 300000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 34.84
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "addresses",
+        "type": "int[]"
+      }
+    ],
+    "returns": "bool"
+  }
+}

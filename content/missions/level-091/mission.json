@@ -1,0 +1,103 @@
+{
+  "id": "level_091",
+  "level": 91,
+  "zone": "core",
+  "title": "Critical Path",
+  "topic": "graphs_dp",
+  "difficulty": 6,
+  "prerequisites": [
+    "graphs",
+    "dynamic_programming"
+  ],
+  "expectedComplexity": "O(n + m)",
+  "story": {
+    "briefing": "The restoration tasks form a dependency chain. The Core cannot come back faster than its longest chain, so find it.",
+    "success": "Critical path identified. Every other task has slack."
+  },
+  "description": "You are given n tasks numbered 0 to n-1 and directed edges [u, v] meaning u must finish before v starts. Every edge points from a lower number to a higher one, so no cycle exists. Return the number of edges on the longest chain of dependencies anywhere in the graph. A graph with no edges has a longest chain of 0.\n\nThis level requires linear time: a solution that re-explores the graph from every node will exceed the limit.",
+  "constraints": "1 <= n <= 200000, 0 <= edges.length <= 300000, every edge goes from a lower index to a higher one",
+  "entry": {
+    "javascript": "criticalPath",
+    "python": "critical_path"
+  },
+  "starter": {
+    "javascript": "function criticalPath(n, edges) {\n  // Edges on the longest dependency chain.\n  \n}",
+    "python": "def critical_path(n, edges):\n    # Edges on the longest dependency chain.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "n = 4, edges = [[0, 1], [1, 3], [0, 3]]",
+      "output": "2",
+      "explanation": "0 to 1 to 3."
+    },
+    {
+      "input": "n = 3, edges = []",
+      "output": "0"
+    },
+    {
+      "input": "n = 2, edges = [[0, 1]]",
+      "output": "1"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        4,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            0,
+            3
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        3,
+        []
+      ]
+    },
+    {
+      "args": [
+        2,
+        [
+          [
+            0,
+            1
+          ]
+        ]
+      ]
+    }
+  ],
+  "hints": [
+    "The longest chain ending at a task is one more than the longest chain ending at whichever predecessor is deepest. That is a recurrence, not a search.",
+    "Because every edge points forward, processing tasks in index order means every predecessor is already finished when you reach a task. No sorting is needed at all.",
+    "Keep a depth per task, starting at 0. Sweep tasks in increasing index order, and for each outgoing edge raise the target depth to at least this depth plus one. The answer is the largest depth reached."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "edges",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "id": "level_098",
+  "level": 98,
+  "zone": "core",
+  "title": "Minimum Spanning Repair",
+  "topic": "graphs",
+  "difficulty": 6,
+  "prerequisites": [
+    "graphs",
+    "sorting"
+  ],
+  "expectedComplexity": "O(m log m)",
+  "story": {
+    "briefing": "Every node must be reachable from every other, and each link costs what it costs. Reconnect the network for as little as possible.",
+    "success": "Network reconnected at minimum cost. Nothing is isolated, nothing is wasted."
+  },
+  "description": "A network is given as n nodes numbered 0 to n-1 and links [u, v, w], each an undirected connection between u and v costing w. Choose a set of links so that every node can reach every other, minimising the total cost. Return that total, or -1 if no such set exists. A single node needs no links and costs 0.\n\nThis level requires better than quadratic time in the number of links.",
+  "constraints": "1 <= n <= 100000, 0 <= links.length <= 200000, 1 <= w <= 100000",
+  "entry": {
+    "javascript": "reconnectCost",
+    "python": "reconnect_cost"
+  },
+  "starter": {
+    "javascript": "function reconnectCost(n, links) {\n  // Minimum total cost to connect every node, or -1.\n  \n}",
+    "python": "def reconnect_cost(n, links):\n    # Minimum total cost to connect every node, or -1.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "n = 3, links = [[0, 1, 1], [1, 2, 2], [0, 2, 5]]",
+      "output": "3",
+      "explanation": "Take the two cheapest; the third is redundant."
+    },
+    {
+      "input": "n = 2, links = []",
+      "output": "-1"
+    },
+    {
+      "input": "n = 1, links = []",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        3,
+        [
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            2,
+            2
+          ],
+          [
+            0,
+            2,
+            5
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        2,
+        []
+      ]
+    },
+    {
+      "args": [
+        1,
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Consider links from cheapest upward, taking each one unless it connects two nodes that are already connected to each other.",
+    "The whole difficulty is answering \"are these two already connected?\" quickly, thousands of times. Re-walking the network for each link is far too slow.",
+    "Sort the links by cost. Keep a union-find over the nodes; take a link only when its two endpoints have different roots, then merge them. Stop after taking n-1 links, and report -1 if you never reach that many."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "links",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "id": "level_026",
+  "level": 26,
+  "zone": "forest",
+  "title": "Rearranged Cipher",
+  "topic": "hashing",
+  "difficulty": 3,
+  "prerequisites": [
+    "hashing",
+    "strings"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "The forest gates accept a passphrase scrambled into any order, provided every character is used exactly as often as the original.",
+    "success": "Cipher accepted. The gate reads the passphrase in whatever order you send it."
+  },
+  "description": "Given two strings, return true if one is a rearrangement of the other — that is, both contain exactly the same characters with exactly the same counts. Order does not matter. Two empty strings are rearrangements of each other. Comparison is case sensitive.",
+  "constraints": "0 <= a.length, b.length <= 200000, ASCII characters only",
+  "entry": {
+    "javascript": "isRearrangement",
+    "python": "is_rearrangement"
+  },
+  "starter": {
+    "javascript": "function isRearrangement(a, b) {\n  // Return true or false.\n  \n}",
+    "python": "def is_rearrangement(a, b):\n    # Return True or False.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "a = \"relay\", b = \"layer\"",
+      "output": "true"
+    },
+    {
+      "input": "a = \"aab\", b = \"abb\"",
+      "output": "false",
+      "explanation": "Same characters, different counts."
+    },
+    {
+      "input": "a = \"\", b = \"\"",
+      "output": "true"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        "relay",
+        "layer"
+      ]
+    },
+    {
+      "args": [
+        "aab",
+        "abb"
+      ]
+    },
+    {
+      "args": [
+        "",
+        ""
+      ]
+    }
+  ],
+  "hints": [
+    "Order is irrelevant, so what actually has to match is how many times each character occurs in each string.",
+    "A quick length check rules out most pairs before you count anything. And counting up for one string while counting down for the other lets you use a single map.",
+    "Return false immediately if the lengths differ. Then count each character of the first string in a map, decrement for each character of the second, and return true only if every count ends at zero."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "a",
+        "type": "string"
+      },
+      {
+        "name": "b",
+        "type": "string"
+      }
+    ],
+    "returns": "bool"
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "id": "level_070",
+  "level": 70,
+  "zone": "core",
+  "title": "Grid Pathfinding",
+  "topic": "graphs",
+  "difficulty": 6,
+  "prerequisites": [
+    "graphs"
+  ],
+  "expectedComplexity": "O(rows x cols)",
+  "story": {
+    "briefing": "The last stretch before the Core is the collapsed floor itself. Find the shortest walk from the top-left corner to the bottom-right, through open cells only.",
+    "success": "Route found through the rubble. The way to the Core is open."
+  },
+  "description": "Given a grid of 0 (open) and 1 (blocked), return the fewest steps needed to walk from the top-left cell to the bottom-right cell, moving only up, down, left or right between open cells. Count the number of steps taken, so a 1x1 open grid needs 0. Return -1 if either corner is blocked or no route exists.",
+  "constraints": "1 <= rows <= 200000, 1 <= columns <= 200, rows x columns <= 600000",
+  "entry": {
+    "javascript": "shortestWalk",
+    "python": "shortest_walk"
+  },
+  "starter": {
+    "javascript": "function shortestWalk(grid) {\n  // Fewest steps from top-left to bottom-right, or -1.\n  \n}",
+    "python": "def shortest_walk(grid):\n    # Fewest steps from top-left to bottom-right, or -1.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "grid = [[0, 0], [1, 0]]",
+      "output": "2",
+      "explanation": "Right then down."
+    },
+    {
+      "input": "grid = [[0, 1], [1, 0]]",
+      "output": "-1"
+    },
+    {
+      "input": "grid = [[0]]",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            0
+          ]
+        ]
+      ]
+    }
+  ],
+  "hints": [
+    "Every step costs the same, so the first time you arrive at a cell is necessarily by a shortest route. That is what makes an expanding frontier the right tool.",
+    "Check both corners before starting — a blocked start means the answer is -1 immediately, and code that assumes the start is open will happily walk out of it.",
+    "Mark the start visited with distance 0 and put it in a queue. Take cells in the order they were added, and for each open unvisited neighbour record one more step and enqueue it. Stop when you reach the far corner."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 112.18
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "grid",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int"
+  }
+}

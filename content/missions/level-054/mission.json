@@ -1,0 +1,95 @@
+{
+  "id": "level_054",
+  "level": 54,
+  "zone": "forest",
+  "title": "Structural Identity",
+  "topic": "trees",
+  "difficulty": 4,
+  "prerequisites": [
+    "trees",
+    "recursion"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Two survey teams mapped the same lattice independently. If their maps differ anywhere at all, one of them walked the wrong section.",
+    "success": "Maps agree. Both surveys are accepted."
+  },
+  "description": "Given two binary trees, return true if they have exactly the same shape and the same value at every corresponding position, and false otherwise. Two empty trees are identical. A tree is given as an array where the node at index i has its left child at index 2i+1 and its right child at index 2i+2. A null entry means there is no node there, and nothing exists beneath it. An empty array is an empty tree.",
+  "constraints": "0 <= a.length, b.length <= 200000",
+  "entry": {
+    "javascript": "sameTree",
+    "python": "same_tree"
+  },
+  "starter": {
+    "javascript": "function sameTree(a, b) {\n  // True if both trees match in shape and values.\n  \n}",
+    "python": "def same_tree(a, b):\n    # True if both trees match in shape and values.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "a = [2, 1, 3], b = [2, 1, 3]",
+      "output": "true"
+    },
+    {
+      "input": "a = [2, 1], b = [2, null, 1]",
+      "output": "false",
+      "explanation": "Same values, different shape."
+    },
+    {
+      "input": "a = [], b = []",
+      "output": "true"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          2,
+          1,
+          3
+        ],
+        [
+          2,
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          null,
+          1
+        ]
+      ]
+    },
+    {
+      "args": [
+        [],
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Two trees match if their roots match and both pairs of subtrees match. Same recursive shape as the traversals, with two indices moving together.",
+    "The arrays can have different lengths and still describe the same tree, because trailing nulls are not significant. Compare the trees, not the arrays.",
+    "Write a helper on one index used for both trees. Treat out-of-range or null as absent. Return true if both are absent, false if only one is, and otherwise compare the values and recurse into both children."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "a",
+        "type": "int[]"
+      },
+      {
+        "name": "b",
+        "type": "int[]"
+      }
+    ],
+    "returns": "bool"
+  }
+}

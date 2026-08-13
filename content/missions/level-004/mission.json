@@ -1,0 +1,88 @@
+{
+  "id": "level_004",
+  "level": 4,
+  "zone": "valley",
+  "title": "Peak and Trough",
+  "topic": "arrays",
+  "difficulty": 2,
+  "prerequisites": [
+    "loops"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "The sensor array has been logging for years. Somewhere in that log is the spread that broke the regulator — find how far apart the extremes sit.",
+    "success": "Spread identified. The regulator recalibrates itself."
+  },
+  "description": "Given a non-empty array of integers, return the difference between the largest and the smallest value in it.",
+  "constraints": "1 <= readings.length <= 2000000, -10^9 <= readings[i] <= 10^9",
+  "entry": {
+    "javascript": "peakGap",
+    "python": "peak_gap"
+  },
+  "starter": {
+    "javascript": "function peakGap(readings) {\n  // Return largest minus smallest.\n  \n}",
+    "python": "def peak_gap(readings):\n    # Return largest minus smallest.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "readings = [4, 9, 1, 7]",
+      "output": "8",
+      "explanation": "9 - 1"
+    },
+    {
+      "input": "readings = [3]",
+      "output": "0"
+    },
+    {
+      "input": "readings = [-5, -2]",
+      "output": "3"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          4,
+          9,
+          1,
+          7
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          3
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          -5,
+          -2
+        ]
+      ]
+    }
+  ],
+  "hints": [
+    "You need two facts about the array, and a single pass can collect both.",
+    "Starting your \"smallest so far\" at 0 breaks on all-positive arrays. Seed both trackers from the first element instead.",
+    "Set both min and max to readings[0], walk the rest of the array updating each, then return max - min."
+  ],
+  "perf": {
+    "scale": 2000000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 4
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "readings",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  }
+}

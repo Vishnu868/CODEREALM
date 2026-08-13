@@ -1,0 +1,72 @@
+{
+  "id": "level_081",
+  "level": 81,
+  "zone": "core",
+  "title": "Overlapping Work",
+  "topic": "dynamic_programming",
+  "difficulty": 5,
+  "prerequisites": [
+    "recursion"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "The access shaft has n rungs. A climber takes one or two at a time. Before the Core will open it wants to know exactly how many distinct climbs exist.",
+    "success": "Climb count accepted. The shaft unseals."
+  },
+  "description": "A climber ascends n rungs, moving either one or two rungs at each step. Return how many distinct sequences of steps reach the top exactly. There is exactly one way to climb 0 rungs: take no steps.",
+  "constraints": "0 <= n <= 45",
+  "entry": {
+    "javascript": "countClimbs",
+    "python": "count_climbs"
+  },
+  "starter": {
+    "javascript": "function countClimbs(n) {\n  // Distinct ways to climb n rungs in steps of 1 or 2.\n  \n}",
+    "python": "def count_climbs(n):\n    # Distinct ways to climb n rungs in steps of 1 or 2.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "n = 4",
+      "output": "5"
+    },
+    {
+      "input": "n = 1",
+      "output": "1"
+    },
+    {
+      "input": "n = 0",
+      "output": "1",
+      "explanation": "Taking no steps is one way."
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        4
+      ]
+    },
+    {
+      "args": [
+        1
+      ]
+    },
+    {
+      "args": [
+        0
+      ]
+    }
+  ],
+  "hints": [
+    "The last step onto rung n came from either rung n-1 or rung n-2. So the count for n is the sum of the counts for those two.",
+    "Written as plain recursion this recomputes the same rungs enormous numbers of times — the call count itself grows exponentially. Each rung answer only needs computing once.",
+    "Work upward instead of downward. Start with the answers for 0 and 1 rungs, then compute each rung from the two below it. Only the last two values are ever needed, so two variables suffice."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

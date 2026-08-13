@@ -1,0 +1,73 @@
+{
+  "id": "level_018",
+  "level": 18,
+  "zone": "district",
+  "title": "Character Census",
+  "topic": "hashing",
+  "difficulty": 3,
+  "prerequisites": [
+    "strings",
+    "hashing"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Every packet on this line is padded with filler. Whichever character dominates the padding identifies which relay produced it.",
+    "success": "Relay fingerprinted. The source of the malformed packets is named."
+  },
+  "description": "Given a string, return the character that appears most often. If several characters tie for most frequent, return whichever comes first in ASCII order. For an empty string, return an empty string.",
+  "constraints": "0 <= stream.length <= 200000, ASCII characters only",
+  "entry": {
+    "javascript": "census",
+    "python": "census"
+  },
+  "starter": {
+    "javascript": "function census(stream) {\n  // Return the most frequent character, or \"\".\n  \n}",
+    "python": "def census(stream):\n    # Return the most frequent character, or \"\".\n    pass"
+  },
+  "examples": [
+    {
+      "input": "stream = \"aabbbc\"",
+      "output": "\"b\""
+    },
+    {
+      "input": "stream = \"ba\"",
+      "output": "\"a\"",
+      "explanation": "Both appear once, so ASCII order decides."
+    },
+    {
+      "input": "stream = \"\"",
+      "output": "\"\""
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        "aabbbc"
+      ]
+    },
+    {
+      "args": [
+        "ba"
+      ]
+    },
+    {
+      "args": [
+        ""
+      ]
+    }
+  ],
+  "hints": [
+    "Counting occurrences by character is the same shape of problem as counting occurrences by number — a map from key to count.",
+    "The tie-break is what makes this fiddly. Whichever order you iterate the counts in, you must compare deliberately rather than relying on insertion order.",
+    "Build a map of character to count in one pass. Then walk the entries keeping the best: replace the current best when the count is higher, or when the count is equal and the character sorts earlier."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "stream",
+        "type": "string"
+      }
+    ],
+    "returns": "string"
+  }
+}

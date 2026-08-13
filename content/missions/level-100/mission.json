@@ -1,0 +1,121 @@
+{
+  "id": "level_100",
+  "level": 100,
+  "zone": "core",
+  "title": "CORE RESTORATION",
+  "topic": "mixed",
+  "difficulty": 6,
+  "milestone": "final",
+  "prerequisites": [
+    "graphs",
+    "sorting",
+    "greedy"
+  ],
+  "expectedComplexity": "O(m log m)",
+  "story": {
+    "briefing": "This is the Core itself.\n\nEvery node must end up powered. A node can be powered directly, at its own activation cost, or it can draw power through a link from a node that is already powered, at that link cost. You may activate as many nodes directly as you like. Bring the whole network up for the least total cost.\n\nThe Core will not accept a slow answer.",
+    "success": "SYSTEM RESTORED. Every node draws power. The Core is online, and the network you repaired is the one that brought it back."
+  },
+  "description": "You are given n nodes numbered 0 to n-1, an array of activation costs — one per node — and an array of links [u, v, w] meaning u and v can be connected for cost w. Every node must end up powered, either by paying its own activation cost or by being connected through links to a node that was activated. Return the smallest possible total cost.\n\nThis level requires better than quadratic time in the number of links.",
+  "constraints": "1 <= n <= 100000, 0 <= links.length <= 200000, 1 <= activation cost <= 10^6, 1 <= w <= 10^6",
+  "entry": {
+    "javascript": "restoreCore",
+    "python": "restore_core"
+  },
+  "starter": {
+    "javascript": "function restoreCore(n, activation, links) {\n  // Smallest total cost to power every node.\n  \n}",
+    "python": "def restore_core(n, activation, links):\n    # Smallest total cost to power every node.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "n = 3, activation = [1, 5, 5], links = [[0, 1, 2], [1, 2, 3]]",
+      "output": "6",
+      "explanation": "Activate node 0 for 1, then link to 1 for 2 and on to 2 for 3."
+    },
+    {
+      "input": "n = 2, activation = [4, 1], links = [[0, 1, 9]]",
+      "output": "5",
+      "explanation": "The link costs more than activating both nodes separately."
+    },
+    {
+      "input": "n = 1, activation = [7], links = []",
+      "output": "7"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        3,
+        [
+          1,
+          5,
+          5
+        ],
+        [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            1,
+            2,
+            3
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        2,
+        [
+          4,
+          1
+        ],
+        [
+          [
+            0,
+            1,
+            9
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        1,
+        [
+          7
+        ],
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Two kinds of cost, activation and linking, look like two separate problems. They are not — the answer always ends up being a set of links plus a set of activations, with no redundancy anywhere.",
+    "Imagine one extra node, a power source, joined to every real node by a link whose cost is that node activation cost. Activating a node is then exactly the same action as linking it to that source.",
+    "Build the graph with n+1 nodes: node n is the source, joined to each node i by a link costing activation[i]. Then find the cheapest set of links connecting everything — sort all links by cost and take each one whose endpoints are not yet connected, using union-find. That total is the answer, and it always exists because the source reaches every node."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "activation",
+        "type": "int[]"
+      },
+      {
+        "name": "links",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int"
+  }
+}

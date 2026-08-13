@@ -1,0 +1,77 @@
+{
+  "id": "level_012",
+  "level": 12,
+  "zone": "district",
+  "title": "Signal Reversal",
+  "topic": "arrays",
+  "difficulty": 2,
+  "prerequisites": [
+    "arrays"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "The playback head in this archive runs backwards. Give it the stream in the order it expects, or the recordings stay unreadable.",
+    "success": "Playback restored. Decades of logs become legible again."
+  },
+  "description": "Given an array of integers, return a new array containing the same values in reverse order. The original array should not be modified. An empty array reverses to an empty array.",
+  "constraints": "0 <= signal.length <= 200000, -10^9 <= signal[i] <= 10^9",
+  "entry": {
+    "javascript": "reverseSignal",
+    "python": "reverse_signal"
+  },
+  "starter": {
+    "javascript": "function reverseSignal(signal) {\n  // Return a new array in reverse order.\n  \n}",
+    "python": "def reverse_signal(signal):\n    # Return a new list in reverse order.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "signal = [1, 2, 3]",
+      "output": "[3, 2, 1]"
+    },
+    {
+      "input": "signal = [7]",
+      "output": "[7]"
+    },
+    {
+      "input": "signal = []",
+      "output": "[]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          7
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "The last element becomes first. That relationship between an old index and a new index is the whole problem.",
+    "You can walk the input backwards and append, or walk forwards and prepend. One of those two is far cheaper on a long array — think about what prepending costs.",
+    "Loop i from the last index down to 0, pushing each element onto a new array, then return that array. Walking backwards and appending keeps every step cheap."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "signal",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int[]"
+  }
+}

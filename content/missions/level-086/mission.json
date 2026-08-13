@@ -1,0 +1,89 @@
+{
+  "id": "level_086",
+  "level": 86,
+  "zone": "core",
+  "title": "Longest Ascent",
+  "topic": "dynamic_programming",
+  "difficulty": 6,
+  "prerequisites": [
+    "dynamic_programming",
+    "binary_search"
+  ],
+  "expectedComplexity": "O(n log n)",
+  "story": {
+    "briefing": "Somewhere in the calibration log is the longest run of strictly rising readings — not necessarily consecutive, just in order. Its length sets the tolerance band.",
+    "success": "Longest ascent measured. The tolerance band is set."
+  },
+  "description": "Given an array of readings, return the length of the longest strictly increasing subsequence — a set of readings taken in their original order, each strictly greater than the one before, but not necessarily adjacent. An empty array returns 0.",
+  "constraints": "0 <= readings.length <= 200000, -10^9 <= readings[i] <= 10^9",
+  "entry": {
+    "javascript": "longestAscent",
+    "python": "longest_ascent"
+  },
+  "starter": {
+    "javascript": "function longestAscent(readings) {\n  // Length of the longest strictly increasing subsequence.\n  \n}",
+    "python": "def longest_ascent(readings):\n    # Length of the longest strictly increasing subsequence.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "readings = [4, 1, 5, 2, 6]",
+      "output": "3",
+      "explanation": "1, 5, 6 — or 1, 2, 6."
+    },
+    {
+      "input": "readings = [9, 9]",
+      "output": "1",
+      "explanation": "Equal is not increasing."
+    },
+    {
+      "input": "readings = []",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          4,
+          1,
+          5,
+          2,
+          6
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          9,
+          9
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Comparing each reading against every earlier one gives the right answer but grows quadratically. The hidden tests are large enough that this will not finish.",
+    "Keep, for each possible ascent length, the smallest value that could end an ascent of that length. That list is always sorted, which is the opening you need.",
+    "Maintain a sorted list of ascent-ending values. For each reading, find the first entry that is not smaller and replace it; if none exists, append. The list length is the answer — its contents are not a real subsequence."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 6.88
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "readings",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  }
+}

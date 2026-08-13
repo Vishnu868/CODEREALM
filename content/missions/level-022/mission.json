@@ -1,0 +1,102 @@
+{
+  "id": "level_022",
+  "level": 22,
+  "zone": "forest",
+  "title": "Unique Registry",
+  "topic": "hashing",
+  "difficulty": 3,
+  "prerequisites": [
+    "hashing"
+  ],
+  "expectedComplexity": "O(n + m)",
+  "story": {
+    "briefing": "Two outposts kept separate registries through the outage. Only the nodes that both of them recorded can be trusted.",
+    "success": "Registries reconciled. The trusted set is small, but it is certain."
+  },
+  "description": "Given two arrays of node identifiers, return the identifiers that appear in both, sorted in increasing order, with no repeats. If nothing appears in both, return an empty array.",
+  "constraints": "0 <= a.length, b.length <= 200000, 0 <= identifier <= 10^9",
+  "entry": {
+    "javascript": "sharedNodes",
+    "python": "shared_nodes"
+  },
+  "starter": {
+    "javascript": "function sharedNodes(a, b) {\n  // Sorted, de-duplicated identifiers present in both.\n  \n}",
+    "python": "def shared_nodes(a, b):\n    # Sorted, de-duplicated identifiers present in both.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "a = [3, 1, 3], b = [3, 5]",
+      "output": "[3]",
+      "explanation": "Repeats collapse to one entry."
+    },
+    {
+      "input": "a = [1, 2], b = [2, 1]",
+      "output": "[1, 2]"
+    },
+    {
+      "input": "a = [1], b = [9]",
+      "output": "[]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          3,
+          1,
+          3
+        ],
+        [
+          3,
+          5
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          1
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          1
+        ],
+        [
+          9
+        ]
+      ]
+    }
+  ],
+  "hints": [
+    "Membership testing is the core operation, and a structure built for membership answers it far faster than a repeated scan.",
+    "Two separate requirements hide here: no repeats in the output, and sorted order. Handle them deliberately rather than hoping the input order helps.",
+    "Put the first array into a set. Walk the second array collecting values the set contains, into a second set to remove repeats. Convert that to an array and sort it numerically."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 34.34
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "a",
+        "type": "int[]"
+      },
+      {
+        "name": "b",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int[]"
+  }
+}

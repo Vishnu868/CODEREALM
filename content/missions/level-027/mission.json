@@ -1,0 +1,79 @@
+{
+  "id": "level_027",
+  "level": 27,
+  "zone": "forest",
+  "title": "Longest Clean Burst",
+  "topic": "sliding_window",
+  "difficulty": 5,
+  "prerequisites": [
+    "sliding_window",
+    "hashing"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "A burst is clean while no character repeats inside it. The longest clean burst in the capture tells the engineers how much bandwidth the line can actually hold.",
+    "success": "Clean burst measured. The line is re-rated and the forest gets its bandwidth back."
+  },
+  "description": "Given a string, return the length of the longest contiguous stretch in which no character appears more than once. An empty string returns 0.",
+  "constraints": "0 <= stream.length <= 200000, ASCII characters only",
+  "entry": {
+    "javascript": "longestClean",
+    "python": "longest_clean"
+  },
+  "starter": {
+    "javascript": "function longestClean(stream) {\n  // Longest stretch with no repeated character.\n  \n}",
+    "python": "def longest_clean(stream):\n    # Longest stretch with no repeated character.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "stream = \"abcabcbb\"",
+      "output": "3",
+      "explanation": "abc."
+    },
+    {
+      "input": "stream = \"bbbb\"",
+      "output": "1"
+    },
+    {
+      "input": "stream = \"\"",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        "abcabcbb"
+      ]
+    },
+    {
+      "args": [
+        "bbbb"
+      ]
+    },
+    {
+      "args": [
+        ""
+      ]
+    }
+  ],
+  "hints": [
+    "The window here is not a fixed size — it grows while the stretch stays clean and has to shrink the moment a repeat appears.",
+    "When a repeat appears, moving the left edge one step at a time is correct but slow. Remembering where each character was last seen lets you jump the left edge straight past the earlier copy.",
+    "Track the last index of every character. Walk the right edge forward; when the current character was last seen at or after the left edge, move the left edge to just past that position. Record the width at every step."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 4.21
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "stream",
+        "type": "string"
+      }
+    ],
+    "returns": "int"
+  }
+}

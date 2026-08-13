@@ -1,0 +1,109 @@
+{
+  "id": "level_021",
+  "level": 21,
+  "zone": "forest",
+  "title": "Lookup Table",
+  "topic": "hashing",
+  "difficulty": 3,
+  "prerequisites": [
+    "hashing"
+  ],
+  "expectedComplexity": "O(n + q)",
+  "story": {
+    "briefing": "The forest routers keep their address book as a flat list of updates. Answering a single query by scanning that list works; answering ten thousand does not.",
+    "success": "Address book indexed. Queries return instantly."
+  },
+  "description": "You are given an array of updates, each a two-element array [key, value], applied in order — a later update to the same key replaces the earlier one. You are also given an array of keys to look up. Return an array of the resulting values, in query order, using -1 for any key that was never set.",
+  "constraints": "0 <= updates.length <= 200000, 0 <= queries.length <= 200000, 0 <= key <= 10^9, -10^9 <= value <= 10^9",
+  "entry": {
+    "javascript": "lookup",
+    "python": "lookup"
+  },
+  "starter": {
+    "javascript": "function lookup(updates, queries) {\n  // Return the value for each query, or -1.\n  \n}",
+    "python": "def lookup(updates, queries):\n    # Return the value for each query, or -1.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "updates = [[1, 10], [2, 20], [1, 30]], queries = [1, 2, 9]",
+      "output": "[30, 20, -1]",
+      "explanation": "The later update to key 1 wins."
+    },
+    {
+      "input": "updates = [], queries = [5]",
+      "output": "[-1]"
+    },
+    {
+      "input": "updates = [[7, 0]], queries = []",
+      "output": "[]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          [
+            1,
+            10
+          ],
+          [
+            2,
+            20
+          ],
+          [
+            1,
+            30
+          ]
+        ],
+        [
+          1,
+          2,
+          9
+        ]
+      ]
+    },
+    {
+      "args": [
+        [],
+        [
+          5
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            7,
+            0
+          ]
+        ],
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Scanning the updates once per query repeats the same work. Building something you can consult repeatedly is the point of this level.",
+    "Because later updates override earlier ones, the order you insert them matters — inserting in order and letting each overwrite is simplest.",
+    "Walk the updates once, storing key to value in a map so later writes replace earlier ones. Then map each query to the stored value, or -1 when the key is absent."
+  ],
+  "perf": {
+    "scale": 200000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 19.37
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "updates",
+        "type": "int[][]"
+      },
+      {
+        "name": "queries",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int[]"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "id": "level_035",
+  "level": 35,
+  "zone": "network",
+  "title": "The Rotated Signal",
+  "topic": "binary_search",
+  "difficulty": 6,
+  "prerequisites": [
+    "binary_search"
+  ],
+  "expectedComplexity": "O(log n)",
+  "story": {
+    "briefing": "The channel array was rotated during the outage. It is still sorted, just not from the beginning, and the correct channel has to be found without sweeping the whole thing.",
+    "success": "Channel located through the rotation. Communications come back online."
+  },
+  "description": "An array of distinct values was sorted in increasing order, then rotated left by some unknown amount — so [1, 3, 5, 7] might arrive as [5, 7, 1, 3]. A rotation of zero is possible. Given such an array and a target, return the index of the target, or -1 if it is absent.",
+  "constraints": "0 <= channels.length <= 300000, all values distinct",
+  "entry": {
+    "javascript": "rotatedSearch",
+    "python": "rotated_search"
+  },
+  "starter": {
+    "javascript": "function rotatedSearch(channels, target) {\n  // Index of target, or -1.\n  \n}",
+    "python": "def rotated_search(channels, target):\n    # Index of target, or -1.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "channels = [5, 7, 1, 3], target = 1",
+      "output": "2"
+    },
+    {
+      "input": "channels = [1, 3, 5], target = 5",
+      "output": "2",
+      "explanation": "A rotation of zero is still valid input."
+    },
+    {
+      "input": "channels = [5, 7, 1, 3], target = 4",
+      "output": "-1"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          5,
+          7,
+          1,
+          3
+        ],
+        1
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          3,
+          5
+        ],
+        5
+      ]
+    },
+    {
+      "args": [
+        [
+          5,
+          7,
+          1,
+          3
+        ],
+        4
+      ]
+    }
+  ],
+  "hints": [
+    "Cut the array anywhere and at least one of the two halves is still in plain sorted order. Work out which one, every time.",
+    "Once you know which half is sorted, you can tell whether the target lies inside it by comparing against that half endpoints — and if it does not, it must be in the other half.",
+    "Compare the middle with the left end. If the left half is sorted and the target sits between the left value and the middle, search left; otherwise search right. If instead the right half is sorted, apply the mirror image of that test."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "channels",
+        "type": "int[]"
+      },
+      {
+        "name": "target",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

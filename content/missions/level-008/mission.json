@@ -1,0 +1,87 @@
+{
+  "id": "level_008",
+  "level": 8,
+  "zone": "valley",
+  "title": "Calibration Routine",
+  "topic": "functions",
+  "difficulty": 3,
+  "prerequisites": [
+    "arrays",
+    "loops"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Every sensor in Sector 8 drifted by the same amount during the outage. Correct them all — but the housings physically cannot register a value outside their rated band.",
+    "success": "Sensors calibrated. The readings agree with each other for the first time in years."
+  },
+  "description": "Given an array of readings and an integer offset, add the offset to every reading. Any result below 0 becomes 0, and any result above 100 becomes 100. Return the corrected array. The input array may be empty, in which case return an empty array.",
+  "constraints": "0 <= readings.length <= 100000, -500 <= readings[i] <= 500, -500 <= offset <= 500",
+  "entry": {
+    "javascript": "calibrate",
+    "python": "calibrate"
+  },
+  "starter": {
+    "javascript": "function calibrate(readings, offset) {\n  // Shift every reading, clamped to the range 0-100.\n  \n}",
+    "python": "def calibrate(readings, offset):\n    # Shift every reading, clamped to the range 0-100.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "readings = [10, 95, 50], offset = 10",
+      "output": "[20, 100, 60]",
+      "explanation": "95 + 10 would be 105, which clamps to 100."
+    },
+    {
+      "input": "readings = [5, 20], offset = -30",
+      "output": "[0, 0]"
+    },
+    {
+      "input": "readings = [], offset = 4",
+      "output": "[]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          10,
+          95,
+          50
+        ],
+        10
+      ]
+    },
+    {
+      "args": [
+        [
+          5,
+          20
+        ],
+        -30
+      ]
+    },
+    {
+      "args": [
+        [],
+        4
+      ]
+    }
+  ],
+  "hints": [
+    "The same correction applies to every element, so this is one transformation repeated. A helper that clamps a single value keeps the loop clean.",
+    "Clamping needs both bounds. Handling only the upper bound is the usual mistake, and a negative offset will expose it immediately.",
+    "For each reading compute reading + offset, then take the larger of that and 0, then the smaller of the result and 100. Collect the values into a new array and return it."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "readings",
+        "type": "int[]"
+      },
+      {
+        "name": "offset",
+        "type": "int"
+      }
+    ],
+    "returns": "int[]"
+  }
+}

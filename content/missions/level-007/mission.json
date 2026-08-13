@@ -1,0 +1,79 @@
+{
+  "id": "level_007",
+  "level": 7,
+  "zone": "valley",
+  "title": "Grid Scan",
+  "topic": "loops",
+  "difficulty": 2,
+  "prerequisites": [
+    "loops"
+  ],
+  "expectedComplexity": "O(rows x cols)",
+  "story": {
+    "briefing": "The floor of Sector 7 is a lattice of cells. Every third junction along both axes carries a resonance, and the Core wants a count before it powers the lattice up.",
+    "success": "Lattice mapped. The resonant cells are isolated and the floor stabilises."
+  },
+  "description": "A grid has `rows` rows and `cols` columns, numbered starting at 1. Count the cells whose row number multiplied by its column number is divisible by 3. Return that count. If either dimension is 0, return 0.",
+  "constraints": "0 <= rows <= 300, 0 <= cols <= 300",
+  "entry": {
+    "javascript": "gridScan",
+    "python": "grid_scan"
+  },
+  "starter": {
+    "javascript": "function gridScan(rows, cols) {\n  // Count cells where row * column divides by 3.\n  \n}",
+    "python": "def grid_scan(rows, cols):\n    # Count cells where row * column divides by 3.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "rows = 3, cols = 3",
+      "output": "5",
+      "explanation": "Row 3 contributes 3 cells; column 3 adds 2 more that were not already counted."
+    },
+    {
+      "input": "rows = 1, cols = 1",
+      "output": "0"
+    },
+    {
+      "input": "rows = 0, cols = 5",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        3,
+        3
+      ]
+    },
+    {
+      "args": [
+        1,
+        1
+      ]
+    },
+    {
+      "args": [
+        0,
+        5
+      ]
+    }
+  ],
+  "hints": [
+    "A grid needs one loop for rows and another loop nested inside it for the columns of that row.",
+    "Rows and columns are numbered from 1, but a loop counter naturally starts at 0. Decide which convention you are using and stay consistent, or every result will be off.",
+    "Loop r from 1 to rows, and inside it loop c from 1 to cols. Increment a counter whenever (r * c) % 3 equals 0, then return the counter."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "rows",
+        "type": "int"
+      },
+      {
+        "name": "cols",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

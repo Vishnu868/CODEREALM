@@ -1,0 +1,87 @@
+{
+  "id": "level_076",
+  "level": 76,
+  "zone": "core",
+  "title": "Selection Sets",
+  "topic": "backtracking",
+  "difficulty": 5,
+  "prerequisites": [
+    "backtracking"
+  ],
+  "expectedComplexity": "O(C(n,k) x k)",
+  "story": {
+    "briefing": "Exactly k relays can be powered at once, no more. List every legal selection so the Core can rank them.",
+    "success": "Every legal selection listed. The ranking begins."
+  },
+  "description": "Given an array of distinct integers and an integer k, return every selection of exactly k of them. Each selection keeps the elements in their original input order, and the selections appear in increasing lexicographic order of the positions chosen. If k is below 0 or above the number of elements, return an empty list. When k is 0, return a list containing one empty selection.",
+  "constraints": "0 <= relays.length <= 14, -2 <= k <= 16, all values distinct",
+  "entry": {
+    "javascript": "selections",
+    "python": "selections"
+  },
+  "starter": {
+    "javascript": "function selections(relays, k) {\n  // Every selection of exactly k relays.\n  \n}",
+    "python": "def selections(relays, k):\n    # Every selection of exactly k relays.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "relays = [1, 2, 3], k = 2",
+      "output": "[[1, 2], [1, 3], [2, 3]]"
+    },
+    {
+      "input": "relays = [4, 5], k = 0",
+      "output": "[[]]"
+    },
+    {
+      "input": "relays = [4], k = 3",
+      "output": "[]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ],
+        2
+      ]
+    },
+    {
+      "args": [
+        [
+          4,
+          5
+        ],
+        0
+      ]
+    },
+    {
+      "args": [
+        [
+          4
+        ],
+        3
+      ]
+    }
+  ],
+  "hints": [
+    "At each position you either take that element or skip it, and the recursion carries how many you still need.",
+    "Two things let you stop early: having taken enough already, and having too few elements left to possibly reach k. The second is what keeps this from exploring the whole power set.",
+    "Recurse on a starting index with a partial selection. Record a copy when the partial reaches length k. Otherwise loop the remaining positions from the start index upward, taking each in turn and recursing from the next one."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "relays",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": "int[][]"
+  }
+}

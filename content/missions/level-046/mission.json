@@ -1,0 +1,103 @@
+{
+  "id": "level_046",
+  "level": 46,
+  "zone": "network",
+  "title": "Loop Detection",
+  "topic": "linked_lists",
+  "difficulty": 5,
+  "prerequisites": [
+    "linked_lists"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "A maintenance drone went into the chain and never came out. If the links form a circle, anything following them walks forever.",
+    "success": "Loop confirmed and mapped. The drone is recovered."
+  },
+  "description": "Using the same chain format — an array of [value, next] nodes and a head index — return true if following the links from the head ever revisits a node, and false if the chain reaches -1 and ends. An empty chain returns false.",
+  "constraints": "0 <= nodes.length <= 300000",
+  "entry": {
+    "javascript": "hasLoop",
+    "python": "has_loop"
+  },
+  "starter": {
+    "javascript": "function hasLoop(nodes, head) {\n  // True if the links form a cycle.\n  \n}",
+    "python": "def has_loop(nodes, head):\n    # True if the links form a cycle.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "nodes = [[5, 1], [9, 0]], head = 0",
+      "output": "true",
+      "explanation": "Node 0 points to 1, which points back to 0."
+    },
+    {
+      "input": "nodes = [[5, 1], [9, -1]], head = 0",
+      "output": "false"
+    },
+    {
+      "input": "nodes = [], head = -1",
+      "output": "false"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          [
+            5,
+            1
+          ],
+          [
+            9,
+            0
+          ]
+        ],
+        0
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            5,
+            1
+          ],
+          [
+            9,
+            -1
+          ]
+        ],
+        0
+      ]
+    },
+    {
+      "args": [
+        [],
+        -1
+      ]
+    }
+  ],
+  "hints": [
+    "You cannot simply walk to the end, because if there is a loop there is no end. You need a way to notice you have been somewhere before.",
+    "Recording every position you visit works and is a fine answer. There is also a way that needs no extra storage at all, using two probes moving at different speeds.",
+    "Advance a slow position one step and a fast position two steps per iteration. If the fast probe ever runs off the end, there is no loop; if the two positions ever coincide, there is."
+  ],
+  "perf": {
+    "scale": 300000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 12.52
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "nodes",
+        "type": "int[][]"
+      },
+      {
+        "name": "head",
+        "type": "int"
+      }
+    ],
+    "returns": "bool"
+  }
+}

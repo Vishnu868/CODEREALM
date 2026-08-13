@@ -1,0 +1,72 @@
+{
+  "id": "level_047",
+  "level": 47,
+  "zone": "network",
+  "title": "Bracket Integrity",
+  "topic": "stacks",
+  "difficulty": 4,
+  "prerequisites": [
+    "strings"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "Every command the Core accepts is nested in brackets, and a single unclosed pair rejects the whole instruction. The parser here has to be exact.",
+    "success": "Instruction parsed. The Core accepts commands again."
+  },
+  "description": "Given a string containing only the characters ( ) [ ] { }, return true if every bracket is closed by the matching type in the correct order, and false otherwise. An empty string is valid and returns true.",
+  "constraints": "0 <= command.length <= 300000, only bracket characters appear",
+  "entry": {
+    "javascript": "bracketsValid",
+    "python": "brackets_valid"
+  },
+  "starter": {
+    "javascript": "function bracketsValid(command) {\n  // True if every bracket closes correctly.\n  \n}",
+    "python": "def brackets_valid(command):\n    # True if every bracket closes correctly.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "command = \"([]{})\"",
+      "output": "true"
+    },
+    {
+      "input": "command = \"([)]\"",
+      "output": "false",
+      "explanation": "Correctly counted, but wrongly nested."
+    },
+    {
+      "input": "command = \"(\"",
+      "output": "false"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        "([]{})"
+      ]
+    },
+    {
+      "args": [
+        "([)]"
+      ]
+    },
+    {
+      "args": [
+        "("
+      ]
+    }
+  ],
+  "hints": [
+    "A closing bracket must match the most recent unclosed opening bracket. That \"most recent first\" behaviour is exactly what a stack gives you.",
+    "Counting brackets is not enough — the second example has equal counts of every type and is still invalid. The nesting order is what you are checking.",
+    "Push every opening bracket. On a closing bracket, fail if the stack is empty or its top is not the matching opener, otherwise pop. At the end, the string is valid only if the stack is empty."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "command",
+        "type": "string"
+      }
+    ],
+    "returns": "bool"
+  }
+}

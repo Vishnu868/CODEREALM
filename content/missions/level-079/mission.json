@@ -1,0 +1,72 @@
+{
+  "id": "level_079",
+  "level": 79,
+  "zone": "core",
+  "title": "Conflict-Free Placement",
+  "topic": "backtracking",
+  "difficulty": 6,
+  "prerequisites": [
+    "backtracking"
+  ],
+  "expectedComplexity": "exponential with pruning",
+  "story": {
+    "briefing": "Emitters cannot share a row, a column, or a diagonal without interfering. Count the ways to place one per row on an n by n frame.",
+    "success": "Every conflict-free arrangement counted. The emitter grid comes online."
+  },
+  "description": "On an n by n grid, count the ways to place n emitters so that no two share a row, a column, or either diagonal. Exactly one emitter goes in each row. For n equal to 0, the answer is 1: the empty placement.",
+  "constraints": "0 <= n <= 9",
+  "entry": {
+    "javascript": "countPlacements",
+    "python": "count_placements"
+  },
+  "starter": {
+    "javascript": "function countPlacements(n) {\n  // Number of conflict-free placements.\n  \n}",
+    "python": "def count_placements(n):\n    # Number of conflict-free placements.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "n = 4",
+      "output": "2"
+    },
+    {
+      "input": "n = 1",
+      "output": "1"
+    },
+    {
+      "input": "n = 3",
+      "output": "0",
+      "explanation": "No arrangement works on a 3 by 3 frame."
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        4
+      ]
+    },
+    {
+      "args": [
+        1
+      ]
+    },
+    {
+      "args": [
+        3
+      ]
+    }
+  ],
+  "hints": [
+    "Place one emitter per row, working downward. For each row, try every column that does not conflict with anything already placed.",
+    "Checking a candidate against every previous emitter works. Remembering which columns and which diagonals are already taken is faster and simpler to get right.",
+    "Two emitters share a diagonal when their row plus column match, or their row minus column match. Track those two sums along with the used columns, marking on the way down and unmarking on the way back up."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

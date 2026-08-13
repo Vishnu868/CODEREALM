@@ -1,0 +1,89 @@
+{
+  "id": "level_006",
+  "level": 6,
+  "zone": "valley",
+  "title": "Routing Logic",
+  "topic": "conditionals",
+  "difficulty": 2,
+  "prerequisites": [
+    "conditionals"
+  ],
+  "expectedComplexity": "O(1)",
+  "story": {
+    "briefing": "Power has to go somewhere. The junction in Sector 6 needs a rule for choosing a path, and it has to survive a reading that should never have reached it.",
+    "success": "Junction reprogrammed. Power finds its way around the damage."
+  },
+  "description": "Given a power load and whether a backup line is available, decide the route. A negative load is invalid: return \"INVALID\". A load of 50 or less always goes to \"PRIMARY\". Above 50, use \"BACKUP\" when a backup line is available. When no backup is available, a load of 90 or less still goes to \"PRIMARY\", but anything above 90 must return \"SHUTDOWN\".",
+  "constraints": "-1000 <= load <= 1000, hasBackup is a boolean",
+  "entry": {
+    "javascript": "route",
+    "python": "route"
+  },
+  "starter": {
+    "javascript": "function route(load, hasBackup) {\n  // Return \"INVALID\", \"PRIMARY\", \"BACKUP\", or \"SHUTDOWN\".\n  \n}",
+    "python": "def route(load, has_backup):\n    # Return \"INVALID\", \"PRIMARY\", \"BACKUP\", or \"SHUTDOWN\".\n    pass"
+  },
+  "examples": [
+    {
+      "input": "load = 30, hasBackup = false",
+      "output": "\"PRIMARY\""
+    },
+    {
+      "input": "load = 70, hasBackup = true",
+      "output": "\"BACKUP\""
+    },
+    {
+      "input": "load = 95, hasBackup = false",
+      "output": "\"SHUTDOWN\""
+    },
+    {
+      "input": "load = -5, hasBackup = true",
+      "output": "\"INVALID\"",
+      "explanation": "The invalid check comes before everything else."
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        30,
+        false
+      ]
+    },
+    {
+      "args": [
+        70,
+        true
+      ]
+    },
+    {
+      "args": [
+        95,
+        false
+      ]
+    },
+    {
+      "args": [
+        -5,
+        true
+      ]
+    }
+  ],
+  "hints": [
+    "Four outcomes, but they are not all at the same level. One condition overrides every other and should be tested first.",
+    "After the invalid check, the load splits into ranges, and only some of those ranges care about the backup line. Draw the four cases out before writing them.",
+    "Return \"INVALID\" for a negative load. Then return \"PRIMARY\" for 50 or less. For what remains, return \"BACKUP\" if a backup exists; otherwise return \"PRIMARY\" up to 90 and \"SHUTDOWN\" above it."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "load",
+        "type": "int"
+      },
+      {
+        "name": "hasBackup",
+        "type": "bool"
+      }
+    ],
+    "returns": "string"
+  }
+}

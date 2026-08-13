@@ -1,0 +1,97 @@
+{
+  "id": "level_093",
+  "level": 93,
+  "zone": "core",
+  "title": "Balanced Division",
+  "topic": "binary_search",
+  "difficulty": 6,
+  "prerequisites": [
+    "binary_search",
+    "greedy"
+  ],
+  "expectedComplexity": "O(n log S)",
+  "story": {
+    "briefing": "The workload has to be split across k crews, and the sections must stay in order. Whichever crew gets the heaviest share sets the finish time — make that share as small as possible.",
+    "success": "Workload divided. No crew carries more than it must."
+  },
+  "description": "Given an array of section weights and a crew count k, split the array into exactly k contiguous non-empty groups. Each group total is a crew load. Return the smallest possible value of the largest crew load. The array always has at least k elements.\n\nThis level requires better than linear scanning over candidate answers.",
+  "constraints": "1 <= sections.length <= 100000, 1 <= k <= sections.length, 1 <= weight <= 10000",
+  "entry": {
+    "javascript": "balancedDivision",
+    "python": "balanced_division"
+  },
+  "starter": {
+    "javascript": "function balancedDivision(sections, k) {\n  // Smallest possible largest group total.\n  \n}",
+    "python": "def balanced_division(sections, k):\n    # Smallest possible largest group total.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "sections = [7, 2, 5, 10, 8], k = 2",
+      "output": "18",
+      "explanation": "7+2+5 against 10+8."
+    },
+    {
+      "input": "sections = [1, 2, 3], k = 3",
+      "output": "3"
+    },
+    {
+      "input": "sections = [4], k = 1",
+      "output": "4"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          7,
+          2,
+          5,
+          10,
+          8
+        ],
+        2
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ],
+        3
+      ]
+    },
+    {
+      "args": [
+        [
+          4
+        ],
+        1
+      ]
+    }
+  ],
+  "hints": [
+    "Do not try to build the best split directly. Ask instead: with a cap of C on any group, how few groups can I get away with? That is answered greedily in one pass.",
+    "That question answers false for every cap below the true answer and true for every cap above it. A monotonic yes-no pattern is exactly what binary search consumes — search over caps, not over the array.",
+    "The answer lies between the largest single weight and the total of all weights. Binary search that range, and for each cap greedily fill groups from the left, counting how many are needed."
+  ],
+  "perf": {
+    "scale": 100000,
+    "silverFactor": 6,
+    "goldFactor": 3
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "sections",
+        "type": "int[]"
+      },
+      {
+        "name": "k",
+        "type": "int"
+      }
+    ],
+    "returns": "int"
+  }
+}

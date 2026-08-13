@@ -1,0 +1,88 @@
+{
+  "id": "level_061",
+  "level": 61,
+  "zone": "core",
+  "title": "Network Map",
+  "topic": "graphs",
+  "difficulty": 4,
+  "prerequisites": [
+    "arrays"
+  ],
+  "expectedComplexity": "O(n + m)",
+  "story": {
+    "briefing": "The Core network has no map. Before anything can be routed through it, someone has to count how many links each node actually carries.",
+    "success": "Network mapped. Every node knows how many neighbours it has."
+  },
+  "description": "A graph is given as n, the number of nodes numbered 0 to n-1, and edges, an array of [u, v] pairs. Edges are undirected unless stated otherwise, and there are no self-loops or duplicate edges. Return an array of length n where each entry is the number of edges touching that node. A node with no edges has 0.",
+  "constraints": "1 <= n <= 300000, 0 <= edges.length <= 300000",
+  "entry": {
+    "javascript": "linkCounts",
+    "python": "link_counts"
+  },
+  "starter": {
+    "javascript": "function linkCounts(n, edges) {\n  // Number of edges touching each node.\n  \n}",
+    "python": "def link_counts(n, edges):\n    # Number of edges touching each node.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "n = 3, edges = [[0, 1], [1, 2]]",
+      "output": "[1, 2, 1]",
+      "explanation": "Node 1 sits between the other two."
+    },
+    {
+      "input": "n = 2, edges = []",
+      "output": "[0, 0]"
+    },
+    {
+      "input": "n = 1, edges = []",
+      "output": "[0]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        3,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        2,
+        []
+      ]
+    },
+    {
+      "args": [
+        1,
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Each edge is a fact about two nodes at once, so a single pass over the edges can update both ends.",
+    "Scanning the whole edge list once per node re-reads everything n times. Walk the edges once instead and let each one update the counts it affects.",
+    "Start an array of n zeros. For every [u, v] edge, increment the entry at u and the entry at v. Return the array."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "n",
+        "type": "int"
+      },
+      {
+        "name": "edges",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int[]"
+  }
+}

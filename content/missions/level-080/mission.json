@@ -1,0 +1,102 @@
+{
+  "id": "level_080",
+  "level": 80,
+  "zone": "core",
+  "title": "Constrained Optimization",
+  "topic": "greedy",
+  "difficulty": 6,
+  "prerequisites": [
+    "greedy",
+    "sorting"
+  ],
+  "expectedComplexity": "O(n log n)",
+  "story": {
+    "briefing": "Each repair earns the Core something, and each expires after its own deadline. One repair per cycle, cycles numbered from 1. Take the most valuable set you can still finish in time.",
+    "success": "Repair schedule locked in at maximum value. The greedy zone closes out."
+  },
+  "description": "You are given repairs, each a two-element array [deadline, value]. One repair is done per cycle, with cycles numbered 1, 2, 3 and so on, and a repair only counts if it is done in a cycle no later than its deadline. Return the largest total value obtainable. An empty list returns 0.",
+  "constraints": "0 <= repairs.length <= 100000, 1 <= deadline <= 100000, 1 <= value <= 10000",
+  "entry": {
+    "javascript": "maxValue",
+    "python": "max_value"
+  },
+  "starter": {
+    "javascript": "function maxValue(repairs) {\n  // Largest total value schedulable within deadlines.\n  \n}",
+    "python": "def max_value(repairs):\n    # Largest total value schedulable within deadlines.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "repairs = [[2, 100], [1, 19], [2, 27]]",
+      "output": "127",
+      "explanation": "Do the 19 or the 27 in cycle 1 and the 100 in cycle 2; taking 27 and 100 is best."
+    },
+    {
+      "input": "repairs = [[1, 5], [1, 8]]",
+      "output": "8",
+      "explanation": "Both need cycle 1, so only the better one counts."
+    },
+    {
+      "input": "repairs = []",
+      "output": "0"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          [
+            2,
+            100
+          ],
+          [
+            1,
+            19
+          ],
+          [
+            2,
+            27
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            8
+          ]
+        ]
+      ]
+    },
+    {
+      "args": [
+        []
+      ]
+    }
+  ],
+  "hints": [
+    "Consider the repairs in decreasing order of value, and for each one ask whether a cycle is still free at or before its deadline.",
+    "When a repair fits, schedule it as late as it is allowed. Taking an early cycle needlessly blocks a repair that has no other option.",
+    "Sort by value descending. For each repair, scan backwards from its deadline for a free cycle and take the latest one available. A union-find that jumps straight to the next free cycle avoids re-scanning."
+  ],
+  "perf": {
+    "scale": 100000,
+    "silverFactor": 6,
+    "goldFactor": 3,
+    "optimalMs": 41.16
+  },
+  "signature": {
+    "params": [
+      {
+        "name": "repairs",
+        "type": "int[][]"
+      }
+    ],
+    "returns": "int"
+  }
+}

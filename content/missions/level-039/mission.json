@@ -1,0 +1,83 @@
+{
+  "id": "level_039",
+  "level": 39,
+  "zone": "network",
+  "title": "Rotation Point",
+  "topic": "binary_search",
+  "difficulty": 5,
+  "prerequisites": [
+    "binary_search"
+  ],
+  "expectedComplexity": "O(log n)",
+  "story": {
+    "briefing": "Before the rotated array can be repaired, the exact point where it wraps has to be found — the smallest value, wherever it has ended up.",
+    "success": "Rotation point found. The array can be unwound."
+  },
+  "description": "A non-empty array of distinct values was sorted in increasing order and then rotated left by an unknown amount, possibly zero. Return the smallest value in it.",
+  "constraints": "1 <= channels.length <= 300000, all values distinct",
+  "entry": {
+    "javascript": "rotationPoint",
+    "python": "rotation_point"
+  },
+  "starter": {
+    "javascript": "function rotationPoint(channels) {\n  // The smallest value in the rotated array.\n  \n}",
+    "python": "def rotation_point(channels):\n    # The smallest value in the rotated array.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "channels = [5, 7, 1, 3]",
+      "output": "1"
+    },
+    {
+      "input": "channels = [1, 2, 3]",
+      "output": "1",
+      "explanation": "Rotation of zero."
+    },
+    {
+      "input": "channels = [2]",
+      "output": "2"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          5,
+          7,
+          1,
+          3
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ]
+      ]
+    },
+    {
+      "args": [
+        [
+          2
+        ]
+      ]
+    }
+  ],
+  "hints": [
+    "Comparing the middle element against the last element tells you which side of the wrap point you are standing on.",
+    "Comparing the middle against the *first* element instead breaks on an unrotated array. Choosing the right anchor is the whole trick.",
+    "While lo is below hi: if the middle value is greater than the value at hi, the smallest must be to the right, so set lo to mid plus 1; otherwise set hi to mid. When they meet, that position holds the answer."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "channels",
+        "type": "int[]"
+      }
+    ],
+    "returns": "int"
+  }
+}

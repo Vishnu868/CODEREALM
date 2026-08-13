@@ -1,0 +1,96 @@
+{
+  "id": "level_044",
+  "level": 44,
+  "zone": "network",
+  "title": "Chain Reversal",
+  "topic": "linked_lists",
+  "difficulty": 5,
+  "prerequisites": [
+    "linked_lists"
+  ],
+  "expectedComplexity": "O(n)",
+  "story": {
+    "briefing": "The chain has to report back the way it came. Nothing can be re-linked in place down here, so the reversed order has to be produced by walking it once.",
+    "success": "Chain reversed. The report travels back up the shaft in order."
+  },
+  "description": "Using the same chain format as before — an array of [value, next] nodes and a head index, with -1 ending the chain — return an array of the values in reverse order of traversal. An empty chain returns an empty array.",
+  "constraints": "0 <= nodes.length <= 300000, the chain never revisits a node",
+  "entry": {
+    "javascript": "chainReverse",
+    "python": "chain_reverse"
+  },
+  "starter": {
+    "javascript": "function chainReverse(nodes, head) {\n  // Values along the chain, last first.\n  \n}",
+    "python": "def chain_reverse(nodes, head):\n    # Values along the chain, last first.\n    pass"
+  },
+  "examples": [
+    {
+      "input": "nodes = [[5, 2], [9, -1], [4, 1]], head = 0",
+      "output": "[9, 4, 5]"
+    },
+    {
+      "input": "nodes = [[7, -1]], head = 0",
+      "output": "[7]"
+    },
+    {
+      "input": "nodes = [], head = -1",
+      "output": "[]"
+    }
+  ],
+  "visible": [
+    {
+      "args": [
+        [
+          [
+            5,
+            2
+          ],
+          [
+            9,
+            -1
+          ],
+          [
+            4,
+            1
+          ]
+        ],
+        0
+      ]
+    },
+    {
+      "args": [
+        [
+          [
+            7,
+            -1
+          ]
+        ],
+        0
+      ]
+    },
+    {
+      "args": [
+        [],
+        -1
+      ]
+    }
+  ],
+  "hints": [
+    "You cannot reach the last node without walking the whole chain first, so the reversal has to happen after or during that walk.",
+    "Building the result by inserting each value at the front is correct but costs more the longer the chain gets. Collecting forwards and reversing once is cheaper.",
+    "Walk the chain collecting values into an array, then reverse that array — or walk it once and prepend, if you are happy with the cost. The forward-then-reverse route stays linear."
+  ],
+  "signature": {
+    "params": [
+      {
+        "name": "nodes",
+        "type": "int[][]"
+      },
+      {
+        "name": "head",
+        "type": "int"
+      }
+    ],
+    "returns": "int[]"
+  }
+}
