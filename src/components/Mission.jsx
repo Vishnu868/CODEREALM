@@ -155,16 +155,11 @@ export default function Mission({ mission, onExit, onResult }) {
         <div className="code-bar">
           <select className="lang" value={language} aria-label="Language"
             onChange={(e) => setLanguage(e.target.value)}>
-            <optgroup label="Runs in your browser">
-              {LANGUAGES.filter((l) => l.where === 'browser').map((l) => (
-                <option key={l.id} value={l.id}>{l.label}</option>
-              ))}
-            </optgroup>
-            <optgroup label={serverEnabled ? 'Runs on the execution service' : 'Needs an execution service'}>
-              {LANGUAGES.filter((l) => l.where === 'server').map((l) => (
-                <option key={l.id} value={l.id} disabled={!serverEnabled}>{l.label}</option>
-              ))}
-            </optgroup>
+            {LANGUAGES.map((l) => (
+              <option key={l.id} value={l.id} disabled={l.where === 'server' && !serverEnabled}>
+                {l.label}
+              </option>
+            ))}
           </select>
           {!isAvailable(language) && (
             <span style={{ fontSize: 12, color: 'var(--warn)' }}>
@@ -172,7 +167,7 @@ export default function Mission({ mission, onExit, onResult }) {
             </span>
           )}
           {language === 'python' && pyStatus === 'loading' && (
-            <span style={{ fontSize: 12, color: 'var(--fg-faint)' }}>Preparing Python runtime (one-time ~6 MB download)…</span>
+            <span style={{ fontSize: 12, color: 'var(--fg-faint)' }}>Preparing Python…</span>
           )}
           {language === 'python' && pyStatus === 'failed' && (
             <span style={{ fontSize: 12, color: 'var(--bad)' }}>Python runtime unavailable — check your connection.</span>

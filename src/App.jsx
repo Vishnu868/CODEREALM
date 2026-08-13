@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { loadMission } from './data/content'
 import Landing from './components/Landing'
 import CoreRestored from './components/CoreRestored'
@@ -10,6 +10,36 @@ import { useGame } from './game/store'
 import { ACHIEVEMENTS, ITEMS } from './game/rules'
 import { track, EVENTS } from './game/analytics'
 
+/**
+ * Hash routing.
+ *
+ * Reloading used to drop the player back on the map, which is exactly wrong
+ * mid-problem — their draft survived but their place did not. The URL now names
+ * the screen, so reload, browser back, and sharing a link all behave.
+ *
+ *   #/intro        the story page
+ *   #/map          the campaign map
+ *   #/level/37     a mission workspace
+ *   #/complete     the ending
+ *
+ * No router library: this is four shapes and a hashchange listener.
+ */
+function readHash() {
+  const raw = (window.location.hash || '').replace(/^#\/?/, '')
+  if (raw.startsWith('level/')) {
+    const level = Number(raw.slice(6))
+    if (Number.isInteger(level) && level >= 1) return { view: 'level', level }
+  }
+  if (raw === 'intro') return { view: 'landing' }
+  if (raw === 'complete') return { view: 'complete' }
+  if (raw === 'map') return { view: 'map' }
+  return null
+}
+
+function writeHash(hash) {
+  if (window.location.hash !== hash) window.history.replaceState(null, '', hash)
+}
+
 export default function App({ index }) {
   const game = useGame()
   const [briefing, setBriefing] = useState(null)
@@ -18,11 +48,15 @@ export default function App({ index }) {
   const [profile, setProfile] = useState(false)
   // New players meet the story first; returning players go straight to the map.
   const [view, setView] = useState(() => {
+    const route = readHash()
+    // A URL naming a screen always wins over the once-only intro flag.
+    if (route) return route.view === 'level' ? 'map' : route.view
     try {
       if (localStorage.getItem('code-runner:seen-intro') === '1') return 'map'
     } catch { }
     return 'landing'
   })
+  const bootRoute = useRef(readHash())
   const [auth, setAuth] = useState(false)
   const [ending, setEnding] = useState(false)
   // Offered once, after the player has something worth keeping.
@@ -84,6 +118,49 @@ export default function App({ index }) {
     }
   }, [pushToast])
 
+
+  // Deep link: #/level/37 opens that mission directly, provided it is unlocked.
+  useEffect(() => {
+    const route = bootRoute.current
+    bootRoute.current = null
+    if (!route || route.view !== 'level') return
+    const entry = game.catalogue.find((m) => m.level === route.level)
+    if (!entry || !game.isUnlocked(route.level)) { setView('map'); return }
+    loadMission(entry.id)
+      .then((m) => { setActive(m); setView('map') })
+      .catch(() => setView('map'))
+    // Runs once, on mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Keep the URL in step with whatever is on screen.
+  useEffect(() => {
+    if (view === 'landing') writeHash('#/intro')
+    else if (ending) writeHash('#/complete')
+    else if (active) writeHash(`#/level/${active.level}`)
+    else writeHash('#/map')
+  }, [view, active, ending])
+
+  // Browser back and forward.
+  useEffect(() => {
+    const onPop = () => {
+      const route = readHash()
+      if (!route) return
+      if (route.view === 'level') {
+        const entry = game.catalogue.find((m) => m.level === route.level)
+        if (entry && game.isUnlocked(route.level)) {
+          loadMission(entry.id).then(setActive).catch(() => { })
+          setView('map')
+          return
+        }
+      }
+      setActive(null)
+      setEnding(route.view === 'complete')
+      setView(route.view === 'landing' ? 'landing' : 'map')
+    }
+    window.addEventListener('hashchange', onPop)
+    return () => window.removeEventListener('hashchange', onPop)
+  }, [game.catalogue, game.isUnlocked])
 
   const dismissSavePrompt = useCallback(() => {
     try { localStorage.setItem('code-runner:save-prompt-seen', '1') } catch { }
