@@ -1,9 +1,13 @@
 # Cloudflare Pages / Netlify security headers.
 #
-# 'wasm-unsafe-eval' is required: Pyodide is WebAssembly, and the JavaScript
-# runner evaluates player code by design. Read SECURITY.md before deploying.
+# Two eval permissions are required and cannot be removed:
+#   'unsafe-eval'       mission generators and reference solutions are evaluated
+#                       with new Function (src/data/content.js), and the
+#                       JavaScript runner evaluates the player's own code.
+#   'wasm-unsafe-eval'  Pyodide is WebAssembly.
+# Read SECURITY.md before deploying.
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; worker-src 'self' blob:; connect-src 'self' https://cdn.jsdelivr.net https://*.supabase.co; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; worker-src 'self' blob:; connect-src 'self' https://cdn.jsdelivr.net https://*.supabase.co https://emkc.org; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
