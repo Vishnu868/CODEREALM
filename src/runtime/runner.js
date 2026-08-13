@@ -5,7 +5,7 @@
  * worker, and compares player output against the reference solution.
  */
 
-import { LANGUAGES as ALL_LANGUAGES, byId, serverEnabled, provider, pistonUrl } from './languages'
+import { LANGUAGES as ALL_LANGUAGES, byId, serverEnabled, provider, pistonUrl, wandboxUrl } from './languages'
 
 const WORKERS = {
   javascript: '/js-runner.worker.js',
@@ -63,8 +63,8 @@ export function execute({ language, code, entry, cases, timeoutMs, signature }) 
       return Promise.resolve({
         status: 'unavailable',
         message: `${lang.label} runs on an execution service, which is not configured. ` +
-          `Set VITE_PISTON_URL=default for the free public service, or VITE_JUDGE_URL for your own. ` +
-          `JavaScript and Python need neither.`,
+          `Set VITE_WANDBOX_URL=default for the free public service, or VITE_PISTON_URL / ` +
+          `VITE_JUDGE_URL for your own. JavaScript and Python need neither.`,
         results: [],
         lastIndex: 0
       })
@@ -156,9 +156,12 @@ async function executeOnServer({ language, code, entry, cases, timeoutMs, signat
     if (provider === 'judge') {
       const { runOnJudge } = await import('./judge')
       results = await runOnJudge({ language, program, signature, cases, timeLimitS })
-    } else {
+    } else if (provider === 'piston') {
       const { runOnPiston } = await import('./piston')
       results = await runOnPiston({ language, program, signature, cases, url: pistonUrl, timeLimitS })
+    } else {
+      const { runOnWandbox } = await import('./wandbox')
+      results = await runOnWandbox({ language, program, signature, cases, url: wandboxUrl, timeLimitS })
     }
     const compileError = results.find((r) => r.errorKind === 'compile')
     if (compileError) {
