@@ -50,9 +50,12 @@ ${code}
 
 int main() {
     ios::sync_with_stdio(false);
-${sig.params.map((p) => '    ' + cppRead(p.type, p.name)).join('\n')}
-    auto result = ${name}(${sig.params.map((p) => p.name).join(', ')});
-    ${cppWrite(sig.returns)}
+    int _T; cin >> _T;
+    for (int _t = 0; _t < _T; _t++) {
+${sig.params.map((p) => '        ' + cppRead(p.type, p.name)).join('\n')}
+        auto result = ${name}(${sig.params.map((p) => p.name).join(', ')});
+        ${cppWrite(sig.returns)}
+    }
     return 0;
 }
 `,
@@ -79,9 +82,12 @@ public class Main {
 ${indent(code, 4)}
 
     public static void main(String[] args) throws IOException {
-${sig.params.map((p) => indent(javaRead(p.type, p.name), 8)).join('\n')}
-        ${javaType(sig.returns)} result = ${name}(${sig.params.map((p) => p.name).join(', ')});
-${indent(javaWrite(sig.returns), 8)}
+        int _T = (int) num();
+        for (int _t = 0; _t < _T; _t++) {
+${sig.params.map((p) => indent(javaRead(p.type, p.name), 12)).join('\n')}
+            ${javaType(sig.returns)} result = ${name}(${sig.params.map((p) => p.name).join(', ')});
+${indent(javaWrite(sig.returns), 12)}
+        }
     }
 }
 `,
@@ -103,9 +109,12 @@ public class Solution {
 ${indent(code, 4)}
 
     public static void Main() {
-${sig.params.map((p) => indent(csharpRead(p.type, p.name), 8)).join('\n')}
-        var result = ${name}(${sig.params.map((p) => p.name).join(', ')});
-${indent(csharpWrite(sig.returns), 8)}
+        int _T = (int) Num();
+        for (int _t = 0; _t < _T; _t++) {
+${sig.params.map((p) => indent(csharpRead(p.type, p.name), 12)).join('\n')}
+            var result = ${name}(${sig.params.map((p) => p.name).join(', ')});
+${indent(csharpWrite(sig.returns), 12)}
+        }
     }
 }
 `,
@@ -135,9 +144,12 @@ ${code}
 
 func main() {
 \tdefer writer.Flush()
-${sig.params.map((p) => '\t' + goRead(p.type, p.name)).join('\n')}
-\tresult := ${name}(${sig.params.map((p) => p.name).join(', ')})
-\t${goWrite(sig.returns)}
+\t_T := int(num())
+\tfor _t := 0; _t < _T; _t++ {
+${sig.params.map((p) => '\t\t' + goRead(p.type, p.name)).join('\n')}
+\t\tresult := ${name}(${sig.params.map((p) => p.name).join(', ')})
+\t\t${goWrite(sig.returns)}
+\t}
 }
 `,
 
@@ -166,10 +178,13 @@ fn main() {
         if ti < tokens.len() { let r = tokens[ti..].join(" "); ti = tokens.len(); r }
         else { lines.next().unwrap_or("").to_string() }
     }}; }
-${sig.params.map((p) => '    ' + rustRead(p.type, p.name)).join('\n')}
-    let result = ${name}(${sig.params.map((p) => p.name).join(', ')});
+    let _t_count = next_num!();
     let mut out = String::new();
-${indent(rustWrite(sig.returns), 4)}
+    for _t in 0.._t_count {
+${sig.params.map((p) => '        ' + rustRead(p.type, p.name)).join('\n')}
+        let result = ${name}(${sig.params.map((p) => p.name).join(', ')});
+${indent(rustWrite(sig.returns), 8)}
+    }
     io::stdout().write_all(out.as_bytes()).unwrap();
 }
 `,
@@ -192,10 +207,13 @@ private fun line(): String {
 ${code}
 
 fun main() {
-${sig.params.map((p) => '    ' + kotlinRead(p.type, p.name)).join('\n')}
-    val result = ${name}(${sig.params.map((p) => p.name).join(', ')})
     val sb = StringBuilder()
-${indent(kotlinWrite(sig.returns), 4)}
+    val _tCount = num().toInt()
+    for (_t in 0 until _tCount) {
+${sig.params.map((p) => '        ' + kotlinRead(p.type, p.name)).join('\n')}
+        val result = ${name}(${sig.params.map((p) => p.name).join(', ')})
+${indent(kotlinWrite(sig.returns), 8)}
+    }
     print(sb)
 }
 `,
@@ -221,9 +239,12 @@ func line() -> String {
 
 ${code}
 
-${sig.params.map((p) => swiftRead(p.type, p.name)).join('\n')}
-let result = ${name}(${sig.params.map((p) => p.name).join(', ')})
-${swiftWrite(sig.returns)}
+let _tCount = num()
+for _t in 0..<_tCount {
+${sig.params.map((p) => indent(swiftRead(p.type, p.name), 4)).join('\n')}
+    let result = ${name}(${sig.params.map((p) => p.name).join(', ')})
+${indent(swiftWrite(sig.returns), 4)}
+}
 `,
 
   ruby: (sig, name, code) => `${code}
@@ -244,9 +265,12 @@ def line
   l.nil? ? "" : l.chomp
 end
 
-${sig.params.map((p) => rubyRead(p.type, p.name)).join('\n')}
-result = ${name}(${sig.params.map((p) => p.name).join(', ')})
-${rubyWrite(sig.returns)}
+_t_count = num
+_t_count.times do
+${sig.params.map((p) => indent(rubyRead(p.type, p.name), 2)).join('\n')}
+  result = ${name}(${sig.params.map((p) => p.name).join(', ')})
+${indent(rubyWrite(sig.returns), 2)}
+end
 `,
 
   typescript: (sig, name, code) => `${code}
@@ -269,9 +293,12 @@ function line(): string {
   if (_ti < _tokens.length) { const r = _tokens.slice(_ti).join(' '); _ti = _tokens.length; return r }
   return _li < _lines.length ? _lines[_li++] : ''
 }
-${sig.params.map((p) => tsRead(p.type, p.name)).join('\n')}
-const _result = ${name}(${sig.params.map((p) => p.name).join(', ')})
-${tsWrite(sig.returns)}
+const _tCount = num()
+for (let _t = 0; _t < _tCount; _t++) {
+${sig.params.map((p) => indent(tsRead(p.type, p.name), 2)).join('\n')}
+  const _result = ${name}(${sig.params.map((p) => p.name).join(', ')})
+${indent(tsWrite(sig.returns), 2)}
+}
 `
 }
 

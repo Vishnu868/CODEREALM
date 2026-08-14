@@ -20,7 +20,6 @@
 export const LANGUAGES = [
   { id: 'javascript', label: 'JavaScript', where: 'browser', judgeId: 63 },
   { id: 'python', label: 'Python 3', where: 'browser', judgeId: 71 },
-  { id: 'c', label: 'C', where: 'server', judgeId: 50 },
   { id: 'cpp', label: 'C++17', where: 'server', judgeId: 54 },
   { id: 'java', label: 'Java', where: 'server', judgeId: 62 },
   { id: 'typescript', label: 'TypeScript', where: 'server', judgeId: 74 },
