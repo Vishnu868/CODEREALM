@@ -26,13 +26,7 @@ const DEFAULT_URL = 'https://wandbox.org/api/compile.json'
 /** Wandbox identifies compilers by exact name, not by language. */
 const WANDBOX_LANG = {
   cpp: { compiler: 'gcc-13.2.0', options: 'warning,gnu++17' },
-  c: { compiler: 'gcc-13.2.0-c', options: 'warning,c17' },
-  java: { compiler: 'openjdk-jdk-11+28', options: '' },
-  rust: { compiler: 'rust-1.70.0', options: '' },
-  go: { compiler: 'go-1.20.5', options: '' },
-  ruby: { compiler: 'ruby-3.2.2', options: '' },
-  csharp: { compiler: 'mono-6.12.0.122', options: '' },
-  typescript: { compiler: 'typescript-5.1.3', options: '' }
+  java: { compiler: 'openjdk-jdk-11+28', options: '' }
 }
 
 export const supportsWandbox = (id) => Boolean(WANDBOX_LANG[id])
@@ -40,7 +34,7 @@ export const supportsWandbox = (id) => Boolean(WANDBOX_LANG[id])
 export async function runOnWandbox({ language, program, signature, cases, url, timeLimitS = 10 }) {
   const spec = WANDBOX_LANG[language]
   if (!spec) {
-    throw new Error(`${language} is not available on this execution service. Try C++, C, Java, Rust, Go or Ruby.`)
+    throw new Error(`${language} is not available on this execution service. This build supports C++ and Java.`)
   }
 
   const res = await fetch(url || DEFAULT_URL, {

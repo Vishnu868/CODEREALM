@@ -83,6 +83,17 @@ export function decodeFrom(type, lines, start) {
       }
       return [out, at]
     }
+    case 'string[][]': {
+      const rows = Number(nextLine().trim())
+      const out = []
+      for (let i = 0; i < rows; i++) {
+        const c = Number(nextLine().trim())
+        const row = []
+        for (let j = 0; j < c; j++) { nextLine(); row.push(nextLine()) }
+        out.push(row)
+      }
+      return [out, at]
+    }
     default: throw new Error('decode ' + type)
   }
 }

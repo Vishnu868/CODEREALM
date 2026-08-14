@@ -21,16 +21,8 @@ const DEFAULT_URL = 'https://emkc.org/api/v2/piston'
 
 /** Piston identifies languages by name and version, not numeric id. */
 const PISTON_LANG = {
-  c: { language: 'c', version: '10.2.0', file: 'main.c' },
   cpp: { language: 'c++', version: '10.2.0', file: 'main.cpp' },
-  java: { language: 'java', version: '15.0.2', file: 'Main.java' },
-  csharp: { language: 'csharp', version: '6.12.0', file: 'Main.cs' },
-  go: { language: 'go', version: '1.16.2', file: 'main.go' },
-  rust: { language: 'rust', version: '1.68.2', file: 'main.rs' },
-  kotlin: { language: 'kotlin', version: '1.8.20', file: 'Main.kt' },
-  swift: { language: 'swift', version: '5.3.3', file: 'main.swift' },
-  ruby: { language: 'ruby', version: '3.0.1', file: 'main.rb' },
-  typescript: { language: 'typescript', version: '5.0.3', file: 'main.ts' }
+  java: { language: 'java', version: '15.0.2', file: 'Main.java' }
 }
 
 export const supportsPiston = (id) => Boolean(PISTON_LANG[id])
